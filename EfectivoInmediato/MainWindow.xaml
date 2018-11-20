@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Efectivo Inmediato" Height="700" Width="900">
     <DockPanel LastChildFill="True">
-        
+
         <Grid DockPanel.Dock="Top" MinHeight="55">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -18,7 +18,7 @@
 
         <Grid DockPanel.Dock="Bottom" MinHeight="60" Background="#20364c"/>
 
-        <Grid DockPanel.Dock="Top" Margin="10, 0, 10, 0" MinHeight="50" MaxHeight="100">
+        <Grid DockPanel.Dock="Top" Margin="0, 0, 0, 0" MinHeight="50" MaxHeight="100">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -30,15 +30,50 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>                
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button Grid.Column="0" Grid.Row="0">Prestamos</Button>
+            <Button Grid.Column="0" Grid.Row="0" Click="VerPrestamos">Prestamos</Button>
             <Button Grid.Column="1" Grid.Row="0">Clientes</Button>
         </Grid>
 
-        <Grid Margin="10, 0, 10, 0" DockPanel.Dock="Top" MinHeight="300">
-            
+        <Grid x:Name="gPrestamos" Margin="0, 0, 0, 0" DockPanel.Dock="Top" MinHeight="300" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <DockPanel Grid.Column="0" Grid.Row="1" LastChildFill="True" Background="AliceBlue">
+                <Grid DockPanel.Dock="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" MinHeight="30"/>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Column="0" Grid.Row="0" Content="Nuevo Préstamo" HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto"/>
+                </Grid>
+                <DataGrid DockPanel.Dock="Bottom" x:Name="dgPrestamos" ItemsSource="{Binding prestamos}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id Prestamo" Binding="{Binding Path=IdPrestamo}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Cliente" Binding="{Binding Path=NombreCliente}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Préstamo" Binding="{Binding Path=Nombre}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Saldo" Binding="{Binding Path=CantidadPrestada}" Width="100"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Fecha de préstamo" Binding="{Binding Path=FechaPrestamo}" Width="100"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Fecha de vencimiento" Binding="{Binding Path=FechaVencimiento}" Width="100"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Refrendos" Binding="{Binding Path=Refrendos}" Width="100"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Periodo" Binding="{Binding Path=Periodo}" Width="100"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Departamento" Binding="{Binding Path=Departamento}" Width="100"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Estado" Binding="{Binding Path=Estado}" Width="100"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
         </Grid>
-        
+
     </DockPanel>
 </Window>

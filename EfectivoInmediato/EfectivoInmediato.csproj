@@ -62,13 +62,36 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="cCliente.cs" />
+    <Compile Include="cPrenda.cs" />
     <Compile Include="cPrestamo.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NuevaPrenda.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NuevoCliente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NuevoPrestamo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NuevaPrenda.xaml.cs">
+      <DependentUpon>NuevaPrenda.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NuevoCliente.xaml.cs">
+      <DependentUpon>NuevoCliente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NuevoPrestamo.xaml.cs">
+      <DependentUpon>NuevoPrestamo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

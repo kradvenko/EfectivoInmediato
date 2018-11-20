@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,28 @@ namespace EfectivoInmediato
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ObservableCollection<cPrestamo> prestamos = new ObservableCollection<cPrestamo>();
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void MostrarGrid(String Opcion)
+        {
+            switch (Opcion)
+            {
+                case "VerPrestamos":
+                    gPrestamos.Visibility = Visibility.Visible;
+
+                    break;
+                
+            }
+        }
+
+        private void VerPrestamos(object sender, RoutedEventArgs e)
+        {
+            MostrarGrid("VerPrestamos");
         }
     }
 }
