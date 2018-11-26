@@ -73,6 +73,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="NuevoArticulo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="NuevoCliente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -85,6 +89,9 @@
   <ItemGroup>
     <Compile Include="NuevaPrenda.xaml.cs">
       <DependentUpon>NuevaPrenda.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NuevoArticulo.xaml.cs">
+      <DependentUpon>NuevoArticulo.xaml</DependentUpon>
     </Compile>
     <Compile Include="NuevoCliente.xaml.cs">
       <DependentUpon>NuevoCliente.xaml</DependentUpon>

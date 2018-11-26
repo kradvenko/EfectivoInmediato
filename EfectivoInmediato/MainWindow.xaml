@@ -36,7 +36,7 @@
             <Button Grid.Column="1" Grid.Row="0" Click="VerClientes">Clientes</Button>
         </Grid>
 
-        <Grid x:Name="gPrestamos" Margin="0, 0, 0, 0" DockPanel.Dock="Top" MinHeight="0" Visibility="Visible">
+        <Grid x:Name="gPrestamos" Margin="0, 0, 0, 0" DockPanel.Dock="Top" MinHeight="450" Visibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -58,7 +58,7 @@
                     </Grid.RowDefinitions>
                     <Button Grid.Column="0" Grid.Row="0" Content="Nuevo Préstamo" HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto"/>
                 </Grid>
-                <DataGrid DockPanel.Dock="Bottom" x:Name="dgPrestamos" ItemsSource="{Binding prestamos}" Height="Auto">
+                <DataGrid DockPanel.Dock="Bottom" x:Name="dgPrestamos" ItemsSource="{Binding prestamos}" Height="Auto" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding Path=IdPrestamo}" Width="20"></DataGridTextColumn>
                         <DataGridTextColumn Header="Cliente" Binding="{Binding Path=NombreCliente}" Width="150"></DataGridTextColumn>
@@ -74,8 +74,8 @@
                 </DataGrid>
             </DockPanel>
         </Grid>
-        
-        <Grid x:Name="gClientes" Margin="0, 0, 0, 0" DockPanel.Dock="Top" MinHeight="0" Visibility="Collapsed">
+
+        <Grid x:Name="gClientes" Margin="0, 0, 0, 0" DockPanel.Dock="Top" MinHeight="450" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -97,7 +97,7 @@
                     </Grid.RowDefinitions>
                     <Button Grid.Column="0" Grid.Row="0" Content="Nuevo Cliente" HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto"/>
                 </Grid>
-                <DataGrid DockPanel.Dock="Bottom" x:Name="dgClientes" ItemsSource="{Binding clientes}" Height="Auto">
+                <DataGrid DockPanel.Dock="Bottom" x:Name="dgClientes" ItemsSource="{Binding clientes}" Height="Auto" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding Path=IdPrestamo}" Width="20"></DataGridTextColumn>
                         <DataGridTextColumn Header="Cliente" Binding="{Binding Path=NombreCliente}" Width="150"></DataGridTextColumn>
