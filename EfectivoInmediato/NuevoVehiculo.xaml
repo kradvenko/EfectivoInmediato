@@ -5,8 +5,79 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EfectivoInmediato"
         mc:Ignorable="d"
-        Title="NuevoVehiculo" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Efectivo Inmediato" Height="450" Width="900">
+    <DockPanel>
+        <Grid DockPanel.Dock="Top" MinHeight="55">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0" FontSize="24">Nuevo Vehículo</TextBlock>
+        </Grid>
+
+        <Grid DockPanel.Dock="Bottom" MinHeight="60" Background="#20364c"/>
+
+        <Grid DockPanel.Dock="Top" Margin="0, 0, 0, 0" MinHeight="100">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!--Primer Renglón-->
+            <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Tipo</TextBlock>
+            <ComboBox x:Name="cbTipo" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="3" Grid.Row="0" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Marca</TextBlock>
+            <ComboBox x:Name="cbMarca" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="Auto"/>
+            <TextBlock Grid.Column="6" Grid.Row="0" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Marca</TextBlock>
+            <ComboBox x:Name="cbModelo" Grid.Column="7" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="Auto"/>
+            <!--Segundo Renglón-->
+            <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Año</TextBlock>
+            <TextBox x:Name="tbAnio" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <TextBlock Grid.Column="3" Grid.Row="1" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Kilometraje</TextBlock>
+            <TextBox x:Name="tbKilometraje" Grid.Column="4" Grid.Row="1" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <TextBlock Grid.Column="6" Grid.Row="1" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Número de Serie</TextBlock>
+            <TextBox x:Name="tbNumeroSerie" Grid.Column="7" Grid.Row="1" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <!--Tercer Renglón-->
+            <TextBlock Grid.Column="0" Grid.Row="2" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Placas</TextBlock>
+            <TextBox x:Name="tbPlacas" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <TextBlock Grid.Column="3" Grid.Row="2" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Color</TextBlock>
+            <TextBox x:Name="tbColor" Grid.Column="4" Grid.Row="2" Grid.ColumnSpan="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <TextBlock Grid.Column="5" Grid.Row="2" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Ubicación en almacén</TextBlock>
+            <TextBox x:Name="tbUbicacionAlmacen" Grid.Column="6" Grid.Row="2" Grid.ColumnSpan="3" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <!--Cuarto Renglón-->
+            <TextBlock Grid.Column="0" Grid.Row="3" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Observaciones</TextBlock>
+            <TextBox x:Name="tbObservaciones" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="8" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <!--Quinto Renglón-->
+            <TextBlock Grid.Column="0" Grid.Row="4" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Avalúo</TextBlock>
+            <TextBox x:Name="tbAvaluo" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <TextBlock Grid.Column="3" Grid.Row="4" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Préstamo</TextBlock>
+            <TextBox x:Name="tbPrestamo" Grid.Column="4" Grid.Row="4" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+
+            <!--Sexto Renglón-->
+
+            <!--Séptimo Renglón-->
+            <!--Octavo Renglón-->
+            <!--Noveno Renglón-->
+            <Button Grid.Column="7" Grid.Row="8" Content="Guardar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90"/>
+            <Button Grid.Column="8" Grid.Row="8" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90"/>            
+        </Grid>
+    </DockPanel>
 </Window>
