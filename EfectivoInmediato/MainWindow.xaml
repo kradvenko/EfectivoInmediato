@@ -34,6 +34,7 @@
             </Grid.RowDefinitions>
             <Button Grid.Column="0" Grid.Row="0" Click="VerPrestamos">Prestamos</Button>
             <Button Grid.Column="1" Grid.Row="0" Click="VerClientes">Clientes</Button>
+            <Button Grid.Column="6" Grid.Row="0" Click="VerConfiguracion">Configuración</Button>
         </Grid>
 
         <Grid x:Name="gPrestamos" Margin="0, 0, 0, 0" DockPanel.Dock="Top" MinHeight="450" Visibility="Visible">

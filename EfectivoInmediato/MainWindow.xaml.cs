@@ -45,7 +45,6 @@ namespace EfectivoInmediato
                     LimpiarGrids();
                     gClientes.Visibility = Visibility.Visible;
                     break;
-                
             }
         }
         
@@ -63,6 +62,12 @@ namespace EfectivoInmediato
         private void VerClientes(object sender, RoutedEventArgs e)
         {
             MostrarGrid("VerClientes");
+        }
+
+        private void VerConfiguracion(object sender, RoutedEventArgs e)
+        {
+            Configuracion conf = new Configuracion();
+            conf.ShowDialog();
         }
     }
 }
