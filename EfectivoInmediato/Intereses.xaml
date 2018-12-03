@@ -13,7 +13,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0" FontSize="24">Intereses</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5,15,0,11" FontSize="24">Intereses</TextBlock>
+            
         </Grid>
 
         <Grid DockPanel.Dock="Bottom" MinHeight="60" Background="#20364c"/>
@@ -45,10 +46,25 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <!--Primer Renglón-->
-            <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Periodo de cobro</TextBlock>
-            <ComboBox x:Name="cbPeriodo" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="Auto"/>
-            <TextBlock Grid.Column="3" Grid.Row="0" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Plazo</TextBlock>
-            <TextBox x:Name="tbPlazo" Grid.Column="4" Grid.Row="0" Grid.ColumnSpan="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Departamento</TextBlock>
+            <Grid Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ComboBox x:Name="cbDepartamento" ItemsSource="{Binding departamentos}" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="Auto"/>
+                <Button Grid.Column="3" Grid.Row="0" Content="+" HorizontalAlignment="Center" VerticalAlignment="Center" Width="25" Click="AgregarDepartamento"/>
+            </Grid>
+            
+            <TextBlock Grid.Column="3" Grid.Row="0" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Periodo de cobro</TextBlock>
+            <ComboBox x:Name="cbPeriodo" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="Auto"/>
+            <TextBlock Grid.Column="6" Grid.Row="0" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Plazo</TextBlock>
+            <TextBox x:Name="tbPlazo" Grid.Column="7" Grid.Row="0" Grid.ColumnSpan="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <!--Segundo Renglón-->
             <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Financiamiento</TextBlock>
             <TextBox x:Name="tbMarca" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
@@ -77,7 +93,7 @@
             <TextBlock Grid.Column="6" Grid.Row="4" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Los primeros días</TextBlock>
             <TextBox x:Name="tbReclamoAnticipadoDias" Grid.Column="7" Grid.Row="4" Grid.ColumnSpan="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <!--Sexto Renglón-->
-            <TextBlock Grid.Column="0" Grid.Row="5" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Reclamos anticipados</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="5" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Reclamos extemporaneo</TextBlock>
             <TextBlock Grid.Column="1" Grid.Row="5" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Método de cobro</TextBlock>
             <ComboBox x:Name="cbReclamoExtemporaneoInteres" Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="Auto"/>
             <TextBlock Grid.Column="4" Grid.Row="5" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Cobrar (% / $)</TextBlock>

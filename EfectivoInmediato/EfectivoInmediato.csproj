@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -100,6 +101,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="NuevoDepartamento.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="NuevoPrestamo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -121,6 +126,9 @@
     </Compile>
     <Compile Include="NuevoCliente.xaml.cs">
       <DependentUpon>NuevoCliente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NuevoDepartamento.xaml.cs">
+      <DependentUpon>NuevoDepartamento.xaml</DependentUpon>
     </Compile>
     <Compile Include="NuevoPrestamo.xaml.cs">
       <DependentUpon>NuevoPrestamo.xaml</DependentUpon>
