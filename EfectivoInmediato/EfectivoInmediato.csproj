@@ -73,6 +73,7 @@
     </Compile>
     <Compile Include="cCliente.cs" />
     <Compile Include="cDepartamento.cs" />
+    <Compile Include="cInteres.cs" />
     <Compile Include="Configuracion.xaml.cs">
       <DependentUpon>Configuracion.xaml</DependentUpon>
     </Compile>

@@ -57,7 +57,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <ComboBox x:Name="cbDepartamento" ItemsSource="{Binding departamentos}" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="Auto"/>
+                <ComboBox x:Name="cbDepartamento" ItemsSource="{Binding departamentos}" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="Auto" SelectionChanged="CbDepartamento_SelectionChanged"/>
                 <Button Grid.Column="3" Grid.Row="0" Content="+" HorizontalAlignment="Center" VerticalAlignment="Center" Width="25" Click="AgregarDepartamento"/>
             </Grid>
             
@@ -78,7 +78,7 @@
             <TextBlock Grid.Column="0" Grid.Row="2" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Total</TextBlock>
             <TextBox x:Name="tbTotal" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <TextBlock Grid.Column="2" Grid.Row="2" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">CAT</TextBlock>
-            <TextBox x:Name="tbUbicacionAlmacen" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <TextBox x:Name="tbUbicacionAlmacen" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="False"/>
             <!--Cuarto Renglón-->
             <TextBlock Grid.Column="0" Grid.Row="3" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Pago mínimo</TextBlock>
             <TextBox x:Name="tbPagoMinimo" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
@@ -103,8 +103,8 @@
             <!--Séptimo Renglón-->
             <!--Octavo Renglón-->
             <!--Noveno Renglón-->
-            <Button Grid.Column="7" Grid.Row="8" Content="Guardar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90"/>
-            <Button Grid.Column="8" Grid.Row="8" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90"/>
+            <Button Grid.Column="7" Grid.Row="8" Content="Guardar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Button_Click_1"/>
+            <Button Grid.Column="8" Grid.Row="8" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Button_Click"/>
         </Grid>
     </DockPanel>
 </Window>

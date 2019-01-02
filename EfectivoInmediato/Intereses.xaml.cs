@@ -21,6 +21,9 @@ namespace EfectivoInmediato
     public partial class Intereses : Window
     {
         ObservableCollection<cDepartamento> departamentos;
+        List<String> reclamoAnticipado;
+        List<String> reclamoExtemporaneo;
+
         public Intereses()
         {
             InitializeComponent();
@@ -28,6 +31,17 @@ namespace EfectivoInmediato
             cbDepartamento.ItemsSource = departamentos;
             cbDepartamento.DisplayMemberPath = "Departamento";
             cbDepartamento.SelectedValuePath = "IdDepartamento";
+
+            reclamoAnticipado = new List<string>();
+            reclamoAnticipado.Add("Interes");
+            reclamoAnticipado.Add("Monto Fijo");
+
+            reclamoExtemporaneo = new List<string>();
+            reclamoExtemporaneo.Add("Interes");
+            reclamoExtemporaneo.Add("Monto Fjo");
+
+            cbReclamoAnticipadoInteres.ItemsSource = reclamoAnticipado;
+            cbReclamoExtemporaneoInteres.ItemsSource = reclamoExtemporaneo;
         }
 
         private void AgregarDepartamento(object sender, RoutedEventArgs e)
@@ -40,6 +54,28 @@ namespace EfectivoInmediato
         {
             departamentos = cDepartamento.ObtenerDepartamentos();
             cbDepartamento.ItemsSource = departamentos;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (cbDepartamento.SelectedValue == null)
+            {
+                MessageBox.Show("Elija un departamento.");
+                cbDepartamento.Focus();
+            }
+        }
+
+        private void CbDepartamento_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cInteres interes = new cInteres();
+            interes = cInteres.ObtenerInteresDepartamento(((cDepartamento)cbDepartamento.SelectedItem).IdDepartamento);
+
+            tbPlazo.Text = interes.Plazo;
         }
     }
 }
