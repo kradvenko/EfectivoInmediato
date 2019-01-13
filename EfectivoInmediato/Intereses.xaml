@@ -67,9 +67,9 @@
             <TextBox x:Name="tbPlazo" Grid.Column="7" Grid.Row="0" Grid.ColumnSpan="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <!--Segundo Renglón-->
             <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Financiamiento</TextBlock>
-            <TextBox x:Name="tbMarca" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <TextBox x:Name="tbFinanciamiento" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <TextBlock Grid.Column="2" Grid.Row="1" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Almacenaje</TextBlock>
-            <TextBox x:Name="tbModelo" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <TextBox x:Name="tbAlmacenaje" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <TextBlock Grid.Column="4" Grid.Row="1" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Administración</TextBlock>
             <TextBox x:Name="tbAdministracion" Grid.Column="5" Grid.Row="1" Grid.ColumnSpan="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <TextBlock Grid.Column="6" Grid.Row="1" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">I.V.A.</TextBlock>
@@ -78,7 +78,7 @@
             <TextBlock Grid.Column="0" Grid.Row="2" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Total</TextBlock>
             <TextBox x:Name="tbTotal" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <TextBlock Grid.Column="2" Grid.Row="2" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">CAT</TextBlock>
-            <TextBox x:Name="tbUbicacionAlmacen" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="False"/>
+            <TextBox x:Name="tbCAT" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="False"/>
             <!--Cuarto Renglón-->
             <TextBlock Grid.Column="0" Grid.Row="3" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Pago mínimo</TextBlock>
             <TextBox x:Name="tbPagoMinimo" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
