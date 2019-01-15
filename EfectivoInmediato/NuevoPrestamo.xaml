@@ -5,8 +5,89 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EfectivoInmediato"
         mc:Ignorable="d"
-        Title="NuevoPrestamo" Height="450" Width="800" WindowStartupLocation="CenterScreen">
-    <Grid>
-        
-    </Grid>
+        Title="NuevoPrestamo" Height="450" Width="900" WindowStartupLocation="CenterScreen">
+    <DockPanel>
+        <Grid DockPanel.Dock="Top" MinHeight="55">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5,15,0,11" FontSize="24">Nuevo préstamo</TextBlock>
+        </Grid>
+
+        <Grid DockPanel.Dock="Bottom" MinHeight="60" Background="#20364c"/>
+
+        <Grid DockPanel.Dock="Top" Margin="0, 0, 0, 0" MinHeight="100">
+            <Grid.Resources>
+                <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxStyle}"/>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!--Primer Renglón-->
+            <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Cliente</TextBlock>
+            <Grid Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ComboBox x:Name="cbClientes" ItemsSource="{Binding clientes}" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="Auto" SelectionChanged="CbClientes_SelectionChanged"/>
+                <Button Grid.Column="3" Grid.Row="0" Content="+" HorizontalAlignment="Center" VerticalAlignment="Center" Width="25" Click="agregarCliente"/>                
+            </Grid>
+            
+            <TextBlock Grid.Column="5" Grid.Row="0" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Departamento</TextBlock>
+            <Grid Grid.Column="6" Grid.Row="0" Grid.ColumnSpan="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ComboBox x:Name="cbDepartamento" ItemsSource="{Binding departamentos}" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="Auto"/>                
+            </Grid>
+
+            <!--Segundo Renglón-->
+            
+            <!--Tercer Renglón-->
+            
+            <!--Cuarto Renglón-->
+            <!--Quinto Renglón-->
+            
+            <!--Sexto Renglón-->
+            
+            <!--Séptimo Renglón-->
+            <!--Octavo Renglón-->
+            <!--Noveno Renglón-->
+            <Button Grid.Column="7" Grid.Row="8" Content="Guardar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90"/>
+            <Button Grid.Column="8" Grid.Row="8" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90"/>
+        </Grid>
+    </DockPanel>
 </Window>

@@ -19,6 +19,9 @@
         <Grid DockPanel.Dock="Bottom" MinHeight="60" Background="#20364c"/>
 
         <Grid DockPanel.Dock="Top" Margin="0, 0, 0, 0" MinHeight="100">
+            <Grid.Resources>
+                <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxStyle}"/>
+            </Grid.Resources>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -50,19 +53,19 @@
             <TextBox x:Name="tbApMaterno" Grid.Column="7" Grid.Row="0" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <!--Segundo Renglón-->
             <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Tipo de Identificación</TextBlock>
-            <ComboBox x:Name="cbTipoIdentificacion" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150"/>
+            <ComboBox x:Name="cbTipoIdentificacion" ItemsSource="{Binding identificaciones}" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
             <TextBlock Grid.Column="3" Grid.Row="1" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Clave de Identificación</TextBlock>
             <TextBox x:Name="tbClaveIdentificacion" Grid.Column="4" Grid.Row="1" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <!--Tercer Renglón-->
             <TextBlock Grid.Column="0" Grid.Row="2" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Domicilio</TextBlock>
             <TextBox x:Name="tbDomicilio" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <TextBlock Grid.Column="3" Grid.Row="2" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Colonia</TextBlock>
-            <ComboBox x:Name="cbColonia" Grid.Column="4" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150"/>
+            <TextBox x:Name="tbColonia" Grid.Column="4" Grid.Row="2" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <TextBlock Grid.Column="6" Grid.Row="2" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Ciudad</TextBlock>
-            <ComboBox x:Name="cbCiudad" Grid.Column="7" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150"/>
+            <TextBox x:Name="tbCiudad" Grid.Column="7" Grid.Row="2" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <!--Cuarto Renglón-->
             <TextBlock Grid.Column="0" Grid.Row="3" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Estado</TextBlock>
-            <ComboBox x:Name="cbEstado" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150"/>
+            <TextBox x:Name="tbEstado" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <TextBlock Grid.Column="3" Grid.Row="3" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Teléfono 1</TextBlock>
             <TextBox x:Name="tbTelefono1" Grid.Column="4" Grid.Row="3" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <TextBlock Grid.Column="6" Grid.Row="3" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Teléfono 2</TextBlock>
@@ -77,13 +80,13 @@
             <!--Sexto Renglón-->
             <TextBlock Grid.Column="0" Grid.Row="5" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Cotitular</TextBlock>
             <TextBox x:Name="tbNombreCotitular" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-            <TextBlock Grid.Column="3" Grid.Row="5" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Domicilio</TextBlock>
+            <TextBlock Grid.Column="3" Grid.Row="5" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Domicilio Cotitular</TextBlock>
             <TextBox x:Name="tbDomicilioCotitular" Grid.Column="4" Grid.Row="5" Grid.ColumnSpan="4" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <!--Séptimo Renglón-->
             <!--Octavo Renglón-->
             <!--Noveno Renglón-->
-            <Button Grid.Column="7" Grid.Row="8" Content="Guardar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90"/>
-            <Button Grid.Column="8" Grid.Row="8" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90"/>
+            <Button Grid.Column="7" Grid.Row="8" Content="Guardar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="GuardarCliente"/>
+            <Button Grid.Column="8" Grid.Row="8" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Button_Click"/>
         </Grid>
 
 

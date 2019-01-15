@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +20,55 @@ namespace EfectivoInmediato
     /// </summary>
     public partial class NuevoCliente : Window
     {
+        ObservableCollection<String> identificaciones;
+
         public NuevoCliente()
         {
             InitializeComponent();
+            identificaciones = new ObservableCollection<String>();
+            identificaciones.Add("INE");
+            identificaciones.Add("Pasaporte");
+            identificaciones.Add("CURP");
+            identificaciones.Add("Licencia para conducir");
+            cbTipoIdentificacion.ItemsSource = identificaciones;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void GuardarCliente(object sender, RoutedEventArgs e)
+        {
+            if (tbNombre.Text.Length == 0)
+            {
+                MessageBox.Show("No ha escrito un nombre de cliente.");
+                tbNombre.Focus(); 
+                return;
+            }
+            if (cbTipoIdentificacion.Text.Length == 0)
+            {
+                MessageBox.Show("No ha elegido el tipo de identificación.");
+                cbTipoIdentificacion.Focus();
+                return;
+            }
+            if (tbClaveIdentificacion.Text.Length == 0)
+            {
+                MessageBox.Show("No ha escrito la clave de la identificación.");
+                tbClaveIdentificacion.Focus();
+                return;
+            }
+
+            String resultado = cCliente.GuardarCliente(tbNombre.Text, tbApPaterno.Text, tbApMaterno.Text, cbTipoIdentificacion.Text, tbClaveIdentificacion.Text, tbDomicilio.Text, tbColonia.Text, tbCiudad.Text, tbEstado.Text, tbTelefono1.Text, tbTelefono2.Text, tbCorreoElectronico.Text, tbFechaNacimiento.Text, tbOcupacion.Text, tbNombreCotitular.Text, tbDomicilioCotitular.Text);
+            if (resultado == "OK")
+            {
+                MessageBox.Show("Se ha guardado el cliente.");
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show(resultado);
+            }
         }
     }
 }

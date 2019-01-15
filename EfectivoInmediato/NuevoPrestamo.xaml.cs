@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +20,28 @@ namespace EfectivoInmediato
     /// </summary>
     public partial class NuevoPrestamo : Window
     {
+        ObservableCollection<cDepartamento> departamentos;
+        ObservableCollection<cCliente> clientes;
+
         public NuevoPrestamo()
         {
             InitializeComponent();
+            departamentos = cDepartamento.ObtenerDepartamentos();
+            cbDepartamento.ItemsSource = departamentos;
+            cbDepartamento.DisplayMemberPath = "Departamento";
+            cbDepartamento.SelectedValuePath = "IdDepartamento";
+        }
+
+        private void CbClientes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+
+            
+        }
+
+        public void agregarCliente(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

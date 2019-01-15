@@ -69,5 +69,17 @@ namespace EfectivoInmediato
             Configuracion conf = new Configuracion();
             conf.ShowDialog();
         }
+
+        private void NuevoCliente(object sender, RoutedEventArgs e)
+        {
+            NuevoCliente nuevo = new NuevoCliente();
+            nuevo.ShowDialog();
+        }
+
+        private void NuevoPrestamo(object sender, RoutedEventArgs e)
+        {
+            NuevoPrestamo prestamo = new NuevoPrestamo();
+            prestamo.ShowDialog();
+        }
     }
 }

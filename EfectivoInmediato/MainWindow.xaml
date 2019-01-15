@@ -57,7 +57,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" MinHeight="30"/>
                     </Grid.RowDefinitions>
-                    <Button Grid.Column="0" Grid.Row="0" Content="Nuevo Préstamo" HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto"/>
+                    <Button Grid.Column="0" Grid.Row="0" Content="Nuevo Préstamo" HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto" Click="NuevoPrestamo"/>
                 </Grid>
                 <DataGrid DockPanel.Dock="Bottom" x:Name="dgPrestamos" ItemsSource="{Binding prestamos}" Height="Auto" AutoGenerateColumns="False">
                     <DataGrid.Columns>
@@ -96,7 +96,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" MinHeight="30"/>
                     </Grid.RowDefinitions>
-                    <Button Grid.Column="0" Grid.Row="0" Content="Nuevo Cliente" HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto"/>
+                    <Button Grid.Column="0" Grid.Row="0" Content="Nuevo Cliente" HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto" Click="NuevoCliente"/>
                 </Grid>
                 <DataGrid DockPanel.Dock="Bottom" x:Name="dgClientes" ItemsSource="{Binding clientes}" Height="Auto" AutoGenerateColumns="False">
                     <DataGrid.Columns>

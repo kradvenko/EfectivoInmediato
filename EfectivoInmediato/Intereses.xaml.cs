@@ -94,10 +94,17 @@ namespace EfectivoInmediato
 
         private void calcularTotal()
         {
-            float total = (float.Parse(tbFinanciamiento.Text) + float.Parse(tbAlmacenaje.Text) + float.Parse(tbAdministracion.Text)) * (1 + float.Parse(tbIVA.Text)/100);
-            tbTotal.Text = total.ToString();
-            float CAT = total * 12;
-            tbCAT.Text = CAT.ToString();
+            try
+            {
+                float total = (float.Parse(tbFinanciamiento.Text) + float.Parse(tbAlmacenaje.Text) + float.Parse(tbAdministracion.Text)) * (1 + float.Parse(tbIVA.Text) / 100);
+                tbTotal.Text = total.ToString();
+                float CAT = total * 12;
+                tbCAT.Text = CAT.ToString();
+            }
+            catch (Exception exc)
+            {
+
+            }
         }
     }
 }
