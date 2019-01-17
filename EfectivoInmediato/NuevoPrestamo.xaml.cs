@@ -30,6 +30,11 @@ namespace EfectivoInmediato
             cbDepartamento.ItemsSource = departamentos;
             cbDepartamento.DisplayMemberPath = "Departamento";
             cbDepartamento.SelectedValuePath = "IdDepartamento";
+
+            clientes = cCliente.ObtenerClientes();
+            cbClientes.ItemsSource = clientes;
+            cbClientes.DisplayMemberPath = "NombreCompleto";
+            cbClientes.SelectedValuePath = "IdCliente";
         }
 
         private void CbClientes_SelectionChanged(object sender, SelectionChangedEventArgs e)

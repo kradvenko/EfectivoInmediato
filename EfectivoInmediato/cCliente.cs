@@ -14,6 +14,7 @@ namespace EfectivoInmediato
         public String NombreCliente { get; set; }
         public String ApellidoPaternoCliente { get; set; }
         public String ApellidoMaternoCliente { get; set; }
+        public String NombreCompleto { get; set; }
         public String TipoIdentificacion { get; set; }
         public String ClaveIdentificacion { get; set; }
         public String Domicilio { get; set; }        
@@ -43,7 +44,7 @@ namespace EfectivoInmediato
                 using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
                 {
                     using (SqlCommand myCMD = new SqlCommand(" " +
-                        "SELECT * " +
+                        "SELECT Clientes.*, Concat(Clientes.NombreCliente, ' ', Clientes.ApellidoPaternoCliente, ' ', Clientes.ApellidoMaternoCliente) As NombreCompleto " +
                         "FROM Clientes " +
                         "ORDER BY ApellidoPaternoCliente, ApellidoMaternoCliente " +
                         "", con))
@@ -60,6 +61,7 @@ namespace EfectivoInmediato
                                 cliente.NombreCliente = reader["NombreCliente"].ToString();
                                 cliente.ApellidoPaternoCliente = reader["ApellidoPaternoCliente"].ToString();
                                 cliente.ApellidoMaternoCliente = reader["ApellidoMaternoCliente"].ToString();
+                                cliente.NombreCompleto = reader["NombreCompleto"].ToString();
                                 cliente.TipoIdentificacion = reader["TipoIdentificacion"].ToString();
                                 cliente.ClaveIdentificacion = reader["ClaveIdentificacion"].ToString();
                                 cliente.Domicilio = reader["Domicilio"].ToString();
