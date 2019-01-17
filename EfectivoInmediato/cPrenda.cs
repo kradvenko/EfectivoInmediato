@@ -46,5 +46,6 @@ namespace EfectivoInmediato
         public String Observaciones { get; set; }
         public String Avaluo { get; set; }
         public String Prestamo { get; set; }
+        public String PrestamoDisplay { get; set; }
     }
 }

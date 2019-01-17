@@ -22,6 +22,8 @@ namespace EfectivoInmediato
     {
         ObservableCollection<cDepartamento> departamentos;
         ObservableCollection<cCliente> clientes;
+        ObservableCollection<String> tipoPrendas;
+        ObservableCollection<cPrenda> prendas;
 
         public NuevoPrestamo()
         {
@@ -35,6 +37,16 @@ namespace EfectivoInmediato
             cbClientes.ItemsSource = clientes;
             cbClientes.DisplayMemberPath = "NombreCompleto";
             cbClientes.SelectedValuePath = "IdCliente";
+
+            tipoPrendas = new ObservableCollection<string>();
+            tipoPrendas.Add("Artículo");
+            tipoPrendas.Add("Joya");
+            tipoPrendas.Add("Vehículo");
+            cbTipoPrendas.ItemsSource = tipoPrendas;
+
+            prendas = new ObservableCollection<cPrenda>();
+            dgPrendas.ItemsSource = prendas;
+
         }
 
         private void CbClientes_SelectionChanged(object sender, SelectionChangedEventArgs e)

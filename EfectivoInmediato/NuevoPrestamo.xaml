@@ -75,7 +75,23 @@
             </Grid>
 
             <!--Segundo Renglón-->
-            
+            <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Tipo de prenda</TextBlock>
+            <Grid Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ComboBox x:Name="cbTipoPrendas" ItemsSource="{Binding tipoPrendas}" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="Auto" SelectionChanged="CbClientes_SelectionChanged"/>
+            </Grid>
+            <Button Grid.Column="5" Grid.Row="1" Content="Agregar Prenda" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="150" Click=""/>
+            <Button Grid.Column="6" Grid.Row="1" Content="Eliminar Prenda" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="150" Click=""/>
+            <Button Grid.Column="7" Grid.Row="1" Content="Guardar Prenda" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="150" Click=""/>
+            <Button Grid.Column="8" Grid.Row="1" Content="Cancelar" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="150" Click=""/>
             <!--Tercer Renglón-->
             
             <!--Cuarto Renglón-->
@@ -88,6 +104,13 @@
             <!--Noveno Renglón-->
             <Button Grid.Column="7" Grid.Row="8" Content="Guardar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90"/>
             <Button Grid.Column="8" Grid.Row="8" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90"/>
+            <DataGrid x:Name="dgPrendas" Grid.ColumnSpan="9" Grid.Column="0" HorizontalAlignment="Stretch" Height="Auto" Margin="10,5,10,0" Grid.Row="3" Grid.RowSpan="6" VerticalAlignment="Stretch" Width="Auto  ">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Path=IdPrenda}" Width="80"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Descripción de la prenda" Binding="{Binding Path=Descripcion}" Width="450"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Préstamo" Binding="{Binding Path=PrestamoDisplay}" Width="150"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
     </DockPanel>
 </Window>
