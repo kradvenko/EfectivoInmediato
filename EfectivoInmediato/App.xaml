@@ -5,7 +5,8 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <Style x:Key="TextBoxStyle" TargetType="TextBox">
-            <Setter Property="MaxHeight" Value="25" />
+            <Setter Property="MaxHeight" Value="25"></Setter>
+            <Setter Property="CharacterCasing" Value="Upper"></Setter>
         </Style>
     </Application.Resources>
 </Application>

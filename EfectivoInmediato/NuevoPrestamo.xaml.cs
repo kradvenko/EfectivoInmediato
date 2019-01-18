@@ -28,10 +28,12 @@ namespace EfectivoInmediato
         public NuevoPrestamo()
         {
             InitializeComponent();
+
             departamentos = cDepartamento.ObtenerDepartamentos();
             cbDepartamento.ItemsSource = departamentos;
             cbDepartamento.DisplayMemberPath = "Departamento";
             cbDepartamento.SelectedValuePath = "IdDepartamento";
+            cbDepartamento.SelectedIndex = 0;
 
             clientes = cCliente.ObtenerClientes();
             cbClientes.ItemsSource = clientes;
@@ -43,22 +45,61 @@ namespace EfectivoInmediato
             tipoPrendas.Add("Joya");
             tipoPrendas.Add("Vehículo");
             cbTipoPrendas.ItemsSource = tipoPrendas;
+            cbTipoPrendas.SelectedIndex = 0;
 
             prendas = new ObservableCollection<cPrenda>();
             dgPrendas.ItemsSource = prendas;
 
         }
 
+        public void RecargarClientes(String IdCliente)
+        {
+            clientes = cCliente.ObtenerClientes();
+            cbClientes.ItemsSource = clientes;
+            cbClientes.DisplayMemberPath = "NombreCompleto";
+            cbClientes.SelectedValuePath = "IdCliente";
+            cbClientes.SelectedValue = IdCliente;
+        }
+
         private void CbClientes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
-
             
         }
 
         public void agregarCliente(object sender, RoutedEventArgs e)
         {
+            NuevoCliente cliente = new NuevoCliente(this);
+            cliente.ShowDialog();
+        }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void AgregarPrenda(object sender, RoutedEventArgs e)
+        {
+            if (cbTipoPrendas.SelectedIndex < 0)
+            {
+                MessageBox.Show("No ha elegido un tipo de prenda.");
+                cbTipoPrendas.Focus();
+                return;
+            }
+            if (cbTipoPrendas.SelectedIndex == 0)
+            {
+                NuevoArticulo articulo = new NuevoArticulo();
+                articulo.ShowDialog();
+            }
+            else if (cbTipoPrendas.SelectedIndex == 1)
+            {
+                NuevaJoya joya = new NuevaJoya();
+                joya.ShowDialog();
+            }
+            else if (cbTipoPrendas.SelectedIndex == 2)
+            {
+                NuevoVehiculo vehiculo = new NuevoVehiculo();
+                vehiculo.ShowDialog();
+            }
         }
     }
 }

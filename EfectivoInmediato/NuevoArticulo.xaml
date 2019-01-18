@@ -45,7 +45,7 @@
             <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Descripción</TextBlock>
             <TextBox x:Name="tbDescripcion" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="4" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <TextBlock Grid.Column="5" Grid.Row="0" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Departamento</TextBlock>
-            <ComboBox x:Name="cbDepartamento" Grid.Column="6" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="Auto"/>
+            <ComboBox x:Name="cbDepartamento" ItemsSource="{Binding departamentos}" Grid.Column="6" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="Auto"/>
             <!--Segundo Renglón-->
             <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Marca</TextBlock>
             <TextBox x:Name="tbMarca" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
@@ -70,8 +70,8 @@
             <!--Séptimo Renglón-->
             <!--Octavo Renglón-->
             <!--Noveno Renglón-->
-            <Button Grid.Column="7" Grid.Row="8" Content="Guardar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90"/>
-            <Button Grid.Column="8" Grid.Row="8" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90"/>            
+            <Button Grid.Column="7" Grid.Row="8" Content="Guardar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Cerrar"/>
+            <Button Grid.Column="8" Grid.Row="8" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Guardar"/>            
         </Grid>
     </DockPanel>
 </Window>

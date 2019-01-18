@@ -57,7 +57,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <ComboBox x:Name="cbClientes" ItemsSource="{Binding clientes}" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="Auto" SelectionChanged="CbClientes_SelectionChanged"/>
-                <Button Grid.Column="3" Grid.Row="0" Content="+" HorizontalAlignment="Center" VerticalAlignment="Center" Width="25" Click="agregarCliente"/>                
+                <Button Grid.Column="3" Grid.Row="0" Content="+" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" Click="agregarCliente"/>                
             </Grid>
             
             <TextBlock Grid.Column="5" Grid.Row="0" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Departamento</TextBlock>
@@ -88,10 +88,10 @@
                 </Grid.RowDefinitions>
                 <ComboBox x:Name="cbTipoPrendas" ItemsSource="{Binding tipoPrendas}" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="Auto" SelectionChanged="CbClientes_SelectionChanged"/>
             </Grid>
-            <Button Grid.Column="5" Grid.Row="1" Content="Agregar Prenda" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="150" Click=""/>
-            <Button Grid.Column="6" Grid.Row="1" Content="Eliminar Prenda" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="150" Click=""/>
-            <Button Grid.Column="7" Grid.Row="1" Content="Guardar Prenda" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="150" Click=""/>
-            <Button Grid.Column="8" Grid.Row="1" Content="Cancelar" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="150" Click=""/>
+            <Button Grid.Column="5" Grid.Row="1" Content="Agregar Prenda" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="150" Click="AgregarPrenda" />
+            <Button Grid.Column="6" Grid.Row="1" Content="Eliminar Prenda" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="150" />
+            <Button Grid.Column="7" Grid.Row="1" Content="Guardar Prenda" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="150" />
+            <Button Grid.Column="8" Grid.Row="1" Content="Cancelar" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="150" />
             <!--Tercer Renglón-->
             
             <!--Cuarto Renglón-->
@@ -103,8 +103,8 @@
             <!--Octavo Renglón-->
             <!--Noveno Renglón-->
             <Button Grid.Column="7" Grid.Row="8" Content="Guardar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90"/>
-            <Button Grid.Column="8" Grid.Row="8" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90"/>
-            <DataGrid x:Name="dgPrendas" Grid.ColumnSpan="9" Grid.Column="0" HorizontalAlignment="Stretch" Height="Auto" Margin="10,5,10,0" Grid.Row="3" Grid.RowSpan="6" VerticalAlignment="Stretch" Width="Auto  ">
+            <Button Grid.Column="8" Grid.Row="8" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Button_Click"/>
+            <DataGrid x:Name="dgPrendas" AutoGenerateColumns="False" Grid.ColumnSpan="9" Grid.Column="0" HorizontalAlignment="Stretch" Height="Auto" Margin="10,5,10,0" Grid.Row="3" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="Auto  ">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding Path=IdPrenda}" Width="80"></DataGridTextColumn>
                     <DataGridTextColumn Header="Descripción de la prenda" Binding="{Binding Path=Descripcion}" Width="450"></DataGridTextColumn>

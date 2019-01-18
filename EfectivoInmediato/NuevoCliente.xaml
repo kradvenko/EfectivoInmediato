@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EfectivoInmediato"
         mc:Ignorable="d"
-        Title="Efectivo Inmediato" Height="450" Width="900" WindowStartupLocation="CenterScreen">
+        Title="Efectivo Inmediato" Height="450" Width="900" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
     <DockPanel>
         <Grid DockPanel.Dock="Top" MinHeight="55">
             <Grid.ColumnDefinitions>

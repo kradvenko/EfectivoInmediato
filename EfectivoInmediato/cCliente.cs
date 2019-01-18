@@ -92,7 +92,7 @@ namespace EfectivoInmediato
 
         public static String GuardarCliente(String nombreCliente, String apellidoPaternoCliente, String apellidoMaternoCliente, String identificacion, String claveIdentificacion, String domicilio, String colonia, String ciudad, String estado, String telefono1, String telefono2, String correoElectronico, String fechaNacimiento, String ocupacion, String nombreCotitular, String domicilioCotitular)
         {
-            String resultado = "OK";
+            String resultado = "0";
 
             try
             {
@@ -100,6 +100,7 @@ namespace EfectivoInmediato
                 {   
                     using (SqlCommand myCMD = new SqlCommand(" " +
                         "INSERT INTO Clientes (NombreCliente, ApellidoPaternoCliente, ApellidoMaternoCliente, ClaveIdentificacion, Domicilio, Colonia, Ciudad, Estado, Telefono1, Telefono2, CorreoElectronico, FechaNacimiento, Ocupacion, NombreCotitular, DomicilioCotitular) " +
+                        "OUTPUT INSERTED.IdCliente " +
                         "VALUES (@NombreCliente, @ApellidoPaternoCliente, @ApellidoMaternoCliente, @ClaveIdentificacion, @Domicilio, @Colonia, @Ciudad, @Estado, @Telefono1, @Telefono2, @CorreoElectronico, @FechaNacimiento, @Ocupacion, @NombreCotitular, @DomicilioCotitular)" +
                         "", con))
                     {
@@ -122,7 +123,7 @@ namespace EfectivoInmediato
                         myCMD.Parameters.AddWithValue("@NombreCotitular", nombreCotitular);
                         myCMD.Parameters.AddWithValue("@DomicilioCotitular", domicilioCotitular);
 
-                        myCMD.ExecuteNonQuery();
+                        resultado = myCMD.ExecuteScalar().ToString();
                         
                         con.Close();
                     }

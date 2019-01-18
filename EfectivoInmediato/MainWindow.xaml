@@ -57,7 +57,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" MinHeight="30"/>
                     </Grid.RowDefinitions>
-                    <Button Grid.Column="0" Grid.Row="0" Content="Nuevo Préstamo" HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto" Click="NuevoPrestamo"/>
+                    <Button Grid.Column="0" Grid.Row="0" Content="Nuevo Préstamo" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Click="NuevoPrestamo"/>
                 </Grid>
                 <DataGrid DockPanel.Dock="Bottom" x:Name="dgPrestamos" ItemsSource="{Binding prestamos}" Height="Auto" AutoGenerateColumns="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                     <DataGrid.Columns>
