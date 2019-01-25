@@ -87,7 +87,7 @@ namespace EfectivoInmediato
             }
             if (cbTipoPrendas.SelectedIndex == 0)
             {
-                NuevoArticulo articulo = new NuevoArticulo();
+                NuevoArticulo articulo = new NuevoArticulo(this, cbClientes.SelectedValue.ToString());
                 articulo.ShowDialog();
             }
             else if (cbTipoPrendas.SelectedIndex == 1)
@@ -100,6 +100,12 @@ namespace EfectivoInmediato
                 NuevoVehiculo vehiculo = new NuevoVehiculo();
                 vehiculo.ShowDialog();
             }
+        }
+
+        public void AgregarPrenda(cPrenda prenda)
+        {
+            prendas.Add(prenda);
+            dgPrendas.ItemsSource = prendas;
         }
     }
 }

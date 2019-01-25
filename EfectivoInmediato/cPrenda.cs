@@ -11,10 +11,10 @@ namespace EfectivoInmediato
     {
         public String IdPrenda { get; set; }
         public String IdDepartamento { get; set; }
+        public String IdCliente { get; set; }
         public String TipoPrenda { get; set; }
         public String Descripcion { get; set; }
         //Variables para tipo de prenda "Articulos"
-        public String IdMarca { get; set; }
         public String Marca { get; set; }
         public String Modelo { get; set; }
         public String Serie { get; set; }
@@ -54,7 +54,7 @@ namespace EfectivoInmediato
 
         }
 
-        public static String GuardarPrenda(String IdDepartamento, String TipoPrenda, String Descripcion, String IdMarca, String Modelo, String Serie, String IdTipoMetal, String PesoMetal, String Pureza, String ObservacionesMetal, String IdTipoPiedra, String ColorPiedra, String ClaridadOPureza, String CorteOTalla, String PesoPiedra, String ObservacionesPiedra, String IdTipoVehiculo, String IdMarcaVehiculo, String ModeloVehiculo, String AnioVehiculo, String Kilometraje, String NumeroSerieVehiculo, String Placas, String ColorVehiculo, String UbicacionAlmacen, String Observaciones, String Avaluo, String Prestamo)
+        public static String GuardarPrenda(String IdDepartamento, String IdCliente, String TipoPrenda, String Descripcion, String Marca, String Modelo, String Serie, String IdTipoMetal, String PesoMetal, String Pureza, String ObservacionesMetal, String IdTipoPiedra, String ColorPiedra, String ClaridadOPureza, String CorteOTalla, String PesoPiedra, String ObservacionesPiedra, String IdTipoVehiculo, String IdMarcaVehiculo, String ModeloVehiculo, String AnioVehiculo, String Kilometraje, String NumeroSerieVehiculo, String Placas, String ColorVehiculo, String UbicacionAlmacen, String Observaciones, String Avaluo, String Prestamo)
         {
             String resultado = "0";
 
@@ -63,41 +63,42 @@ namespace EfectivoInmediato
                 using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
                 {
                     using (SqlCommand myCMD = new SqlCommand(" " +
-                        "INSERT INTO Prendas (IdDepartamento, TipoPrenda, Descripcion, IdMarca, Modelo, Serie, IdTipoMetal, PesoMetal, Pureza, ObservacionesMetal, IdTipoPiedra, ColorPiedra, ClaridadOPureza, CorteOTalla, PesoPiedra, ObservacionesPiedra, IdTipoVehiculo, IdMarcaVehiculo, ModeloVehiculo, AnioVehiculo, Kilometraje, NumeroSerieVehiculo, Placas, ColorVehiculo, UbicacionAlmacen, Observaciones, Avaluo, Prestamo) " +
+                        "INSERT INTO Prendas (IdDepartamento, IdCliente, TipoPrenda, Descripcion, Marca, Modelo, Serie, IdTipoMetal, PesoMetal, Pureza, ObservacionesMetal, IdTipoPiedra, ColorPiedra, ClaridadOPureza, CorteOTalla, PesoPiedra, ObservacionesPiedra, IdTipoVehiculo, IdMarcaVehiculo, ModeloVehiculo, AnioVehiculo, Kilometraje, NumeroSerieVehiculo, Placas, ColorVehiculo, UbicacionAlmacen, Observaciones, Avaluo, Prestamo) " +
                         "OUTPUT INSERTED.IdPrenda " +
-                        "VALUES (@IdDepartamento, @TipoPrenda, @Descripcion, @IdMarca, @Modelo, @Serie, @IdTipoMetal, @PesoMetal, @Pureza, @ObservacionesMetal, @IdTipoPiedra, @ColorPiedra, @ClaridadOPureza, @CorteOTalla, @PesoPiedr, @ObservacionesPiedra, @IdTipoVehiculo, @IdMarcaVehiculo, @ModeloVehiculo, @AnioVehiculo, @Kilometraje, @NumeroSerieVehiculo, @Placas, @ColorVehiculo, @UbicacionAlmacen, @Observaciones, @Avaluo, @Prestamo)" +
+                        "VALUES (@IdDepartamento, @IdCliente, @TipoPrenda, @Descripcion, @Marca, @Modelo, @Serie, @IdTipoMetal, @PesoMetal, @Pureza, @ObservacionesMetal, @IdTipoPiedra, @ColorPiedra, @ClaridadOPureza, @CorteOTalla, @PesoPiedra, @ObservacionesPiedra, @IdTipoVehiculo, @IdMarcaVehiculo, @ModeloVehiculo, @AnioVehiculo, @Kilometraje, @NumeroSerieVehiculo, @Placas, @ColorVehiculo, @UbicacionAlmacen, @Observaciones, @Avaluo, @Prestamo)" +
                         "", con))
                     {
                         con.Open();
 
                         myCMD.Parameters.AddWithValue("@IdDepartamento", IdDepartamento);
+                        myCMD.Parameters.AddWithValue("@IdCliente", IdCliente);
                         myCMD.Parameters.AddWithValue("@TipoPrenda", TipoPrenda);
                         myCMD.Parameters.AddWithValue("@Descripcion", Descripcion);
-                        myCMD.Parameters.AddWithValue("@IdMarca", IdMarca);
+                        myCMD.Parameters.AddWithValue("@Marca", Marca);
                         myCMD.Parameters.AddWithValue("@Modelo", Modelo);
                         myCMD.Parameters.AddWithValue("@Serie", Serie);
                         myCMD.Parameters.AddWithValue("@IdTipoMetal", IdTipoMetal);
                         myCMD.Parameters.AddWithValue("@PesoMetal", PesoMetal);
-                        myCMD.Parameters.AddWithValue("@Pureza, ", Pureza);
-                        myCMD.Parameters.AddWithValue("@ObservacionesMetal, ", ObservacionesMetal);
-                        myCMD.Parameters.AddWithValue("@IdTipoPiedra, ", IdTipoPiedra);
-                        myCMD.Parameters.AddWithValue("@ColorPiedra, ", ColorPiedra);
-                        myCMD.Parameters.AddWithValue("@ClaridadOPureza, ", ClaridadOPureza);
-                        myCMD.Parameters.AddWithValue("@CorteOTalla, ", CorteOTalla);
-                        myCMD.Parameters.AddWithValue("@PesoPiedra, ", PesoPiedra);
-                        myCMD.Parameters.AddWithValue("@ObservacionesPiedra, ", ObservacionesPiedra);
-                        myCMD.Parameters.AddWithValue("@IdTipoVehiculo, ", IdTipoVehiculo);
-                        myCMD.Parameters.AddWithValue("@IdMarcaVehiculo, ", IdMarcaVehiculo);
-                        myCMD.Parameters.AddWithValue("@ModeloVehiculo, ", ModeloVehiculo);
-                        myCMD.Parameters.AddWithValue("@AnioVehiculo, ", AnioVehiculo);
-                        myCMD.Parameters.AddWithValue("@Kilometraje, ", Kilometraje);
-                        myCMD.Parameters.AddWithValue("@NumeroSerieVehiculo, ", NumeroSerieVehiculo);
-                        myCMD.Parameters.AddWithValue("@Placas, ", Placas);
-                        myCMD.Parameters.AddWithValue("@ColorVehiculo, ", ColorVehiculo);
-                        myCMD.Parameters.AddWithValue("@UbicacionAlmacen, ", UbicacionAlmacen);
-                        myCMD.Parameters.AddWithValue("@Observaciones, ", Observaciones);
-                        myCMD.Parameters.AddWithValue("@Avaluo, ", Avaluo);
-                        myCMD.Parameters.AddWithValue("@Prestamo, ", Prestamo);
+                        myCMD.Parameters.AddWithValue("@Pureza", Pureza);
+                        myCMD.Parameters.AddWithValue("@ObservacionesMetal", ObservacionesMetal);
+                        myCMD.Parameters.AddWithValue("@IdTipoPiedra", IdTipoPiedra);
+                        myCMD.Parameters.AddWithValue("@ColorPiedra", ColorPiedra);
+                        myCMD.Parameters.AddWithValue("@ClaridadOPureza", ClaridadOPureza);
+                        myCMD.Parameters.AddWithValue("@CorteOTalla", CorteOTalla);
+                        myCMD.Parameters.AddWithValue("@PesoPiedra", PesoPiedra);
+                        myCMD.Parameters.AddWithValue("@ObservacionesPiedra", ObservacionesPiedra);
+                        myCMD.Parameters.AddWithValue("@IdTipoVehiculo", IdTipoVehiculo);
+                        myCMD.Parameters.AddWithValue("@IdMarcaVehiculo", IdMarcaVehiculo);
+                        myCMD.Parameters.AddWithValue("@ModeloVehiculo", ModeloVehiculo);
+                        myCMD.Parameters.AddWithValue("@AnioVehiculo", AnioVehiculo);
+                        myCMD.Parameters.AddWithValue("@Kilometraje", Kilometraje);
+                        myCMD.Parameters.AddWithValue("@NumeroSerieVehiculo", NumeroSerieVehiculo);
+                        myCMD.Parameters.AddWithValue("@Placas", Placas);
+                        myCMD.Parameters.AddWithValue("@ColorVehiculo", ColorVehiculo);
+                        myCMD.Parameters.AddWithValue("@UbicacionAlmacen", UbicacionAlmacen);
+                        myCMD.Parameters.AddWithValue("@Observaciones", Observaciones);
+                        myCMD.Parameters.AddWithValue("@Avaluo", Avaluo);
+                        myCMD.Parameters.AddWithValue("@Prestamo", Prestamo);
 
                         resultado = myCMD.ExecuteScalar().ToString();
 
@@ -111,8 +112,76 @@ namespace EfectivoInmediato
             }
 
             return resultado;
+        }
 
-            return resultado;
+        public static cPrenda ObtenerPrendaId(String IdPrenda)
+        {
+            cPrenda prenda = new cPrenda();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
+                {
+                    using (SqlCommand myCMD = new SqlCommand(" " +
+                        "SELECT * " +
+                        "FROM Prendas " +
+                        "WHERE IdPrenda = @IdPrenda " +
+                        "", con))
+                    {
+                        con.Open();
+
+                        myCMD.Parameters.AddWithValue("@IdPrenda", IdPrenda);
+
+                        SqlDataReader r = myCMD.ExecuteReader();
+
+                        if (r.HasRows)
+                        {
+                            while (r.Read())
+                            {
+                                prenda.IdPrenda = r["IdPrenda"].ToString();
+                                prenda.IdDepartamento = r["IdDepartamento"].ToString();
+                                prenda.IdCliente = r["IdCliente"].ToString();
+                                prenda.TipoPrenda = r["TipoPrenda"].ToString();
+                                prenda.Descripcion = r["Descripcion"].ToString();
+                                prenda.Marca = r["Marca"].ToString();
+                                prenda.Modelo = r["Modelo"].ToString();
+                                prenda.Serie = r["Serie"].ToString();
+                                prenda.IdTipoMetal = r["IdTipoMetal"].ToString();
+                                prenda.PesoMetal = r["PesoMetal"].ToString();
+                                prenda.Pureza = r["Pureza"].ToString();
+                                prenda.ObservacionesMetal = r["ObservacionesMetal"].ToString();
+                                prenda.IdTipoPiedra = r["IdTipoPiedra"].ToString();
+                                prenda.ColorPiedra = r["ColorPiedra"].ToString();
+                                prenda.ClaridadOPureza = r["ClaridadOPureza"].ToString();
+                                prenda.CorteOTalla = r["CorteOTalla"].ToString();
+                                prenda.PesoPiedra = r["PesoPiedra"].ToString();
+                                prenda.ObservacionesPiedra = r["ObservacionesPiedra"].ToString();
+                                prenda.IdTipoVehiculo = r["IdTipoVehiculo"].ToString();
+                                prenda.IdMarcaVehiculo = r["IdMarcaVehiculo"].ToString();
+                                prenda.ModeloVehiculo = r["ModeloVehiculo"].ToString();
+                                prenda.AnioVehiculo = r["AnioVehiculo"].ToString();
+                                prenda.Kilometraje = r["Kilometraje"].ToString();
+                                prenda.NumeroSerieVehiculo = r["NumeroSerieVehiculo"].ToString();
+                                prenda.Placas = r["Placas"].ToString();
+                                prenda.ColorVehiculo = r["ColorVehiculo"].ToString();
+                                prenda.UbicacionAlmacen = r["UbicacionAlmacen"].ToString();
+                                prenda.Observaciones = r["Observaciones"].ToString();
+                                prenda.Avaluo = r["Avaluo"].ToString();
+                                prenda.Prestamo = r["Prestamo"].ToString();
+                                prenda.PrestamoDisplay = "$ " + prenda.Prestamo;
+                            }
+                        }
+
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                
+            }
+
+            return prenda;
         }
     }
 }
