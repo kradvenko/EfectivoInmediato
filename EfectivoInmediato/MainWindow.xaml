@@ -16,7 +16,23 @@
             </Grid.ColumnDefinitions>
         </Grid>
 
-        <Grid DockPanel.Dock="Bottom" MinHeight="60" Background="#20364c"/>
+        <Grid DockPanel.Dock="Bottom" MinHeight="60" Background="#20364c">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="7" Foreground="Beige">Versión 1.0.0.11</Label>
+        </Grid>
 
         <Grid DockPanel.Dock="Top" Margin="0, 0, 0, 0" MinHeight="50" MaxHeight="100">
             <Grid.ColumnDefinitions>
@@ -100,16 +116,13 @@
                 </Grid>
                 <DataGrid DockPanel.Dock="Bottom" x:Name="dgClientes" ItemsSource="{Binding clientes}" Height="Auto" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id" Binding="{Binding Path=IdPrestamo}" Width="20"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Cliente" Binding="{Binding Path=NombreCliente}" Width="150"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Préstamo" Binding="{Binding Path=Nombre}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Saldo" Binding="{Binding Path=CantidadPrestada}" Width="50"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Fecha de préstamo" Binding="{Binding Path=FechaPrestamo}" Width="120"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Fecha de vencimiento" Binding="{Binding Path=FechaVencimiento}" Width="130"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Refrendos" Binding="{Binding Path=Refrendos}" Width="70"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Periodo" Binding="{Binding Path=Periodo}" Width="60"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Departamento" Binding="{Binding Path=Departamento}" Width="100"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Estado" Binding="{Binding Path=Estado}" Width="100"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Id" Binding="{Binding Path=IdCliente}" Width="50"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Cliente" Binding="{Binding Path=NombreCompleto}" Width="250"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Telefono 1" Binding="{Binding Path=Telefono1}" Width="150"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Telefono 2" Binding="{Binding Path=Telefono2}" Width="150"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Domicilio" Binding="{Binding Path=Domicilio}" Width="150"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Colonia" Binding="{Binding Path=Colonia}" Width="150"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Ciudad" Binding="{Binding Path=Ciudad}" Width="150"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </DockPanel>

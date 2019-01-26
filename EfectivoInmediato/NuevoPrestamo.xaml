@@ -90,8 +90,6 @@
             </Grid>
             <Button Grid.Column="5" Grid.Row="1" Content="Agregar Prenda" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="150" Click="AgregarPrenda" />
             <Button Grid.Column="6" Grid.Row="1" Content="Eliminar Prenda" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="150" />
-            
-            <Button Grid.Column="8" Grid.Row="1" Content="Cancelar" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="150" />
             <!--Tercer Renglón-->
             
             <!--Cuarto Renglón-->

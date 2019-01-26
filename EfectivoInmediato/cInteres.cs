@@ -82,5 +82,128 @@ namespace EfectivoInmediato
 
             return interes;
         }
+
+        public static String GuardarInteres(String IdDepartamento, cInteres Interes)
+        {
+            String IdInteres = "0";
+            bool IsNew = true;
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
+                {
+                    using (SqlCommand myCMD = new SqlCommand(" " +
+                        "SELECT *" +
+                        "FROM Intereses" +
+                        "WHERE IdDepartamento =  " + IdDepartamento +
+                        "", con))
+                    {
+                        con.Open();
+
+                        SqlDataReader reader = myCMD.ExecuteReader();
+
+                        if (reader.HasRows)
+                        {
+                            reader.Read();
+                            IdInteres = reader["IdInteres"].ToString();
+                            IsNew = false;
+                        }
+
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                IdInteres = exc.Message;
+            }
+
+            if (IsNew)
+            {
+                try
+                {
+                    using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
+                    {
+                        using (SqlCommand myCMD = new SqlCommand(" " +
+                            "INSERT INTO Intereses " +
+                            "(IdDepartamento, Periodo, Plazo, Financiamiento, Almacenaje, Administracion, IVA, PagoMinimo, DiasDeGracia, ReclamoAnticipadoMetodo, ReclamoAnticipadoCantidad, ReclamoAnticipadoDias, ReclamoExtemporaneoMetodo, ReclamoExtemporaneoCantidad, ReclamoExtemporaneoDias)  " +
+                            " OUTPUT Inserted.IdDepartamento " +
+                            "VALUES (@IdDepartamento, @Periodo, @Plazo, @Financiamiento, @Almacenaje, @Administracion, @IVA, @PagoMinimo, @DiasDeGracia, @ReclamoAnticipadoMetodo, @ReclamoAnticipadoCantidad, @ReclamoAnticipadoDias, @ReclamoExtemporaneoMetodo, @ReclamoExtemporaneoCantidad, @ReclamoExtemporaneoDias) " +
+                            "", con))
+                        {
+                            con.Open();
+
+                            myCMD.Parameters.AddWithValue("@IdDepartamento", Interes.IdDepartamento);
+                            myCMD.Parameters.AddWithValue("@Periodo", Interes.Periodo);
+                            myCMD.Parameters.AddWithValue("@Plazo", Interes.Plazo);
+                            myCMD.Parameters.AddWithValue("@Financiamiento", Interes.Financiamiento);
+                            myCMD.Parameters.AddWithValue("@Almacenaje", Interes.Almacenaje);
+                            myCMD.Parameters.AddWithValue("@Administracion", Interes.Administracion);
+                            myCMD.Parameters.AddWithValue("@IVA", Interes.IVA);
+                            myCMD.Parameters.AddWithValue("@PagoMinimo", Interes.PagoMinimo);
+                            myCMD.Parameters.AddWithValue("@DiasDeGracia", Interes.DiasDeGracia);
+                            myCMD.Parameters.AddWithValue("@ReclamoAnticipadoMetodo", Interes.ReclamoAnticipadoMetodo);
+                            myCMD.Parameters.AddWithValue("@ReclamoAnticipadoCantidad", Interes.ReclamoAnticipadoCantidad);
+                            myCMD.Parameters.AddWithValue("@ReclamoAnticipadoDias", Interes.ReclamoAnticipadoDias);
+                            myCMD.Parameters.AddWithValue("@ReclamoExtemporaneoMetodo", Interes.ReclamoExtemporaneoMetodo);
+                            myCMD.Parameters.AddWithValue("@ReclamoExtemporaneoCantidad", Interes.ReclamoExtemporaneoCantidad);
+                            myCMD.Parameters.AddWithValue("@ReclamoExtemporaneoDias", Interes.ReclamoExtemporaneoDias);
+
+                            IdInteres = myCMD.ExecuteScalar().ToString();
+
+                            con.Close();
+                        }
+                    }
+                }
+                catch (Exception exc)
+                {
+                    IdInteres = exc.Message;
+                }
+            }
+            else
+            {
+                try
+                {
+                    using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
+                    {
+                        using (SqlCommand myCMD = new SqlCommand(" " +
+                            "UPDATE Intereses " +
+                            "SET IdDepartamento = @IdDepartamento, Periodo = @Periodo, Plazo = @Plazo, Financiamiento = @Financiamiento, Almacenaje = @Almacenaje, Administracion = @Administracion, IVA = @IVA, PagoMinimo = @PagoMinimo, DiasDeGracia = @DiasDeGracia, ReclamoAnticipadoMetodo = @ReclamoAnticipadoMetodo, ReclamoAnticipadoCantidad = @ReclamoAnticipadoCantidad, ReclamoAnticipadoDias = @ReclamoAnticipadoDias, ReclamoExtemporaneoMetodo = @ReclamoExtemporaneoMetodo, ReclamoExtemporaneoCantidad = @ReclamoExtemporaneoCantidad, ReclamoExtemporaneoDias = @ReclamoExtemporaneoDias)  " +
+                            "WHERE IdInteres = @IdInteres " +
+                            "", con))
+                        {
+                            con.Open();
+
+                            myCMD.Parameters.AddWithValue("@IdInteres", IdInteres);
+                            myCMD.Parameters.AddWithValue("@IdDepartamento", Interes.IdDepartamento);
+                            myCMD.Parameters.AddWithValue("@Periodo", Interes.Periodo);
+                            myCMD.Parameters.AddWithValue("@Plazo", Interes.Plazo);
+                            myCMD.Parameters.AddWithValue("@Financiamiento", Interes.Financiamiento);
+                            myCMD.Parameters.AddWithValue("@Almacenaje", Interes.Almacenaje);
+                            myCMD.Parameters.AddWithValue("@Administracion", Interes.Administracion);
+                            myCMD.Parameters.AddWithValue("@IVA", Interes.IVA);
+                            myCMD.Parameters.AddWithValue("@PagoMinimo", Interes.PagoMinimo);
+                            myCMD.Parameters.AddWithValue("@DiasDeGracia", Interes.DiasDeGracia);
+                            myCMD.Parameters.AddWithValue("@ReclamoAnticipadoMetodo", Interes.ReclamoAnticipadoMetodo);
+                            myCMD.Parameters.AddWithValue("@ReclamoAnticipadoCantidad", Interes.ReclamoAnticipadoCantidad);
+                            myCMD.Parameters.AddWithValue("@ReclamoAnticipadoDias", Interes.ReclamoAnticipadoDias);
+                            myCMD.Parameters.AddWithValue("@ReclamoExtemporaneoMetodo", Interes.ReclamoExtemporaneoMetodo);
+                            myCMD.Parameters.AddWithValue("@ReclamoExtemporaneoCantidad", Interes.ReclamoExtemporaneoCantidad);
+                            myCMD.Parameters.AddWithValue("@ReclamoExtemporaneoDias", Interes.ReclamoExtemporaneoDias);
+
+                            myCMD.ExecuteNonQuery();
+
+                            con.Close();
+                        }
+                    }
+                }
+                catch (Exception exc)
+                {
+                    IdInteres = exc.Message;
+                }
+            }
+
+            return IdInteres;
+        }
     }
 }

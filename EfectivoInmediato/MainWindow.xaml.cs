@@ -22,15 +22,19 @@ namespace EfectivoInmediato
     public partial class MainWindow : Window
     {
         public ObservableCollection<cPrestamo> prestamos = new ObservableCollection<cPrestamo>();
+        public ObservableCollection<cCliente> clientes = new ObservableCollection<cCliente>();
 
         public MainWindow()
         {
             InitializeComponent();
-            cPrestamo c = new cPrestamo();
+            /*cPrestamo c = new cPrestamo();
             c.NombreCliente = "TEST";
             prestamos.Add(c);
             dgPrestamos.ItemsSource = prestamos;
-            dgClientes.ItemsSource = prestamos;
+            dgClientes.ItemsSource = prestamos;*/
+
+            clientes = cCliente.ObtenerClientes();
+            dgClientes.ItemsSource = clientes;
         }
 
         private void MostrarGrid(String Opcion)
@@ -46,6 +50,12 @@ namespace EfectivoInmediato
                     gClientes.Visibility = Visibility.Visible;
                     break;
             }
+        }
+
+        public void RecargarClientes()
+        {
+            clientes = cCliente.ObtenerClientes();
+            dgClientes.ItemsSource = clientes;
         }
         
         private void LimpiarGrids()
@@ -72,7 +82,7 @@ namespace EfectivoInmediato
 
         private void NuevoCliente(object sender, RoutedEventArgs e)
         {
-            NuevoCliente nuevo = new NuevoCliente();
+            NuevoCliente nuevo = new NuevoCliente(this);
             nuevo.ShowDialog();
         }
 

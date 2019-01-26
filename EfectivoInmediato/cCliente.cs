@@ -44,7 +44,7 @@ namespace EfectivoInmediato
                 using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
                 {
                     using (SqlCommand myCMD = new SqlCommand(" " +
-                        "SELECT Clientes.*, Concat(Clientes.NombreCliente, ' ', Clientes.ApellidoPaternoCliente, ' ', Clientes.ApellidoMaternoCliente) As NombreCompleto " +
+                        "SELECT Clientes.*, (NombreCliente + ' ' + ApellidoMaternoCliente + ' ' + ApellidoMaternoCliente) As NombreCompleto " +
                         "FROM Clientes " +
                         "ORDER BY ApellidoPaternoCliente, ApellidoMaternoCliente " +
                         "", con))
@@ -99,9 +99,9 @@ namespace EfectivoInmediato
                 using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
                 {   
                     using (SqlCommand myCMD = new SqlCommand(" " +
-                        "INSERT INTO Clientes (NombreCliente, ApellidoPaternoCliente, ApellidoMaternoCliente, ClaveIdentificacion, Domicilio, Colonia, Ciudad, Estado, Telefono1, Telefono2, CorreoElectronico, FechaNacimiento, Ocupacion, NombreCotitular, DomicilioCotitular) " +
+                        "INSERT INTO Clientes (NombreCliente, ApellidoPaternoCliente, ApellidoMaternoCliente, TipoIdentificacion, ClaveIdentificacion, Domicilio, Colonia, Ciudad, Estado, Telefono1, Telefono2, CorreoElectronico, FechaNacimiento, Ocupacion, NombreCotitular, DomicilioCotitular) " +
                         "OUTPUT INSERTED.IdCliente " +
-                        "VALUES (@NombreCliente, @ApellidoPaternoCliente, @ApellidoMaternoCliente, @ClaveIdentificacion, @Domicilio, @Colonia, @Ciudad, @Estado, @Telefono1, @Telefono2, @CorreoElectronico, @FechaNacimiento, @Ocupacion, @NombreCotitular, @DomicilioCotitular)" +
+                        "VALUES (@NombreCliente, @ApellidoPaternoCliente, @ApellidoMaternoCliente, @TipoIdentificacion, @ClaveIdentificacion, @Domicilio, @Colonia, @Ciudad, @Estado, @Telefono1, @Telefono2, @CorreoElectronico, @FechaNacimiento, @Ocupacion, @NombreCotitular, @DomicilioCotitular)" +
                         "", con))
                     {
                         con.Open();

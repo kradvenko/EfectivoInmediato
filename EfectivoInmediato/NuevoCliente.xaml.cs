@@ -21,6 +21,7 @@ namespace EfectivoInmediato
     public partial class NuevoCliente : Window
     {
         NuevoPrestamo parentPrestamo;
+        MainWindow parentMain;
         ObservableCollection<String> identificaciones;
         String IdClienteInsertado;
 
@@ -33,6 +34,7 @@ namespace EfectivoInmediato
             identificaciones.Add("CURP");
             identificaciones.Add("Licencia para conducir");
             cbTipoIdentificacion.ItemsSource = identificaciones;
+            cbTipoIdentificacion.SelectedIndex = 0;
         }
 
         public NuevoCliente(NuevoPrestamo p)
@@ -44,7 +46,21 @@ namespace EfectivoInmediato
             identificaciones.Add("CURP");
             identificaciones.Add("Licencia para conducir");
             cbTipoIdentificacion.ItemsSource = identificaciones;
+            cbTipoIdentificacion.SelectedIndex = 0;
             parentPrestamo = p;
+        }
+
+        public NuevoCliente(MainWindow p)
+        {
+            InitializeComponent();
+            identificaciones = new ObservableCollection<String>();
+            identificaciones.Add("INE");
+            identificaciones.Add("Pasaporte");
+            identificaciones.Add("CURP");
+            identificaciones.Add("Licencia para conducir");
+            cbTipoIdentificacion.ItemsSource = identificaciones;
+            cbTipoIdentificacion.SelectedIndex = 0;
+            parentMain = p;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -100,6 +116,10 @@ namespace EfectivoInmediato
             if (parentPrestamo != null)
             {
                 parentPrestamo.RecargarClientes(IdClienteInsertado);
+            }
+            else if (parentMain != null)
+            {
+                parentMain.RecargarClientes();
             }
         }
     }

@@ -40,7 +40,7 @@ namespace EfectivoInmediato
 
             reclamoExtemporaneo = new List<string>();
             reclamoExtemporaneo.Add("Interes");
-            reclamoExtemporaneo.Add("Monto Fjo");
+            reclamoExtemporaneo.Add("Monto Fijo");
             cbReclamoExtemporaneoInteres.SelectedIndex = 0;
 
             periodos = new List<string>();
@@ -75,6 +75,36 @@ namespace EfectivoInmediato
                 MessageBox.Show("Elija un departamento.");
                 cbDepartamento.Focus();
             }
+
+            cInteres nuevoInteres = new cInteres();
+
+            nuevoInteres.IdDepartamento = cbDepartamento.SelectedValue.ToString();
+            nuevoInteres.Periodo = cbPeriodo.Text;
+            nuevoInteres.Plazo = tbPlazo.Text;
+            nuevoInteres.Financiamiento = tbFinanciamiento.Text;
+            nuevoInteres.Almacenaje = tbAlmacenaje.Text;
+            nuevoInteres.Administracion = tbAdministracion.Text;
+            nuevoInteres.IVA = tbIVA.Text;
+            nuevoInteres.PagoMinimo = tbPagoMinimo.Text;
+            nuevoInteres.DiasDeGracia = tbDiasGracia.Text;
+            nuevoInteres.ReclamoAnticipadoMetodo = cbReclamoAnticipadoInteres.Text;
+            nuevoInteres.ReclamoAnticipadoCantidad = tbReclamoAnticipadoCantidad.Text;
+            nuevoInteres.ReclamoAnticipadoDias = tbReclamoAnticipadoDias.Text;
+            nuevoInteres.ReclamoExtemporaneoMetodo = cbReclamoExtemporaneoInteres.Text;
+            nuevoInteres.ReclamoExtemporaneoCantidad = tbReclamoExtemporaneoCantidad.Text;
+            nuevoInteres.ReclamoExtemporaneoDias = tbReclamoExtemporaneoDias.Text;
+
+            String res = cInteres.GuardarInteres(cbDepartamento.SelectedValue.ToString(), nuevoInteres);
+
+            int id;
+            if (int.TryParse(res, out id))
+            {
+                MessageBox.Show("Se ha guardado el interes.");
+            }
+            else
+            {
+                MessageBox.Show(res);
+            }
         }
 
         private void CbDepartamento_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -89,7 +119,14 @@ namespace EfectivoInmediato
             tbAdministracion.Text = interes.Administracion;
             tbIVA.Text = interes.IVA;
             calcularTotal();
-
+            tbPagoMinimo.Text = interes.PagoMinimo;
+            tbDiasGracia.Text = interes.DiasDeGracia;
+            cbReclamoAnticipadoInteres.Text = interes.ReclamoAnticipadoMetodo;
+            tbReclamoAnticipadoCantidad.Text = interes.ReclamoAnticipadoCantidad;
+            tbReclamoAnticipadoDias.Text = interes.ReclamoAnticipadoDias;
+            cbReclamoExtemporaneoInteres.Text = interes.ReclamoExtemporaneoMetodo;
+            tbReclamoExtemporaneoCantidad.Text = interes.ReclamoExtemporaneoCantidad;
+            tbReclamoExtemporaneoDias.Text = interes.ReclamoExtemporaneoDias;
         }
 
         private void calcularTotal()
@@ -104,6 +141,66 @@ namespace EfectivoInmediato
             catch (Exception exc)
             {
 
+            }
+        }
+
+        private void ValidaFinanciamiento(object sender, KeyEventArgs e)
+        {
+            float f;
+            if (!float.TryParse(tbFinanciamiento.Text, out f))
+            {
+                MessageBox.Show("No ha escrito un valor correcto para el financiamiento.");
+                tbFinanciamiento.Focus();
+                return;
+            }
+            else
+            {
+                calcularTotal();
+            }
+        }
+
+        private void ValidaAlmacenaje(object sender, KeyEventArgs e)
+        {
+            float f;
+            if (!float.TryParse(tbAlmacenaje.Text, out f))
+            {
+                MessageBox.Show("No ha escrito un valor correcto para el almacenaje.");
+                tbAlmacenaje.Focus();
+                return;
+            }
+            else
+            {
+                calcularTotal();
+            }
+        }
+
+        private void ValidaAdministracion(object sender, KeyEventArgs e)
+        {
+            float f;
+            if (!float.TryParse(tbAdministracion.Text, out f))
+            {
+                MessageBox.Show("No ha escrito un valor correcto para la administración.");
+                tbAdministracion.Focus();
+                return;
+            }
+            else
+            {
+                calcularTotal();
+            }
+        }
+
+        private void ValidaIVA(object sender, KeyEventArgs e)
+        {
+            float f;
+            if (!float.TryParse(tbIVA.Text, out f))
+            {
+                MessageBox.Show("No ha escrito un valor correcto para el I.V.A.");
+                tbIVA.Focus();
+                return;
+            }
+            else
+            {
+                calcularTotal();
             }
         }
     }

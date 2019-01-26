@@ -87,8 +87,16 @@ namespace EfectivoInmediato
             }
             if (cbTipoPrendas.SelectedIndex == 0)
             {
-                NuevoArticulo articulo = new NuevoArticulo(this, cbClientes.SelectedValue.ToString());
-                articulo.ShowDialog();
+                if (cbClientes.SelectedIndex >= 0)
+                {
+                    NuevoArticulo articulo = new NuevoArticulo(this, cbClientes.SelectedValue.ToString());
+                    articulo.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("No ha elegido un cliente.");
+                    return;
+                }
             }
             else if (cbTipoPrendas.SelectedIndex == 1)
             {
