@@ -26,8 +26,8 @@ namespace EfectivoInmediato.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-C3AO6JA;Initial Catalog=EfectivoInmediato;User ID=pawn;Passwo" +
-            "rd=qwerty123")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-C3AO6JA;Initial Catalog=EfectivoInmediato;Integrated Security" +
+            "=True;User ID=USER\\USUARIO")]
         public string EfectivoInmediatoConnectionString {
             get {
                 return ((string)(this["EfectivoInmediatoConnectionString"]));

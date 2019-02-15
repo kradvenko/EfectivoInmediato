@@ -23,5 +23,15 @@ namespace EfectivoInmediato
         {
             InitializeComponent();
         }
+
+        private void agregarTipoVehiculo(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void agregarMarcaVehiculo(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
