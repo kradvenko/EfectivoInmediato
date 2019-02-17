@@ -92,6 +92,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="cMarcaVehiculo.cs" />
+    <Compile Include="cTipoVehiculo.cs" />
+    <Compile Include="NuevoTipoVehiculo.xaml.cs">
+      <DependentUpon>NuevoTipoVehiculo.xaml</DependentUpon>
+    </Compile>
     <Page Include="Configuracion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -148,6 +153,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="NuevoVehiculo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NuevoTipoVehiculo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

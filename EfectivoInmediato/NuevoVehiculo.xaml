@@ -103,7 +103,7 @@
             <!--Octavo Renglón-->
             <!--Noveno Renglón-->
             <Button Grid.Column="7" Grid.Row="8" Content="Guardar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90"/>
-            <Button Grid.Column="8" Grid.Row="8" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90"/>            
+            <Button Grid.Column="8" Grid.Row="8" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Cerrar"/>            
         </Grid>
     </DockPanel>
 </Window>
