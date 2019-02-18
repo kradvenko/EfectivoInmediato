@@ -23,7 +23,10 @@ namespace EfectivoInmediato
         ObservableCollection<cTipoVehiculo> tiposVehiculo;
         ObservableCollection<cMarcaVehiculo> marcasVehiculo;
 
-        public NuevoVehiculo()
+        NuevoPrestamo parent;
+        String IdCliente;
+
+        public NuevoVehiculo(NuevoPrestamo p, String id)
         {
             InitializeComponent();
 
@@ -40,6 +43,10 @@ namespace EfectivoInmediato
             cbMarca.DisplayMemberPath = "Marca";
             cbMarca.SelectedValuePath = "IdMarcaVehiculo";
             cbMarca.SelectedIndex = 0;
+
+            parent = p;
+
+            IdCliente = id;
         }
 
         private void agregarTipoVehiculo(object sender, RoutedEventArgs e)
@@ -65,6 +72,52 @@ namespace EfectivoInmediato
 
         private void Cerrar(object sender, RoutedEventArgs e)
         {
+            this.Close();
+        }
+
+        private void Guardar(object sender, RoutedEventArgs e)
+        {
+            if (cbTipo.SelectedIndex < 0)
+            {
+                MessageBox.Show("No ha elegido un tipo de vehículo.");
+                cbTipo.Focus();
+                return;
+            }
+            if (cbMarca.SelectedIndex < 0)
+            {
+                MessageBox.Show("No ha elegido una marca de vehículo.");
+                cbTipo.Focus();
+                return;
+            }
+            if (tbAvaluo.Text.Length == 0)
+            {
+                MessageBox.Show("No ha escrito el avalúo de la prenda.");
+                tbAvaluo.Focus();
+                return;
+            }
+            float f;
+            if (!float.TryParse(tbAvaluo.Text, out f))
+            {
+                MessageBox.Show("No ha escrito un avalúo correcto.");
+                tbAvaluo.Focus();
+                return;
+            }
+            if (tbPrestamo.Text.Length == 0)
+            {
+                MessageBox.Show("No ha escrito la cantidad del préstamo.");
+                tbPrestamo.Focus();
+                return;
+            }
+            if (!float.TryParse(tbPrestamo.Text, out f))
+            {
+                MessageBox.Show("No ha escrito una cantidad correcta para el préstamo.");
+                tbPrestamo.Focus();
+                return;
+            }
+
+            String idPrenda = cPrenda.GuardarPrenda("0", IdCliente, "VEHICULO", cbTipo.Text + " - " + cbMarca.Text + " " + tbModelo.Text , "-", "-", "-", "0", "-", "-", "-", "0", "-", "-", "-", "-", "-", cbTipo.SelectedValue.ToString(), cbMarca.SelectedValue.ToString(), tbModelo.Text, tbAnio.Text, tbKilometraje.Text, tbNumeroSerie.Text, tbPlacas.Text, tbColor.Text, tbUbicacionAlmacen.Text, tbObservaciones.Text, tbAvaluo.Text, tbPrestamo.Text);
+            cPrenda p = cPrenda.ObtenerPrendaId(idPrenda);
+            parent.AgregarPrenda(p);
             this.Close();
         }
     }

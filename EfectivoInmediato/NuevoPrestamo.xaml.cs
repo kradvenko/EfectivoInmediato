@@ -105,7 +105,7 @@ namespace EfectivoInmediato
             }
             else if (cbTipoPrendas.SelectedIndex == 2)
             {
-                NuevoVehiculo vehiculo = new NuevoVehiculo();
+                NuevoVehiculo vehiculo = new NuevoVehiculo(this, cbClientes.SelectedValue.ToString());
                 vehiculo.ShowDialog();
             }
         }
