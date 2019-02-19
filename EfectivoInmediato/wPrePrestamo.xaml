@@ -1,0 +1,69 @@
+﻿<Window x:Class="EfectivoInmediato.wPrePrestamo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EfectivoInmediato"
+        mc:Ignorable="d"
+        Title="wPrePrestamo" Height="450" Width="800">
+    <DockPanel>
+        <Grid DockPanel.Dock="Top" MinHeight="55">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5,15,0,11" FontSize="24">Detalles del préstamo</TextBlock>
+        </Grid>
+
+        <Grid DockPanel.Dock="Bottom" MinHeight="60" Background="#20364c"/>
+
+        <Grid DockPanel.Dock="Top" Margin="0, 0, 0, 0" MinHeight="100">
+            <Grid.Resources>
+                <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxStyle}"/>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!--Primer Renglón-->
+            <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Cliente</TextBlock>
+            
+            <TextBlock Grid.Column="5" Grid.Row="0" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Total de préstamo</TextBlock>            
+
+            <!--Segundo Renglón-->
+            
+            <!--Tercer Renglón-->
+
+            <!--Cuarto Renglón-->
+            <!--Quinto Renglón-->
+
+            <!--Sexto Renglón-->
+
+            <!--Séptimo Renglón-->
+            <!--Octavo Renglón-->
+            <!--Noveno Renglón-->
+            <Button Grid.Column="7" Grid.Row="8" Content="Guardar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90"/>
+            <Button Grid.Column="8" Grid.Row="8" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Button_Click"/>
+            
+        </Grid>
+    </DockPanel>
+</Window>
