@@ -52,8 +52,15 @@
             <!--Segundo Renglón-->
             
             <!--Tercer Renglón-->
-
+            <DataGrid x:Name="dgPagos" AutoGenerateColumns="False" Grid.ColumnSpan="9" Grid.Column="0" HorizontalAlignment="Stretch" Height="Auto" Margin="10,5,10,0" Grid.Row="2" Grid.RowSpan="4" VerticalAlignment="Stretch" Width="Auto">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Path=IdPrenda}" Width="80"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Descripción de la prenda" Binding="{Binding Path=Descripcion}" Width="450"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Préstamo" Binding="{Binding Path=PrestamoDisplay}" Width="150"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
             <!--Cuarto Renglón-->
+            
             <!--Quinto Renglón-->
 
             <!--Sexto Renglón-->
@@ -63,7 +70,6 @@
             <!--Noveno Renglón-->
             <Button Grid.Column="7" Grid.Row="8" Content="Guardar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90"/>
             <Button Grid.Column="8" Grid.Row="8" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Button_Click"/>
-            
         </Grid>
     </DockPanel>
 </Window>
