@@ -1,11 +1,11 @@
-﻿<Window x:Class="EfectivoInmediato.wPrePrestamo"
+﻿<Window x:Class="EfectivoInmediato.PrePrestamo"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EfectivoInmediato"
         mc:Ignorable="d"
-        Title="wPrePrestamo" Height="450" Width="800">
+        Title="Detalles del préstamo" Height="450" Width="900" WindowStartupLocation="CenterScreen">
     <DockPanel>
         <Grid DockPanel.Dock="Top" MinHeight="55">
             <Grid.ColumnDefinitions>
@@ -52,11 +52,16 @@
             <!--Segundo Renglón-->
             
             <!--Tercer Renglón-->
-            <DataGrid x:Name="dgPagos" AutoGenerateColumns="False" Grid.ColumnSpan="9" Grid.Column="0" HorizontalAlignment="Stretch" Height="Auto" Margin="10,5,10,0" Grid.Row="2" Grid.RowSpan="4" VerticalAlignment="Stretch" Width="Auto">
+            <DataGrid x:Name="dgPagos" AutoGenerateColumns="False" Grid.ColumnSpan="9" Grid.Column="0" HorizontalAlignment="Stretch" Height="Auto" Margin="10,5,10,0" Grid.Row="2" Grid.RowSpan="4" VerticalAlignment="Stretch" Width="Auto" ColumnHeaderStyle="{StaticResource WrappedColumnHeaderStyle}" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding Path=IdPrenda}" Width="80"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Descripción de la prenda" Binding="{Binding Path=Descripcion}" Width="450"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Préstamo" Binding="{Binding Path=PrestamoDisplay}" Width="150"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Periodo" Binding="{Binding Path=Periodo}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Importe del mutuo" Binding="{Binding Path=Importe}" Width="2*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Intereses" Binding="{Binding Path=Intereses}" Width="2*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Almacenaje" Binding="{Binding Path=Almacenaje}" Width="2*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="IVA" Binding="{Binding Path=IVA}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Total a pagar por desempeño" Binding="{Binding Path=TotalDesempeno}" Width="2*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Total a pagar por refrendo" Binding="{Binding Path=TotalRefrendo}" Width="2*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Cuando se realizan los pagos" Binding="{Binding Path=FechaPago}" Width="3*"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <!--Cuarto Renglón-->

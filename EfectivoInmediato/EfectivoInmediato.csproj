@@ -93,12 +93,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="cMarcaVehiculo.cs" />
+    <Compile Include="cPago.cs" />
     <Compile Include="cTipoVehiculo.cs" />
     <Compile Include="NuevoTipoVehiculo.xaml.cs">
       <DependentUpon>NuevoTipoVehiculo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="wPrePrestamo.xaml.cs">
-      <DependentUpon>wPrePrestamo.xaml</DependentUpon>
+    <Compile Include="PrePrestamo.xaml.cs">
+      <DependentUpon>PrePrestamo.xaml</DependentUpon>
     </Compile>
     <Page Include="Configuracion.xaml">
       <SubType>Designer</SubType>
@@ -163,7 +164,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="wPrePrestamo.xaml">
+    <Page Include="PrePrestamo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

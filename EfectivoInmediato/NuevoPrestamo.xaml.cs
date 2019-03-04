@@ -115,5 +115,20 @@ namespace EfectivoInmediato
             prendas.Add(prenda);
             dgPrendas.ItemsSource = prendas;
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (prendas.Count == 0)
+            {
+                MessageBox.Show("No hay prendas en el préstamo.");
+                return;
+            }
+
+            foreach (cPrenda prenda in prendas)
+            {
+                PrePrestamo pre = new PrePrestamo(prenda);
+                pre.ShowDialog();
+            }
+        }
     }
 }

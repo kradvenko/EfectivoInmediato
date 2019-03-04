@@ -100,9 +100,9 @@
             <!--Séptimo Renglón-->
             <!--Octavo Renglón-->
             <!--Noveno Renglón-->
-            <Button Grid.Column="7" Grid.Row="8" Content="Guardar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90"/>
+            <Button Grid.Column="7" Grid.Row="8" Content="Guardar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Button_Click_1"/>
             <Button Grid.Column="8" Grid.Row="8" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Button_Click"/>
-            <DataGrid x:Name="dgPrendas" AutoGenerateColumns="False" Grid.ColumnSpan="9" Grid.Column="0" HorizontalAlignment="Stretch" Height="Auto" Margin="10,5,10,0" Grid.Row="3" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="Auto  ">
+            <DataGrid x:Name="dgPrendas" AutoGenerateColumns="False" Grid.ColumnSpan="9" Grid.Column="0" HorizontalAlignment="Stretch" Height="Auto" Margin="10,5,10,0" Grid.Row="3" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="Auto" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding Path=IdPrenda}" Width="80"></DataGridTextColumn>
                     <DataGridTextColumn Header="Descripción de la prenda" Binding="{Binding Path=Descripcion}" Width="450"></DataGridTextColumn>
