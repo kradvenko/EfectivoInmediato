@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:EfectivoInmediato"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <!--Estilo para textbox-->
         <Style x:Key="TextBoxStyle" TargetType="TextBox">
             <Setter Property="MaxHeight" Value="25"></Setter>
             <Setter Property="CharacterCasing" Value="Upper"></Setter>
@@ -16,6 +17,64 @@
                     </DataTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+        <!--Estilo para botón de menú principal.-->
+        <Style x:Key="ButtonStyleTopBar" TargetType="Button">
+            <Setter Property="Background" Value="Black"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="FontSize" Value="12"></Setter>
+            <Setter Property="Margin" Value="0"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="0"
+                                BorderThickness="2"
+                                Padding="0"
+                                BorderBrush="White">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                            </ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF3D898D"/>
+                    <Setter Property="Foreground" Value="#000"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--Estilo para botón de menú secundario.-->
+        <Style x:Key="ButtonStyleSecondaryBar" TargetType="Button">
+            <Setter Property="Background" Value="DimGray"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="FontSize" Value="11"></Setter>
+            <Setter Property="Margin" Value="0"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="0"
+                                BorderThickness="2"
+                                Padding="0"
+                                BorderBrush="White">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                            </ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF3D898D"/>
+                    <Setter Property="Foreground" Value="#000"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </Application.Resources>
 </Application>

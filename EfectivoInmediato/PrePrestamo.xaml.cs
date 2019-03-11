@@ -53,6 +53,32 @@ namespace EfectivoInmediato
                         p.TotalRefrendo = (float.Parse(p.Intereses) + float.Parse(p.Almacenaje) + float.Parse(p.IVA)).ToString();
                         p.FechaPago = DateTime.Now.AddDays(int.Parse(interes.ReclamoAnticipadoDias)).ToShortDateString();
                     }
+                    else if (interes.ReclamoAnticipadoMetodo == "Monto Fijo")
+                    {
+
+                    }
+                }
+                else
+                {
+                    p.Periodo = i.ToString();
+                    p.Importe = prenda.Prestamo;
+                    float financiamiento = float.Parse(interes.Financiamiento);
+                    float fPago = financiamiento * (i - 1);
+                    int r = i - 1;
+
+                    if (interes.ReclamoAnticipadoMetodo == "Interes")
+                    {
+                        p.Intereses = ((fPago / 100) * (float.Parse(prenda.Prestamo))).ToString();
+                        p.Almacenaje = (r * (float.Parse(interes.Almacenaje)/100) * (float.Parse(prenda.Prestamo))).ToString();
+                        p.IVA = (((float.Parse(p.Intereses) + float.Parse(p.Almacenaje)) * (float.Parse(interes.IVA) / 100)).ToString());
+                        p.TotalDesempeno = (float.Parse(p.Importe) + float.Parse(p.Intereses) + float.Parse(p.Almacenaje) + float.Parse(p.IVA)).ToString();
+                        p.TotalRefrendo = (float.Parse(p.Intereses) + float.Parse(p.Almacenaje) + float.Parse(p.IVA)).ToString();
+                        p.FechaPago = DateTime.Now.AddDays(30 * r).ToShortDateString();
+                    }
+                    else if (interes.ReclamoAnticipadoMetodo == "Monto Fijo")
+                    {
+
+                    }
                 }
                 
                 pagos.Add(p);

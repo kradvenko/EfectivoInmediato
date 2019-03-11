@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Deployment.Application;
 
 namespace EfectivoInmediato
 {
@@ -35,6 +36,21 @@ namespace EfectivoInmediato
 
             clientes = cCliente.ObtenerClientes();
             dgClientes.ItemsSource = clientes;
+
+            string version = null;
+            try
+            {
+                //// get deployment version
+                version = ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
+            }
+            catch (InvalidDeploymentException)
+            {
+                //// you cannot read publish version when app isn't installed 
+                //// (e.g. during debug)
+                version = "No instalado.";
+            }
+
+            lblVersion.Content = version;
         }
 
         private void MostrarGrid(String Opcion)
