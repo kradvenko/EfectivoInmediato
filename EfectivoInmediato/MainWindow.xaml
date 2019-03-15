@@ -81,7 +81,7 @@
                     </Grid.RowDefinitions>
                     <Button Grid.Column="0" Grid.Row="0" Content="Nuevo Préstamo" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="NuevoPrestamo"/>
                 </Grid>
-                <DataGrid DockPanel.Dock="Bottom" x:Name="dgPrestamos" ItemsSource="{Binding prestamos}" Height="Auto" AutoGenerateColumns="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <DataGrid DockPanel.Dock="Bottom" x:Name="dgPrestamos" ItemsSource="{Binding prestamos}" AutoGenerateColumns="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding Path=IdPrestamo}" Width="20"></DataGridTextColumn>
                         <DataGridTextColumn Header="Cliente" Binding="{Binding Path=NombreCliente}" Width="150"></DataGridTextColumn>

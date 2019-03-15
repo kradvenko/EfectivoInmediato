@@ -20,16 +20,20 @@ namespace EfectivoInmediato
     /// </summary>
     public partial class PrePrestamo : Window
     {
+        public cCliente cliente;
         public cPrenda prenda;
         public cInteres interes;
         public ObservableCollection<cPago> pagos;
 
-        public PrePrestamo(cPrenda p)
+        public PrePrestamo(cPrenda p, cCliente c)
         {
             InitializeComponent();
             prenda = p;
             pagos = new ObservableCollection<cPago>();
             CargarIntereses();
+            cliente = c;
+            tbNombreCliente.Text = c.NombreCompleto;
+            tbTotalPrestamo.Text = "$ " + prenda.Prestamo;
         }
 
         public void CargarIntereses()
@@ -90,6 +94,30 @@ namespace EfectivoInmediato
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Atención", "¿Desea guardar el préstamo?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                cPrestamo p = new cPrestamo();
+                p.IdPrestamoPadre = "0";
+                p.IdCliente = cliente.IdCliente;
+                p.IdPrenda = prenda.IdPrenda;
+                p.Contrato = "";
+                p.CantidadPrestada = prenda.Prestamo;
+                p.FechaPrestamo = DateTime.Now.ToString();
+                p.FechaVencimiento = pagos[pagos.Count - 1].FechaPago;
+                p.Estado = "ACTIVO";
+
+                String IdPrestamo = cPrestamo.AgregarPrestamo(p);
+
+                if (IdPrestamo != "0")
+                {
+                    MessageBox.Show("Se ha ingresado el préstamo.");
+                    this.Close();
+                }
+            }
         }
     }
 }

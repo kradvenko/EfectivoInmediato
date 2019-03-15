@@ -126,7 +126,7 @@ namespace EfectivoInmediato
 
             foreach (cPrenda prenda in prendas)
             {
-                PrePrestamo pre = new PrePrestamo(prenda);
+                PrePrestamo pre = new PrePrestamo(prenda, (cCliente)cbClientes.SelectedItem);
                 pre.ShowDialog();
             }
         }
