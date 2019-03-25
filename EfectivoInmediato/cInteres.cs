@@ -205,5 +205,21 @@ namespace EfectivoInmediato
 
             return IdInteres;
         }
+
+        public String CalcularCAT()
+        {
+            String CAT = "0";
+            try
+            {
+                float total = (float.Parse(Financiamiento) + float.Parse(Almacenaje) + float.Parse(Administracion)) * (1 + float.Parse(IVA) / 100);
+                float fCAT = total * 12;
+                CAT = fCAT.ToString();
+            }
+            catch (Exception exc)
+            {
+
+            }
+            return CAT;
+        }
     }
 }
