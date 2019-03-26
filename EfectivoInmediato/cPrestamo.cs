@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,59 @@ namespace EfectivoInmediato
         public cPrestamo()
         {
 
+        }
+
+        public static ObservableCollection<cPrestamo> ObtenerPrestamos()
+        {
+            ObservableCollection<cPrestamo> prestamos = new ObservableCollection<cPrestamo>();
+            cPrestamo prestamo;
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
+                {
+                    using (SqlCommand myCMD = new SqlCommand(" " +
+                        "SELECT Prestamos.*, (Clientes.NombreCliente + ' ' + Clientes.ApellidoMaternoCliente + ' ' + Clientes.ApellidoMaternoCliente) As NombreCompleto," +
+                        "Prendas.Descripcion " +
+                        "FROM Prestamos " +
+                        "INNER JOIN Clientes " +
+                        "ON Clientes.IdCliente = Prestamos.IdCliente " +
+                        "INNER JOIN Prendas " +
+                        "ON Prendas.IdPrenda = Prestamos.IdPrenda " +
+                        "", con))
+                    {
+                        con.Open();
+
+                        SqlDataReader reader = myCMD.ExecuteReader();
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                prestamo = new cPrestamo();
+                                prestamo.IdPrestamo = reader["IdPrestamo"].ToString();
+                                prestamo.IdPrestamoPadre = reader["IdPrestamoPadre"].ToString();
+                                prestamo.IdCliente = reader["IdCliente"].ToString();
+                                prestamo.IdPrenda = reader["IdPrenda"].ToString();
+                                prestamo.Contrato = reader["Contrato"].ToString();
+                                prestamo.NombreCliente = reader["NombreCompleto"].ToString();
+                                prestamo.NombrePrenda = reader["Descripcion"].ToString();
+                                prestamo.CantidadPrestada = reader["CantidadPrestada"].ToString();
+                                prestamo.FechaPrestamo = reader["FechaPrestamo"].ToString();
+                                prestamo.FechaVencimiento = reader["FechaVencimiento"].ToString();
+                                prestamo.Estado = reader["Estado"].ToString();
+                                prestamos.Add(prestamo);
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+
+            }
+
+            return prestamos;
         }
 
         public static String AgregarPrestamo(cPrestamo p)

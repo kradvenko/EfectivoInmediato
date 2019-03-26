@@ -34,6 +34,9 @@ namespace EfectivoInmediato
             dgPrestamos.ItemsSource = prestamos;
             dgClientes.ItemsSource = prestamos;*/
 
+            prestamos = cPrestamo.ObtenerPrestamos();
+            dgPrestamos.ItemsSource = prestamos;
+
             clientes = cCliente.ObtenerClientes();
             dgClientes.ItemsSource = clientes;
 
@@ -71,6 +74,7 @@ namespace EfectivoInmediato
         public void RecargarClientes()
         {
             clientes = cCliente.ObtenerClientes();
+            dgClientes.ItemsSource = null;
             dgClientes.ItemsSource = clientes;
         }
         
@@ -106,6 +110,18 @@ namespace EfectivoInmediato
         {
             NuevoPrestamo prestamo = new NuevoPrestamo();
             prestamo.ShowDialog();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        public void RecargarPrestamos()
+        {
+            prestamos = cPrestamo.ObtenerPrestamos();
+            dgPrestamos.ItemsSource = null;
+            dgPrestamos.ItemsSource = prestamos;
         }
     }
 }

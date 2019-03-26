@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Runtime.InteropServices;
 
 namespace EfectivoInmediato
 {
@@ -25,6 +26,7 @@ namespace EfectivoInmediato
         public cPrenda prenda;
         public cInteres interes;
         public ObservableCollection<cPago> pagos;
+        public String ruta;
 
         public PrePrestamo(cPrenda p, cCliente c)
         {
@@ -97,42 +99,53 @@ namespace EfectivoInmediato
             this.Close();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private async void Button_Click_1Async(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Atención", "¿Desea guardar el préstamo?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            try
             {
-                cPrestamo p = new cPrestamo();
-                p.IdPrestamoPadre = "0";
-                p.IdCliente = cliente.IdCliente;
-                p.IdPrenda = prenda.IdPrenda;
-                p.Contrato = "";
-                p.CantidadPrestada = prenda.Prestamo;
-                p.FechaPrestamo = DateTime.Now.ToString();
-                p.FechaVencimiento = pagos[pagos.Count - 1].FechaPago;
-                p.Estado = "ACTIVO";
-
-                String IdPrestamo = cPrestamo.AgregarPrestamo(p);
-
-                if (IdPrestamo != "0")
+                if (MessageBox.Show("¿Desea guardar el préstamo?", "Atención", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    MessageBox.Show("Se ha ingresado el préstamo.");
-                    this.Close();
+                    cPrestamo p = new cPrestamo();
+                    p.IdPrestamoPadre = "0";
+                    p.IdCliente = cliente.IdCliente;
+                    p.IdPrenda = prenda.IdPrenda;
+                    p.Contrato = "";
+                    p.CantidadPrestada = prenda.Prestamo;
+                    p.FechaPrestamo = DateTime.Now.ToString();
+                    p.FechaVencimiento = pagos[pagos.Count - 1].FechaPago;
+                    p.Estado = "ACTIVO";
+
+                    String IdPrestamo = cPrestamo.AgregarPrestamo(p);
+
+                    if (IdPrestamo != "0")
+                    {
+                        MessageBox.Show("Se ha ingresado el préstamo.");
+                        this.Close();
+                    }
+
+                    p.IdPrestamo = IdPrestamo;
+
+                    await Task.Run(() => CrearBoletaExcel(p));
+
+                    if (MessageBox.Show("Se ha creado la boleta, ¿desea verla?", "Atención", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        System.Diagnostics.Process.Start(ruta);
+                    }
                 }
-
-                p.IdPrestamo = IdPrestamo;
-
-                CrearBoletaExcel(p);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(ruta);
             }
         }
 
         public void CrearBoletaExcel(cPrestamo p)
         {
+            Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
+
             try
             {
                 object m = Type.Missing;
-
-                Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
-
                 Workbook wb = app.Workbooks.Open(
                     @"C:\EfectivoInmediato\Boleta2M.xlsx",
                     m, false, m, m, m, m, m, m, m, m, m, m, m, m);
@@ -235,6 +248,14 @@ namespace EfectivoInmediato
                 success = (bool)r.Replace(
                     @"\cat\",
                     (float.Parse(interes.CalcularCAT()) / 100).ToString(),
+                    XlLookAt.xlPart,
+                    XlSearchOrder.xlByRows,
+                    true, m, m, m);
+
+                //Se escribe la tasa de interes anual.
+                success = (bool)r.Replace(
+                    @"\tan\",
+                    (((float.Parse(interes.Financiamiento) + float.Parse(interes.Administracion)) / 100) * 12).ToString(),
                     XlLookAt.xlPart,
                     XlSearchOrder.xlByRows,
                     true, m, m, m);
@@ -361,8 +382,32 @@ namespace EfectivoInmediato
 
                 //Se escribe el pago mínimo.
                 success = (bool)r.Replace(
-                    @"\pres\",
+                    @"\pagoMin\",
                     interes.PagoMinimo,
+                    XlLookAt.xlPart,
+                    XlSearchOrder.xlByRows,
+                    true, m, m, m);
+
+                //Se escribe la fecha de comecialización.
+                success = (bool)r.Replace(
+                    @"\fecCom\",
+                    DateTime.Parse(pagos[pagos.Count-1].FechaPago).AddDays(int.Parse(interes.ReclamoExtemporaneoDias)),
+                    XlLookAt.xlPart,
+                    XlSearchOrder.xlByRows,
+                    true, m, m, m);
+
+                //Se escribe la fecha de refrendo máximo.
+                success = (bool)r.Replace(
+                    @"\fecRef\",
+                    DateTime.Parse(pagos[pagos.Count - 1].FechaPago).AddDays(int.Parse(interes.DiasDeGracia)),
+                    XlLookAt.xlPart,
+                    XlSearchOrder.xlByRows,
+                    true, m, m, m);
+
+                //Se escribe el tipo de periodo de cobro.
+                success = (bool)r.Replace(
+                    @"\periodo\",
+                    interes.Periodo,
                     XlLookAt.xlPart,
                     XlSearchOrder.xlByRows,
                     true, m, m, m);
@@ -451,12 +496,25 @@ namespace EfectivoInmediato
 
                 wb.SaveAs(@"C:\EfectivoInmediato\Boletas\Boleta_" + p.IdPrestamo);
                 app.Quit();
-                app = null;
+                //app = null;
+
+                Marshal.ReleaseComObject(app);
+
+                ruta = @"C:\EfectivoInmediato\Boletas\Boleta_" + p.IdPrestamo + ".xlsx";
             }
             catch (Exception exc)
             {
-
+                MessageBox.Show(exc.Message);
             }
+            finally
+            {
+                
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

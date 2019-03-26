@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EfectivoInmediato"
         mc:Ignorable="d"
-        Title="Detalles del préstamo" Height="450" Width="900" WindowStartupLocation="CenterScreen">
+        Title="Detalles del préstamo" Height="450" Width="900" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <DockPanel>
         <Grid DockPanel.Dock="Top" MinHeight="55">
             <Grid.ColumnDefinitions>
@@ -74,7 +74,7 @@
             <!--Séptimo Renglón-->
             <!--Octavo Renglón-->
             <!--Noveno Renglón-->
-            <Button Grid.Column="7" Grid.Row="8" Content="Guardar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Button_Click_1"/>
+            <Button Grid.Column="7" Grid.Row="8" Content="Guardar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Button_Click_1Async"/>
             <Button Grid.Column="8" Grid.Row="8" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Button_Click"/>
         </Grid>
     </DockPanel>
