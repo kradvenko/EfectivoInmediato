@@ -44,7 +44,7 @@ namespace EfectivoInmediato
                 using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
                 {
                     using (SqlCommand myCMD = new SqlCommand(" " +
-                        "SELECT Clientes.*, (NombreCliente + ' ' + ApellidoMaternoCliente + ' ' + ApellidoMaternoCliente) As NombreCompleto " +
+                        "SELECT Clientes.*, (NombreCliente + ' ' + ApellidoPaternoCliente + ' ' + ApellidoMaternoCliente) As NombreCompleto " +
                         "FROM Clientes " +
                         "ORDER BY ApellidoPaternoCliente, ApellidoMaternoCliente " +
                         "", con))

@@ -22,13 +22,14 @@ namespace EfectivoInmediato
     /// </summary>
     public partial class PrePrestamo : System.Windows.Window
     {
+        public NuevoPrestamo parent;
         public cCliente cliente;
         public cPrenda prenda;
         public cInteres interes;
         public ObservableCollection<cPago> pagos;
         public String ruta;
 
-        public PrePrestamo(cPrenda p, cCliente c)
+        public PrePrestamo(cPrenda p, cCliente c, NuevoPrestamo pa)
         {
             InitializeComponent();
             prenda = p;
@@ -37,6 +38,7 @@ namespace EfectivoInmediato
             cliente = c;
             tbNombreCliente.Text = c.NombreCompleto;
             tbTotalPrestamo.Text = "$ " + prenda.Prestamo;
+            parent = pa;
         }
 
         public void CargarIntereses()
@@ -131,11 +133,14 @@ namespace EfectivoInmediato
                     {
                         System.Diagnostics.Process.Start(ruta);
                     }
+
+                    parent.LimpiarCampos();
+                    this.Close();
                 }
             }
             catch (Exception exc)
             {
-                MessageBox.Show(ruta);
+                MessageBox.Show(exc.Message);
             }
         }
 
@@ -263,7 +268,7 @@ namespace EfectivoInmediato
                 //Se escribe la cantidad para desempeñar.
                 success = (bool)r.Replace(
                     @"\desemp\",
-                    pagos[pagos.Count-1].Importe,
+                    pagos[pagos.Count - 1].TotalDesempeno,
                     XlLookAt.xlPart,
                     XlSearchOrder.xlByRows,
                     true, m, m, m);
@@ -352,6 +357,38 @@ namespace EfectivoInmediato
                 success = (bool)r.Replace(
                     @"\ava1\",
                     prenda.Avaluo,
+                    XlLookAt.xlPart,
+                    XlSearchOrder.xlByRows,
+                    true, m, m, m);
+
+                //Se escribe la pureza del metal.
+                success = (bool)r.Replace(
+                    @"\pureza1\",
+                    prenda.Pureza,
+                    XlLookAt.xlPart,
+                    XlSearchOrder.xlByRows,
+                    true, m, m, m);
+
+                //Se escribe el peso del metal.
+                success = (bool)r.Replace(
+                    @"\peso1\",
+                    prenda.PesoMetal,
+                    XlLookAt.xlPart,
+                    XlSearchOrder.xlByRows,
+                    true, m, m, m);
+
+                //Se escribe el color de la piedra.
+                success = (bool)r.Replace(
+                    @"\color1\",
+                    prenda.ColorPiedra,
+                    XlLookAt.xlPart,
+                    XlSearchOrder.xlByRows,
+                    true, m, m, m);
+
+                //Se escribe la claridad de la piedra.
+                success = (bool)r.Replace(
+                    @"\claridad1\",
+                    prenda.ClaridadOPureza,
                     XlLookAt.xlPart,
                     XlSearchOrder.xlByRows,
                     true, m, m, m);

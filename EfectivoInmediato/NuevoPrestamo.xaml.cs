@@ -20,12 +20,13 @@ namespace EfectivoInmediato
     /// </summary>
     public partial class NuevoPrestamo : Window
     {
+        MainWindow parent;
         ObservableCollection<cDepartamento> departamentos;
         ObservableCollection<cCliente> clientes;
         ObservableCollection<String> tipoPrendas;
         ObservableCollection<cPrenda> prendas;
 
-        public NuevoPrestamo()
+        public NuevoPrestamo(MainWindow p)
         {
             InitializeComponent();
 
@@ -50,6 +51,7 @@ namespace EfectivoInmediato
             prendas = new ObservableCollection<cPrenda>();
             dgPrendas.ItemsSource = prendas;
 
+            parent = p;
         }
 
         public void RecargarClientes(String IdCliente)
@@ -126,9 +128,21 @@ namespace EfectivoInmediato
 
             foreach (cPrenda prenda in prendas)
             {
-                PrePrestamo pre = new PrePrestamo(prenda, (cCliente)cbClientes.SelectedItem);
+                PrePrestamo pre = new PrePrestamo(prenda, (cCliente)cbClientes.SelectedItem, this);
                 pre.ShowDialog();
             }
+        }
+
+        public void LimpiarCampos()
+        {
+            cbClientes.SelectedIndex = -1;
+            cbTipoPrendas.SelectedIndex = 0;
+            cbDepartamento.SelectedIndex = 0;
+            prendas = new ObservableCollection<cPrenda>();
+            dgPrendas.ItemsSource = null;
+            dgPrendas.ItemsSource = prendas;
+            parent.RecargarPrestamos();
+            parent.RecargarClientes();
         }
     }
 }

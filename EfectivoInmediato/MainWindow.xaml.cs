@@ -108,7 +108,7 @@ namespace EfectivoInmediato
 
         private void NuevoPrestamo(object sender, RoutedEventArgs e)
         {
-            NuevoPrestamo prestamo = new NuevoPrestamo();
+            NuevoPrestamo prestamo = new NuevoPrestamo(this);
             prestamo.ShowDialog();
         }
 
