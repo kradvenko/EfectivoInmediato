@@ -28,22 +28,27 @@ namespace EfectivoInmediato
         public cInteres interes;
         public ObservableCollection<cPago> pagos;
         public String ruta;
+        public cContrato contrato;
 
-        public PrePrestamo(cPrenda p, cCliente c, NuevoPrestamo pa)
+        public PrePrestamo(cPrenda p, cCliente c, NuevoPrestamo pa, cContrato con)
         {
             InitializeComponent();
             prenda = p;
             pagos = new ObservableCollection<cPago>();
-            CargarIntereses();
+            dtpFechaPrestamo.SelectedDate = DateTime.Now;
+            //CargarIntereses();
             cliente = c;
             tbNombreCliente.Text = c.NombreCompleto;
             tbTotalPrestamo.Text = "$ " + prenda.Prestamo;
             parent = pa;
+            contrato = con;
         }
 
         public void CargarIntereses()
         {
             interes = cInteres.ObtenerInteresDepartamento(prenda.IdDepartamento);
+            pagos = null;
+            pagos = new ObservableCollection<cPago>();
 
             for (int i = 1; i <= int.Parse(interes.Plazo) + 1; i++)
             {
@@ -60,7 +65,8 @@ namespace EfectivoInmediato
                         p.IVA = (((float.Parse(p.Intereses) + float.Parse(p.Almacenaje)) * (float.Parse(interes.IVA) / 100)).ToString());
                         p.TotalDesempeno = (float.Parse(p.Importe) + float.Parse(p.Intereses) + float.Parse(p.Almacenaje) + float.Parse(p.IVA)).ToString();
                         p.TotalRefrendo = (float.Parse(p.Intereses) + float.Parse(p.Almacenaje) + float.Parse(p.IVA)).ToString();
-                        p.FechaPago = DateTime.Now.AddDays(int.Parse(interes.ReclamoAnticipadoDias)).ToShortDateString();
+                        //p.FechaPago = DateTime.Now.AddDays(int.Parse(interes.ReclamoAnticipadoDias)).ToShortDateString();
+                        p.FechaPago = dtpFechaPrestamo.SelectedDate.Value.AddDays(int.Parse(interes.ReclamoAnticipadoDias)).ToShortDateString();
                     }
                     else if (interes.ReclamoAnticipadoMetodo == "Monto Fijo")
                     {
@@ -82,7 +88,8 @@ namespace EfectivoInmediato
                         p.IVA = (((float.Parse(p.Intereses) + float.Parse(p.Almacenaje)) * (float.Parse(interes.IVA) / 100)).ToString());
                         p.TotalDesempeno = (float.Parse(p.Importe) + float.Parse(p.Intereses) + float.Parse(p.Almacenaje) + float.Parse(p.IVA)).ToString();
                         p.TotalRefrendo = (float.Parse(p.Intereses) + float.Parse(p.Almacenaje) + float.Parse(p.IVA)).ToString();
-                        p.FechaPago = DateTime.Now.AddDays(30 * r).ToShortDateString();
+                        //p.FechaPago = DateTime.Now.AddDays(30 * r).ToShortDateString();
+                        p.FechaPago = dtpFechaPrestamo.SelectedDate.Value.AddDays(30 * r).ToShortDateString();
                     }
                     else if (interes.ReclamoAnticipadoMetodo == "Monto Fijo")
                     {
@@ -111,9 +118,11 @@ namespace EfectivoInmediato
                     p.IdPrestamoPadre = "0";
                     p.IdCliente = cliente.IdCliente;
                     p.IdPrenda = prenda.IdPrenda;
-                    p.Contrato = "";
+                    p.Contrato = contrato.NumeroContrato;
                     p.CantidadPrestada = prenda.Prestamo;
-                    p.FechaPrestamo = DateTime.Now.ToString();
+                    //p.FechaPrestamo = DateTime.Now.ToString();
+                    p.FechaPrestamo = dtpFechaPrestamo.SelectedDate.Value.ToShortDateString();
+                    p.CantidadPrestada = prenda.Prestamo;
                     p.FechaVencimiento = pagos[pagos.Count - 1].FechaPago;
                     p.Estado = "ACTIVO";
 
@@ -188,7 +197,7 @@ namespace EfectivoInmediato
                 //Se escribe el número de contrato.
                 success = (bool)r.Replace(
                     @"\contrato\",
-                    p.IdPrestamo,
+                    p.Contrato,
                     XlLookAt.xlPart,
                     XlSearchOrder.xlByRows,
                     true, m, m, m);
@@ -428,7 +437,7 @@ namespace EfectivoInmediato
                 //Se escribe la fecha de comecialización.
                 success = (bool)r.Replace(
                     @"\fecCom\",
-                    DateTime.Parse(pagos[pagos.Count-1].FechaPago).AddDays(int.Parse(interes.ReclamoExtemporaneoDias)),
+                    DateTime.Parse(pagos[pagos.Count-1].FechaPago).AddDays(int.Parse(interes.ReclamoExtemporaneoDias)).ToShortDateString(),
                     XlLookAt.xlPart,
                     XlSearchOrder.xlByRows,
                     true, m, m, m);
@@ -436,7 +445,7 @@ namespace EfectivoInmediato
                 //Se escribe la fecha de refrendo máximo.
                 success = (bool)r.Replace(
                     @"\fecRef\",
-                    DateTime.Parse(pagos[pagos.Count - 1].FechaPago).AddDays(int.Parse(interes.DiasDeGracia)),
+                    DateTime.Parse(pagos[pagos.Count - 1].FechaPago).AddDays(int.Parse(interes.DiasDeGracia)).ToShortDateString(),
                     XlLookAt.xlPart,
                     XlSearchOrder.xlByRows,
                     true, m, m, m);
@@ -508,7 +517,7 @@ namespace EfectivoInmediato
                 // Se escribe el día.
                 success = (bool)r.Replace(
                     @"\dia\",
-                    DateTime.Today.Day.ToString(),
+                    p.FechaPrestamo.Substring(0, 2),
                     XlLookAt.xlPart,
                     XlSearchOrder.xlByRows,
                     true, m, m, m);
@@ -516,7 +525,7 @@ namespace EfectivoInmediato
                 // Se escribe el mes.
                 success = (bool)r.Replace(
                     @"\mes\",
-                    DateTime.Today.ToString(),
+                    p.FechaPrestamo.Substring(3, 2),
                     XlLookAt.xlPart,
                     XlSearchOrder.xlByRows,
                     true, m, m, m);
@@ -524,7 +533,7 @@ namespace EfectivoInmediato
                 // Se escribe el año.
                 success = (bool)r.Replace(
                     @"\año\",
-                    DateTime.Today.Year.ToString(),
+                    p.FechaPrestamo.Substring(6, 4),
                     XlLookAt.xlPart,
                     XlSearchOrder.xlByRows,
                     true, m, m, m);
@@ -552,6 +561,11 @@ namespace EfectivoInmediato
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             
+        }
+
+        private void DtpFechaPrestamo_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CargarIntereses();
         }
     }
 }

@@ -23,6 +23,7 @@ namespace EfectivoInmediato
         public String FechaPrestamo { get; set; }
         public String FechaVencimiento { get; set; }
         public String Estado { get; set; }
+        public String FechaCaptura { get; set; }
 
         public cPrestamo()
         {
@@ -69,6 +70,7 @@ namespace EfectivoInmediato
                                 prestamo.FechaPrestamo = reader["FechaPrestamo"].ToString();
                                 prestamo.FechaVencimiento = reader["FechaVencimiento"].ToString();
                                 prestamo.Estado = reader["Estado"].ToString();
+                                prestamo.FechaCaptura = reader["FechaCaptura"].ToString();
                                 prestamos.Add(prestamo);
                             }
                         }
@@ -93,9 +95,9 @@ namespace EfectivoInmediato
                 using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
                 {
                     using (SqlCommand myCMD = new SqlCommand(" " +
-                        "INSERT INTO Prestamos (IdPrestamoPadre, IdCliente, IdPrenda, Contrato, CantidadPrestada, FechaPrestamo, FechaVencimiento, Estado) " +
+                        "INSERT INTO Prestamos (IdPrestamoPadre, IdCliente, IdPrenda, Contrato, CantidadPrestada, FechaPrestamo, FechaVencimiento, Estado, FechaCaptura) " +
                         "OUTPUT INSERTED.IdPrestamo " +
-                        "VALUES (@IdPrestamoPadre, @IdCliente, @IdPrenda, @Contrato, @CantidadPrestada, @FechaPrestamo, @FechaVencimiento, @Estado)" +
+                        "VALUES (@IdPrestamoPadre, @IdCliente, @IdPrenda, @Contrato, @CantidadPrestada, @FechaPrestamo, @FechaVencimiento, @Estado, GETDATE())" +
                         "", con))
                     {
                         con.Open();

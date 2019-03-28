@@ -25,6 +25,7 @@ namespace EfectivoInmediato
         ObservableCollection<cCliente> clientes;
         ObservableCollection<String> tipoPrendas;
         ObservableCollection<cPrenda> prendas;
+        cContrato contrato;
 
         public NuevoPrestamo(MainWindow p)
         {
@@ -52,6 +53,10 @@ namespace EfectivoInmediato
             dgPrendas.ItemsSource = prendas;
 
             parent = p;
+
+            contrato = new cContrato();
+            contrato = cContrato.ObtenerContrato();
+            tbNumeroContrato.Text = contrato.NumeroContrato;
         }
 
         public void RecargarClientes(String IdCliente)
@@ -128,7 +133,7 @@ namespace EfectivoInmediato
 
             foreach (cPrenda prenda in prendas)
             {
-                PrePrestamo pre = new PrePrestamo(prenda, (cCliente)cbClientes.SelectedItem, this);
+                PrePrestamo pre = new PrePrestamo(prenda, (cCliente)cbClientes.SelectedItem, this, contrato);
                 pre.ShowDialog();
             }
         }
@@ -143,6 +148,13 @@ namespace EfectivoInmediato
             dgPrendas.ItemsSource = prendas;
             parent.RecargarPrestamos();
             parent.RecargarClientes();
+
+            int c = int.Parse(tbNumeroContrato.Text);
+            c++;
+            cContrato.ActualizarNumeroContrato(c.ToString());
+            contrato = new cContrato();
+            contrato = cContrato.ObtenerContrato();
+            tbNumeroContrato.Text = contrato.NumeroContrato;
         }
     }
 }

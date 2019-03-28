@@ -27,7 +27,7 @@
     <UpdateUrl>http://efectivoinmediato.cardinelli.net/</UpdateUrl>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>13</ApplicationRevision>
+    <ApplicationRevision>18</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -97,7 +97,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="cCategoria.cs" />
+    <Compile Include="cContrato.cs" />
     <Compile Include="cMarcaVehiculo.cs" />
+    <Compile Include="Contrato.xaml.cs">
+      <DependentUpon>Contrato.xaml</DependentUpon>
+    </Compile>
     <Compile Include="cPago.cs" />
     <Compile Include="cTipoVehiculo.cs" />
     <Compile Include="NuevaCategoriaArticulo.xaml.cs">
@@ -110,6 +114,10 @@
       <DependentUpon>PrePrestamo.xaml</DependentUpon>
     </Compile>
     <Page Include="Configuracion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Contrato.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

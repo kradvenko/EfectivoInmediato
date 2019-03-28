@@ -29,5 +29,11 @@ namespace EfectivoInmediato
             Intereses intereses = new Intereses();
             intereses.ShowDialog();
         }
+
+        private void VerContrato(object sender, RoutedEventArgs e)
+        {
+            Contrato contratos = new Contrato();
+            contratos.ShowDialog();
+        }
     }
 }

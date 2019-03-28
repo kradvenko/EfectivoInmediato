@@ -51,7 +51,9 @@
             <TextBlock x:Name="tbTotalPrestamo" Grid.Column="6" Grid.Row="0" Grid.ColumnSpan="2" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0"></TextBlock>
 
             <!--Segundo Renglón-->
-            
+            <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Fecha</TextBlock>
+            <DatePicker x:Name="dtpFechaPrestamo" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" SelectedDateChanged="DtpFechaPrestamo_SelectedDateChanged"/>
+
             <!--Tercer Renglón-->
             <DataGrid x:Name="dgPagos" AutoGenerateColumns="False" Grid.ColumnSpan="9" Grid.Column="0" HorizontalAlignment="Stretch" Height="Auto" Margin="10,5,10,0" Grid.Row="2" Grid.RowSpan="4" VerticalAlignment="Stretch" Width="Auto" ColumnHeaderStyle="{StaticResource WrappedColumnHeaderStyle}" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                 <DataGrid.Columns>
@@ -66,7 +68,7 @@
                 </DataGrid.Columns>
             </DataGrid>
             <!--Cuarto Renglón-->
-            
+
             <!--Quinto Renglón-->
 
             <!--Sexto Renglón-->
@@ -74,7 +76,7 @@
             <!--Séptimo Renglón-->
             <!--Octavo Renglón-->
             <!--Noveno Renglón-->
-            <Button Grid.Column="7" Grid.Row="8" Content="Guardar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Button_Click_1Async"/>
+            <Button Grid.Column="7" Grid.Row="8" Content="Guardar" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="90" Click="Button_Click_1Async" Margin="5,0,5,6"/>
             <Button Grid.Column="8" Grid.Row="8" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Button_Click"/>
         </Grid>
     </DockPanel>

@@ -91,7 +91,8 @@
             <Button Grid.Column="5" Grid.Row="1" Content="Agregar Prenda" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="150" Click="AgregarPrenda" />
             <Button Grid.Column="6" Grid.Row="1" Content="Eliminar Prenda" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="150" />
             <!--Tercer Renglón-->
-            
+            <TextBlock Grid.Column="0" Grid.Row="2" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">No. Contrato</TextBlock>
+            <TextBox x:Name="tbNumeroContrato" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <!--Cuarto Renglón-->
             <!--Quinto Renglón-->
             
