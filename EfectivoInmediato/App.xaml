@@ -4,6 +4,9 @@
              xmlns:local="clr-namespace:EfectivoInmediato"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="CharacterCasing" Value="Upper" />
+        </Style>
         <!--Estilo para textbox-->
         <Style x:Key="TextBoxStyle" TargetType="TextBox">
             <Setter Property="MaxHeight" Value="25"></Setter>

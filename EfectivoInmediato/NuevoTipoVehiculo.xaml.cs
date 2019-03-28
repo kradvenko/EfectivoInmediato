@@ -52,5 +52,10 @@ namespace EfectivoInmediato
         {
             this.Close();
         }
+
+        private void TbTipoVehiculo_KeyUp(object sender, KeyEventArgs e)
+        {
+
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace EfectivoInmediato
         public String IdPrenda { get; set; }
         public String IdDepartamento { get; set; }
         public String IdCliente { get; set; }
+        public String IdCategoriaArticulo { get; set; }
         public String TipoPrenda { get; set; }
         public String Descripcion { get; set; }
         //Variables para tipo de prenda "Articulos"
@@ -54,7 +55,7 @@ namespace EfectivoInmediato
 
         }
 
-        public static String GuardarPrenda(String IdDepartamento, String IdCliente, String TipoPrenda, String Descripcion, String Marca, String Modelo, String Serie, String IdTipoMetal, String PesoMetal, String Pureza, String ObservacionesMetal, String IdTipoPiedra, String ColorPiedra, String ClaridadOPureza, String CorteOTalla, String PesoPiedra, String ObservacionesPiedra, String IdTipoVehiculo, String IdMarcaVehiculo, String ModeloVehiculo, String AnioVehiculo, String Kilometraje, String NumeroSerieVehiculo, String Placas, String ColorVehiculo, String UbicacionAlmacen, String Observaciones, String Avaluo, String Prestamo)
+        public static String GuardarPrenda(String IdDepartamento, String IdCliente, String IdCategoriaArticulo, String TipoPrenda, String Descripcion, String Marca, String Modelo, String Serie, String IdTipoMetal, String PesoMetal, String Pureza, String ObservacionesMetal, String IdTipoPiedra, String ColorPiedra, String ClaridadOPureza, String CorteOTalla, String PesoPiedra, String ObservacionesPiedra, String IdTipoVehiculo, String IdMarcaVehiculo, String ModeloVehiculo, String AnioVehiculo, String Kilometraje, String NumeroSerieVehiculo, String Placas, String ColorVehiculo, String UbicacionAlmacen, String Observaciones, String Avaluo, String Prestamo)
         {
             String resultado = "0";
 
@@ -63,15 +64,16 @@ namespace EfectivoInmediato
                 using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
                 {
                     using (SqlCommand myCMD = new SqlCommand(" " +
-                        "INSERT INTO Prendas (IdDepartamento, IdCliente, TipoPrenda, Descripcion, Marca, Modelo, Serie, IdTipoMetal, PesoMetal, Pureza, ObservacionesMetal, IdTipoPiedra, ColorPiedra, ClaridadOPureza, CorteOTalla, PesoPiedra, ObservacionesPiedra, IdTipoVehiculo, IdMarcaVehiculo, ModeloVehiculo, AnioVehiculo, Kilometraje, NumeroSerieVehiculo, Placas, ColorVehiculo, UbicacionAlmacen, Observaciones, Avaluo, Prestamo) " +
+                        "INSERT INTO Prendas (IdDepartamento, IdCliente, IdCategoriaArticulo, TipoPrenda, Descripcion, Marca, Modelo, Serie, IdTipoMetal, PesoMetal, Pureza, ObservacionesMetal, IdTipoPiedra, ColorPiedra, ClaridadOPureza, CorteOTalla, PesoPiedra, ObservacionesPiedra, IdTipoVehiculo, IdMarcaVehiculo, ModeloVehiculo, AnioVehiculo, Kilometraje, NumeroSerieVehiculo, Placas, ColorVehiculo, UbicacionAlmacen, Observaciones, Avaluo, Prestamo) " +
                         "OUTPUT INSERTED.IdPrenda " +
-                        "VALUES (@IdDepartamento, @IdCliente, @TipoPrenda, @Descripcion, @Marca, @Modelo, @Serie, @IdTipoMetal, @PesoMetal, @Pureza, @ObservacionesMetal, @IdTipoPiedra, @ColorPiedra, @ClaridadOPureza, @CorteOTalla, @PesoPiedra, @ObservacionesPiedra, @IdTipoVehiculo, @IdMarcaVehiculo, @ModeloVehiculo, @AnioVehiculo, @Kilometraje, @NumeroSerieVehiculo, @Placas, @ColorVehiculo, @UbicacionAlmacen, @Observaciones, @Avaluo, @Prestamo)" +
+                        "VALUES (@IdDepartamento, @IdCliente, @IdCategoriaArticulo, @TipoPrenda, @Descripcion, @Marca, @Modelo, @Serie, @IdTipoMetal, @PesoMetal, @Pureza, @ObservacionesMetal, @IdTipoPiedra, @ColorPiedra, @ClaridadOPureza, @CorteOTalla, @PesoPiedra, @ObservacionesPiedra, @IdTipoVehiculo, @IdMarcaVehiculo, @ModeloVehiculo, @AnioVehiculo, @Kilometraje, @NumeroSerieVehiculo, @Placas, @ColorVehiculo, @UbicacionAlmacen, @Observaciones, @Avaluo, @Prestamo)" +
                         "", con))
                     {
                         con.Open();
 
                         myCMD.Parameters.AddWithValue("@IdDepartamento", IdDepartamento);
                         myCMD.Parameters.AddWithValue("@IdCliente", IdCliente);
+                        myCMD.Parameters.AddWithValue("@IdCategoriaArticulo", IdCategoriaArticulo);
                         myCMD.Parameters.AddWithValue("@TipoPrenda", TipoPrenda);
                         myCMD.Parameters.AddWithValue("@Descripcion", Descripcion);
                         myCMD.Parameters.AddWithValue("@Marca", Marca);
@@ -141,6 +143,7 @@ namespace EfectivoInmediato
                                 prenda.IdPrenda = r["IdPrenda"].ToString();
                                 prenda.IdDepartamento = r["IdDepartamento"].ToString();
                                 prenda.IdCliente = r["IdCliente"].ToString();
+                                prenda.IdCategoriaArticulo = r["IdCategoriaArticulo"].ToString();
                                 prenda.TipoPrenda = r["TipoPrenda"].ToString();
                                 prenda.Descripcion = r["Descripcion"].ToString();
                                 prenda.Marca = r["Marca"].ToString();

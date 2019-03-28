@@ -14,6 +14,8 @@ namespace EfectivoInmediato
         public String IdPrestamoPadre { get; set; }
         public String IdCliente { get; set; }
         public String IdPrenda { get; set; }
+        public String TipoPrenda { get; set; }
+        public String DescripcionPrenda { get; set; }
         public String Contrato { get; set; }
         public String NombreCliente { get; set; }
         public String NombrePrenda { get; set; }
@@ -37,8 +39,8 @@ namespace EfectivoInmediato
                 using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
                 {
                     using (SqlCommand myCMD = new SqlCommand(" " +
-                        "SELECT Prestamos.*, (Clientes.NombreCliente + ' ' + Clientes.ApellidoMaternoCliente + ' ' + Clientes.ApellidoMaternoCliente) As NombreCompleto," +
-                        "Prendas.Descripcion " +
+                        "SELECT Prestamos.*, (Clientes.NombreCliente + ' ' + Clientes.ApellidoPaternoCliente + ' ' + Clientes.ApellidoMaternoCliente) As NombreCompleto," +
+                        "Prendas.Descripcion, Prendas.TipoPrenda " +
                         "FROM Prestamos " +
                         "INNER JOIN Clientes " +
                         "ON Clientes.IdCliente = Prestamos.IdCliente " +
@@ -58,6 +60,8 @@ namespace EfectivoInmediato
                                 prestamo.IdPrestamoPadre = reader["IdPrestamoPadre"].ToString();
                                 prestamo.IdCliente = reader["IdCliente"].ToString();
                                 prestamo.IdPrenda = reader["IdPrenda"].ToString();
+                                prestamo.DescripcionPrenda = reader["Descripcion"].ToString();
+                                prestamo.TipoPrenda = reader["TipoPrenda"].ToString();
                                 prestamo.Contrato = reader["Contrato"].ToString();
                                 prestamo.NombreCliente = reader["NombreCompleto"].ToString();
                                 prestamo.NombrePrenda = reader["Descripcion"].ToString();

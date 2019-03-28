@@ -115,7 +115,7 @@ namespace EfectivoInmediato
                 return;
             }
 
-            String idPrenda = cPrenda.GuardarPrenda("0", IdCliente, "VEHICULO", cbTipo.Text + " - " + cbMarca.Text + " " + tbModelo.Text , "-", "-", "-", "0", "-", "-", "-", "0", "-", "-", "-", "-", "-", cbTipo.SelectedValue.ToString(), cbMarca.SelectedValue.ToString(), tbModelo.Text, tbAnio.Text, tbKilometraje.Text, tbNumeroSerie.Text, tbPlacas.Text, tbColor.Text, tbUbicacionAlmacen.Text, tbObservaciones.Text, tbAvaluo.Text, tbPrestamo.Text);
+            String idPrenda = cPrenda.GuardarPrenda("0", IdCliente, "0", "VEHICULO", cbTipo.Text + " - " + cbMarca.Text + " " + tbModelo.Text , "-", "-", "-", "0", "-", "-", "-", "0", "-", "-", "-", "-", "-", cbTipo.SelectedValue.ToString(), cbMarca.SelectedValue.ToString(), tbModelo.Text, tbAnio.Text, tbKilometraje.Text, tbNumeroSerie.Text, tbPlacas.Text, tbColor.Text, tbUbicacionAlmacen.Text, tbObservaciones.Text, tbAvaluo.Text, tbPrestamo.Text);
             cPrenda p = cPrenda.ObtenerPrendaId(idPrenda);
             parent.AgregarPrenda(p);
             this.Close();

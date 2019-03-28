@@ -21,6 +21,7 @@ namespace EfectivoInmediato
     public partial class NuevoArticulo : Window
     {
         ObservableCollection<cDepartamento> departamentos;
+        ObservableCollection<cCategoria> categorias;
 
         NuevoPrestamo parent;
         String IdCliente;
@@ -35,6 +36,12 @@ namespace EfectivoInmediato
             cbDepartamento.SelectedValuePath = "IdDepartamento";
             cbDepartamento.SelectedIndex = 0;
 
+            categorias = cCategoria.ObtenerCategorias();
+            cbCategorias.ItemsSource = categorias;
+            cbCategorias.DisplayMemberPath = "Categoria";
+            cbCategorias.SelectedValuePath = "IdCategoria";
+            cbCategorias.SelectedIndex = 0;
+
             parent = p;
 
             IdCliente = id;
@@ -43,6 +50,14 @@ namespace EfectivoInmediato
         private void Cerrar(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        public void ActualizarCategorias(cCategoria c)
+        {
+            categorias = cCategoria.ObtenerCategorias();
+            cbCategorias.ItemsSource = null;
+            cbCategorias.ItemsSource = categorias;
+            cbCategorias.SelectedItem = c;
         }
 
         private void Guardar(object sender, RoutedEventArgs e)
@@ -84,11 +99,23 @@ namespace EfectivoInmediato
                 tbPrestamo.Focus();
                 return;
             }
+            if (cbCategorias.SelectedIndex < 0)
+            {
+                MessageBox.Show("No ha elegido una categoría.");
+                cbCategorias.Focus();
+                return;
+            }
 
-            String idPrenda = cPrenda.GuardarPrenda(cbDepartamento.SelectedValue.ToString(), IdCliente, "ARTICULO", tbDescripcion.Text, tbMarca.Text, tbModelo.Text, tbSerie.Text, "0", "0", "0", "0", "0", "-", "-", "-", "0", "-", "0", "0", "-", "0", "0", "-", "-", "-", tbUbicacionAlmacen.Text, tbObservaciones.Text, tbAvaluo.Text, tbPrestamo.Text);
+            String idPrenda = cPrenda.GuardarPrenda(cbDepartamento.SelectedValue.ToString(), IdCliente, ((cCategoria)cbCategorias.SelectedItem).IdCategoria, "ARTICULO", tbDescripcion.Text, tbMarca.Text, tbModelo.Text, tbSerie.Text, "0", "0", "0", "0", "0", "-", "-", "-", "0", "-", "0", "0", "-", "0", "0", "-", "-", "-", tbUbicacionAlmacen.Text, tbObservaciones.Text, tbAvaluo.Text, tbPrestamo.Text);
             cPrenda p = cPrenda.ObtenerPrendaId(idPrenda);
             parent.AgregarPrenda(p);
             this.Close();
+        }
+
+        private void AgregarCategoria(object sender, RoutedEventArgs e)
+        {
+            NuevaCategoriaArticulo categoria = new NuevaCategoriaArticulo(this);
+            categoria.ShowDialog();
         }
     }
 }

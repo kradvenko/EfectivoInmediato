@@ -96,9 +96,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="cCategoria.cs" />
     <Compile Include="cMarcaVehiculo.cs" />
     <Compile Include="cPago.cs" />
     <Compile Include="cTipoVehiculo.cs" />
+    <Compile Include="NuevaCategoriaArticulo.xaml.cs">
+      <DependentUpon>NuevaCategoriaArticulo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NuevoTipoVehiculo.xaml.cs">
       <DependentUpon>NuevoTipoVehiculo.xaml</DependentUpon>
     </Compile>
@@ -136,6 +140,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NuevaCategoriaArticulo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="NuevaJoya.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
