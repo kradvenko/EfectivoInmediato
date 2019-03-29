@@ -79,6 +79,7 @@ namespace EfectivoInmediato
                 {
                     using (SqlCommand myCMD = new SqlCommand(" " +
                         "INSERT INTO Refrendos (IdPrestamo, Refrendo, FechaRefrendo, FechaCaptura, Tipo) " +
+                        "OUTPUT INSERTED.IdRefrendo " +
                         "VALUES (@IdPrestamo, @Refrendo, @FechaRefrendo, GETDATE(), @Tipo) " +
                         "", con))
                     {
@@ -89,7 +90,7 @@ namespace EfectivoInmediato
                         myCMD.Parameters.AddWithValue("@FechaRefrendo", c.FechaRefrendo);
                         myCMD.Parameters.AddWithValue("@Tipo", c.Tipo);
 
-                        myCMD.ExecuteNonQuery();
+                        resultado = myCMD.ExecuteScalar().ToString();
                         
                         con.Close();
                     }
@@ -97,7 +98,7 @@ namespace EfectivoInmediato
             }
             catch (Exception exc)
             {
-                resultado = exc.Message;
+                resultado = "0";
             }
 
             return resultado;

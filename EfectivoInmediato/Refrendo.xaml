@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EfectivoInmediato"
         mc:Ignorable="d"
-        Title="Refrendo" Height="650" Width="900" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+        Title="Refrendo" Height="650" Width="900" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Unloaded="Window_Unloaded">
     <DockPanel>
         <Grid DockPanel.Dock="Top" MinHeight="55">
             <Grid.ColumnDefinitions>
@@ -81,7 +81,7 @@
                 </DataGrid.Columns>
             </DataGrid>
             <TextBox x:Name="tbRefrendo" Grid.Column="4" Grid.Row="6" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
-            <Button Grid.Column="5" Grid.Row="6" Content="Refrendar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="AgregarRefrendo"/>
+            <Button Grid.Column="5" Grid.Row="6" Content="Refrendar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="AgregarRefrendoAsync"/>
             <TextBlock Grid.Column="4" Grid.Row="7" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Refrendo mínimo</TextBlock>
             <Button x:Name="btRefrendoMinimo" Grid.Column="5" Grid.Row="7" Content="-" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="RefrendoMinimo"/>
             <TextBlock Grid.Column="4" Grid.Row="8" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Para liquidar</TextBlock>
