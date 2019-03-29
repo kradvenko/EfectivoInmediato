@@ -30,7 +30,7 @@ namespace EfectivoInmediato
 
         }
 
-        public static ObservableCollection<cPrestamo> ObtenerPrestamos()
+        public static ObservableCollection<cPrestamo> ObtenerPrestamos(String Estado)
         {
             ObservableCollection<cPrestamo> prestamos = new ObservableCollection<cPrestamo>();
             cPrestamo prestamo;
@@ -47,9 +47,12 @@ namespace EfectivoInmediato
                         "ON Clientes.IdCliente = Prestamos.IdCliente " +
                         "INNER JOIN Prendas " +
                         "ON Prendas.IdPrenda = Prestamos.IdPrenda " +
+                        "WHERE Prestamos.Estado Like @Estado" +
                         "", con))
                     {
                         con.Open();
+
+                        myCMD.Parameters.AddWithValue("@Estado", Estado);
 
                         SqlDataReader reader = myCMD.ExecuteReader();
                         if (reader.HasRows)
@@ -120,6 +123,37 @@ namespace EfectivoInmediato
             catch (Exception exc)
             {
                 respuesta = "0";
+            }
+
+            return respuesta;
+        }
+
+        public static String FinalizarPrestamo(String IdPrestamo)
+        {
+            String respuesta = "OK";
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
+                {
+                    using (SqlCommand myCMD = new SqlCommand(" " +
+                        "UPDATE Prestamos SET Estado = 'LIQUIDADO' " +
+                        "WHERE IdPrestamo = @IdPrestamo" +
+                        "", con))
+                    {
+                        con.Open();
+
+                        myCMD.Parameters.AddWithValue("@IdPrestamo", IdPrestamo);
+
+                        myCMD.ExecuteNonQuery();
+
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                respuesta = exc.Message;
             }
 
             return respuesta;

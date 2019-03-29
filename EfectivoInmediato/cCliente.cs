@@ -136,5 +136,60 @@ namespace EfectivoInmediato
 
             return resultado;
         }
+
+        public static cCliente ObtenerClienteIdPrestamo(String IdPrestamo)
+        {
+            cCliente cliente = new cCliente();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
+                {
+                    using (SqlCommand myCMD = new SqlCommand(" " +
+                        "SELECT Clientes.*, (NombreCliente + ' ' + ApellidoPaternoCliente + ' ' + ApellidoMaternoCliente) As NombreCompleto " +
+                        "FROM Clientes " +
+                        "INNER JOIN Prestamos " +
+                        "ON Prestamos.IdCliente = Clientes.IdCliente " +
+                        "", con))
+                    {
+                        con.Open();
+
+                        SqlDataReader reader = myCMD.ExecuteReader();
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                cliente = new cCliente();
+                                cliente.IdCliente = reader["IdCliente"].ToString();
+                                cliente.NombreCliente = reader["NombreCliente"].ToString();
+                                cliente.ApellidoPaternoCliente = reader["ApellidoPaternoCliente"].ToString();
+                                cliente.ApellidoMaternoCliente = reader["ApellidoMaternoCliente"].ToString();
+                                cliente.NombreCompleto = reader["NombreCompleto"].ToString();
+                                cliente.TipoIdentificacion = reader["TipoIdentificacion"].ToString();
+                                cliente.ClaveIdentificacion = reader["ClaveIdentificacion"].ToString();
+                                cliente.Domicilio = reader["Domicilio"].ToString();
+                                cliente.Colonia = reader["Colonia"].ToString();
+                                cliente.Ciudad = reader["Ciudad"].ToString();
+                                cliente.Estado = reader["Estado"].ToString();
+                                cliente.Telefono1 = reader["Telefono1"].ToString();
+                                cliente.Telefono2 = reader["Telefono2"].ToString();
+                                cliente.CorreoElectronico = reader["CorreoElectronico"].ToString();
+                                cliente.FechaNacimiento = reader["FechaNacimiento"].ToString();
+                                cliente.Ocupacion = reader["Ocupacion"].ToString();
+                                cliente.NombreCotitular = reader["NombreCotitular"].ToString();
+                                cliente.DomicilioCotitular = reader["DomicilioCotitular"].ToString();                                
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+
+            }
+
+            return cliente;
+        }
     }
 }

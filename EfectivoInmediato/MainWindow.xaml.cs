@@ -34,7 +34,7 @@ namespace EfectivoInmediato
             dgPrestamos.ItemsSource = prestamos;
             dgClientes.ItemsSource = prestamos;*/
 
-            prestamos = cPrestamo.ObtenerPrestamos();
+            prestamos = cPrestamo.ObtenerPrestamos("ACTIVO");
             dgPrestamos.ItemsSource = prestamos;
 
             clientes = cCliente.ObtenerClientes();
@@ -119,9 +119,26 @@ namespace EfectivoInmediato
 
         public void RecargarPrestamos()
         {
-            prestamos = cPrestamo.ObtenerPrestamos();
+            prestamos = cPrestamo.ObtenerPrestamos("ACTIVO");
             dgPrestamos.ItemsSource = null;
             dgPrestamos.ItemsSource = prestamos;
+        }
+
+        private void Refrendar(object sender, RoutedEventArgs e)
+        {
+            if (dgPrestamos.SelectedItem != null)
+            {
+                cPrenda pren = new cPrenda();
+                cPrestamo pres = new cPrestamo();
+                cCliente cli = new cCliente();
+
+                pres = (cPrestamo)dgPrestamos.SelectedItem;
+                pren = cPrenda.ObtenerPrendaIdPrestamo(pres.IdPrestamo);
+                cli = cCliente.ObtenerClienteIdPrestamo(pres.IdPrestamo);
+                Refrendo refrendo = new Refrendo(pres, pren, cli, this);
+                refrendo.ShowDialog();
+            }
+            
         }
     }
 }

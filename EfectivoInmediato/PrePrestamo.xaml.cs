@@ -33,6 +33,7 @@ namespace EfectivoInmediato
         public PrePrestamo(cPrenda p, cCliente c, NuevoPrestamo pa, cContrato con)
         {
             InitializeComponent();
+
             prenda = p;
             pagos = new ObservableCollection<cPago>();
             dtpFechaPrestamo.SelectedDate = DateTime.Now;

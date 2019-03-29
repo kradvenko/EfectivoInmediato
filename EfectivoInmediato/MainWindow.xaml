@@ -80,6 +80,7 @@
                         <RowDefinition Height="*" MinHeight="30"/>
                     </Grid.RowDefinitions>
                     <Button Grid.Column="0" Grid.Row="0" Content="Nuevo Préstamo" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="NuevoPrestamo"/>
+                    <Button Grid.Column="1" Grid.Row="0" Content="Refrendar" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="Refrendar"/>
                 </Grid>
                 <DataGrid DockPanel.Dock="Bottom" x:Name="dgPrestamos" ItemsSource="{Binding prestamos}" AutoGenerateColumns="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsReadOnly="True">
                     <DataGrid.Columns>
