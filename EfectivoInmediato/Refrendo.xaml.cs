@@ -198,7 +198,7 @@ namespace EfectivoInmediato
                                 CargarIntereses();
                                 CalcularPagoMinimo();
 
-                                await Task.Run(() => CrearBoletaExcel(r, "REFRENDO", c.Refrendo, ""));
+                                await Task.Run(() => CrearBoletaExcel(r, c, "REFRENDO", c.Refrendo, ""));
 
                                 if (MessageBox.Show("Se ha creado el recibo, ¿desea verlo?", "Atención", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                                 {
@@ -229,7 +229,7 @@ namespace EfectivoInmediato
                                             MessageBox.Show("Se ha liquidado el préstamo.");
                                             parent.RecargarPrestamos();
 
-                                            await Task.Run(() => CrearBoletaExcel(r, "FINAL", c.Refrendo, ""));
+                                            await Task.Run(() => CrearBoletaExcel(r, c, "FINAL", c.Refrendo, ""));
 
                                             if (MessageBox.Show("Se ha creado el recibo, ¿desea verlo?", "Atención", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                                             {
@@ -266,7 +266,7 @@ namespace EfectivoInmediato
                                         CargarIntereses();
                                         CalcularPagoMinimo();
 
-                                        await Task.Run(() => CrearBoletaExcel(r, "ABONO", refrendoEx, abonoEx));
+                                        await Task.Run(() => CrearBoletaExcel(r, c, "ABONO", refrendoEx, abonoEx));
 
                                         if (MessageBox.Show("Se ha creado el recibo, ¿desea verlo?", "Atención", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                                         {
@@ -300,7 +300,7 @@ namespace EfectivoInmediato
             parent.RecargarPrestamos();
         }
 
-        public void CrearBoletaExcel(String IdRefrendo, String Tipo, String ImportePago, String Abono)
+        public void CrearBoletaExcel(String IdRefrendo, cRefrendo Refrendo, String Tipo, String ImportePago, String Abono)
         {
             Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
 
@@ -320,7 +320,7 @@ namespace EfectivoInmediato
                 //Se escribe la fecha del refrendo.
                 success = (bool)r.Replace(
                     @"\fecha\",
-                    dtpFechaRefrendo.SelectedDate.Value.ToShortDateString(),
+                    Refrendo.FechaRefrendo,
                     XlLookAt.xlPart,
                     XlSearchOrder.xlByRows,
                     true, m, m, m);
@@ -366,6 +366,13 @@ namespace EfectivoInmediato
                         XlLookAt.xlPart,
                         XlSearchOrder.xlByRows,
                         true, m, m, m);
+
+                    success = (bool)r.Replace(
+                        @"\tipo2\",
+                        "",
+                        XlLookAt.xlPart,
+                        XlSearchOrder.xlByRows,
+                        true, m, m, m);
                 }
                 else if (Tipo == "FINAL")
                 {
@@ -375,9 +382,23 @@ namespace EfectivoInmediato
                         XlLookAt.xlPart,
                         XlSearchOrder.xlByRows,
                         true, m, m, m);
+
+                    success = (bool)r.Replace(
+                        @"\tipo2\",
+                        "",
+                        XlLookAt.xlPart,
+                        XlSearchOrder.xlByRows,
+                        true, m, m, m);
                 }
                 else if (Tipo == "ABONO")
                 {
+                    success = (bool)r.Replace(
+                        @"\tipo1\",
+                        "REFRENDO",
+                        XlLookAt.xlPart,
+                        XlSearchOrder.xlByRows,
+                        true, m, m, m);
+
                     success = (bool)r.Replace(
                         @"\tipo2\",
                         "ABONO",
@@ -391,7 +412,7 @@ namespace EfectivoInmediato
                 {
                     success = (bool)r.Replace(
                             @"\restan\",
-                            "$ " + prestamo.CantidadPrestada,
+                            "$ 0",
                             XlLookAt.xlPart,
                             XlSearchOrder.xlByRows,
                             true, m, m, m);
@@ -400,7 +421,7 @@ namespace EfectivoInmediato
                 {
                     success = (bool)r.Replace(
                         @"\restan\",
-                        "$ 0",
+                        "$ " + PagoLiquidar,
                         XlLookAt.xlPart,
                         XlSearchOrder.xlByRows,
                         true, m, m, m);

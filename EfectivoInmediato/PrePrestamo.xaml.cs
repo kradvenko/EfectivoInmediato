@@ -190,7 +190,7 @@ namespace EfectivoInmediato
                 //Se escribe la fecha del documento.
                 success = (bool)r.Replace(
                     @"\fecha\",
-                    DateTime.Now.ToShortDateString(),
+                    p.FechaPrestamo,
                     XlLookAt.xlPart,
                     XlSearchOrder.xlByRows,
                     true, m, m, m);
