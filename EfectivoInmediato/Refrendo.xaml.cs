@@ -221,8 +221,8 @@ namespace EfectivoInmediato
                                         c.Refrendo = refrendo.ToString();
                                         c.FechaRefrendo = dtpFechaRefrendo.SelectedDate.Value.ToShortDateString();
                                         c.Tipo = "FINAL";
-                                        cRefrendo.AgregarRefrendo(c);
-                                        String r = cPrestamo.FinalizarPrestamo(prestamo.IdPrestamo);
+                                        String r = cRefrendo.AgregarRefrendo(c);
+                                        cPrestamo.FinalizarPrestamo(prestamo.IdPrestamo);
                                         int x = 0;
                                         if (int.TryParse(r, out x))
                                         {
