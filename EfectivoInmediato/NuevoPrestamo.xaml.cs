@@ -130,12 +130,21 @@ namespace EfectivoInmediato
                 MessageBox.Show("No hay prendas en el préstamo.");
                 return;
             }
-
+            contrato.NumeroContrato = tbNumeroContrato.Text;
             foreach (cPrenda prenda in prendas)
             {
                 PrePrestamo pre = new PrePrestamo(prenda, (cCliente)cbClientes.SelectedItem, this, contrato);
                 pre.ShowDialog();
+
+                int c = int.Parse(tbNumeroContrato.Text);
+                c++;
+                cContrato.ActualizarNumeroContrato(c.ToString());
+                contrato = new cContrato();
+                contrato = cContrato.ObtenerContrato();
+                tbNumeroContrato.Text = contrato.NumeroContrato;
             }
+
+            LimpiarCampos();
         }
 
         public void LimpiarCampos()
@@ -147,14 +156,7 @@ namespace EfectivoInmediato
             dgPrendas.ItemsSource = null;
             dgPrendas.ItemsSource = prendas;
             parent.RecargarPrestamos();
-            parent.RecargarClientes();
-
-            int c = int.Parse(tbNumeroContrato.Text);
-            c++;
-            cContrato.ActualizarNumeroContrato(c.ToString());
-            contrato = new cContrato();
-            contrato = cContrato.ObtenerContrato();
-            tbNumeroContrato.Text = contrato.NumeroContrato;
+            parent.RecargarClientes();            
         }
     }
 }

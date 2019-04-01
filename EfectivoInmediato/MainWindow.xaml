@@ -84,7 +84,7 @@
                 </Grid>
                 <DataGrid DockPanel.Dock="Bottom" x:Name="dgPrestamos" ItemsSource="{Binding prestamos}" AutoGenerateColumns="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsReadOnly="True">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id" Binding="{Binding Path=IdPrestamo}" Width="100"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Contrato" Binding="{Binding Path=Contrato}" Width="100"></DataGridTextColumn>
                         <DataGridTextColumn Header="Cliente" Binding="{Binding Path=NombreCliente}" Width="200"></DataGridTextColumn>
                         <DataGridTextColumn Header="Descripción de la prenda" Binding="{Binding Path=DescripcionPrenda}" Width="150"></DataGridTextColumn>
                         <DataGridTextColumn Header="Préstamo" Binding="{Binding Path=CantidadPrestada}" Width="80"></DataGridTextColumn>

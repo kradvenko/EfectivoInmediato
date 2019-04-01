@@ -144,7 +144,7 @@ namespace EfectivoInmediato
                         System.Diagnostics.Process.Start(ruta);
                     }
 
-                    parent.LimpiarCampos();
+                    //parent.LimpiarCampos();
                     this.Close();
                 }
             }
