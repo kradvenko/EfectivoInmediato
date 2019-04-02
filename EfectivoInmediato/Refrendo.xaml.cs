@@ -143,7 +143,9 @@ namespace EfectivoInmediato
 
         private void CalcularPagoMinimo()
         {
-            FechaActual = DateTime.Now;
+            FechaActual = dtpFechaRefrendo.SelectedDate.Value;
+            PagoMinimo = "0";
+            PagoLiquidar = "0";
 
             foreach (cPago item in pagos)
             {
@@ -443,6 +445,11 @@ namespace EfectivoInmediato
             {
 
             }
+        }
+
+        private void DtpFechaRefrendo_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CalcularPagoMinimo();
         }
     }
 }

@@ -54,7 +54,7 @@
             <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Fecha de préstamo</TextBlock>
             <TextBlock x:Name="tbFecha" Grid.Column="1" Grid.Row="1" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">-</TextBlock>
             <TextBlock Grid.Column="2" Grid.Row="1" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Fecha de refrendo</TextBlock>
-            <DatePicker x:Name="dtpFechaRefrendo" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+            <DatePicker x:Name="dtpFechaRefrendo" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" SelectedDateChanged="DtpFechaRefrendo_SelectedDateChanged"/>
             <!--Tercer Renglón-->
             <DataGrid x:Name="dgPagos" AutoGenerateColumns="False" Grid.ColumnSpan="9" Grid.Column="0" HorizontalAlignment="Stretch" Height="Auto" Margin="10,5,10,0" Grid.Row="2" Grid.RowSpan="4" VerticalAlignment="Stretch" Width="Auto" ColumnHeaderStyle="{StaticResource WrappedColumnHeaderStyle}" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                 <DataGrid.Columns>
