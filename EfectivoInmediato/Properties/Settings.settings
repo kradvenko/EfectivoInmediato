@@ -5,10 +5,10 @@
     <Setting Name="EfectivoInmediatoConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=DESKTOP-C3AO6JA;Initial Catalog=EfectivoInmediato;Integrated Security=True;User ID=USER\USUARIO&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=USER\SQL2005;Initial Catalog=EfectivoInmediato;Integrated Security=True;User ID=USER\USUARIO&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=DESKTOP-C3AO6JA;Initial Catalog=EfectivoInmediato;Integrated Security=True;User ID=USER\USUARIO</Value>
+      <Value Profile="(Default)">Data Source=USER\SQL2005;Initial Catalog=EfectivoInmediato;Integrated Security=True;User ID=USER\USUARIO</Value>
     </Setting>
   </Settings>
 </SettingsFile>
