@@ -150,8 +150,11 @@ namespace EfectivoInmediato
                         "FROM Clientes " +
                         "INNER JOIN Prestamos " +
                         "ON Prestamos.IdCliente = Clientes.IdCliente " +
+                        "WHERE Prestamos.IdPrestamo = @IdPrestamo " +
                         "", con))
                     {
+                        myCMD.Parameters.AddWithValue("@IdPrestamo", IdPrestamo);
+
                         con.Open();
 
                         SqlDataReader reader = myCMD.ExecuteReader();

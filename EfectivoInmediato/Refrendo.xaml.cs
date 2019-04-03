@@ -127,7 +127,7 @@ namespace EfectivoInmediato
                         p.IVA = (((float.Parse(p.Intereses) + float.Parse(p.Almacenaje)) * (float.Parse(interes.IVA) / 100)).ToString());
                         p.TotalDesempeno = (float.Parse(p.Importe) + float.Parse(p.Intereses) + float.Parse(p.Almacenaje) + float.Parse(p.IVA)).ToString();
                         p.TotalRefrendo = (float.Parse(p.Intereses) + float.Parse(p.Almacenaje) + float.Parse(p.IVA)).ToString();
-                        p.FechaPago = DateTime.Parse(prestamo.FechaPrestamo).AddDays(30 * r).ToShortDateString();
+                        p.FechaPago = DateTime.Parse(prestamo.FechaPrestamo).AddMonths(r).ToShortDateString();
                     }
                     else if (interes.ReclamoAnticipadoMetodo == "Monto Fijo")
                     {
