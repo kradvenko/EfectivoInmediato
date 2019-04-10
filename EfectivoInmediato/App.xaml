@@ -21,6 +21,12 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <!--Font-->
+        <Style x:Key="TitleMain" TargetType="Label">
+            <Setter Property="FontFamily" Value="Fonts/#Monserrat"/>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontSize" Value="35"></Setter>
+        </Style>
         <!--Estilo para botón de menú principal.-->
         <Style x:Key="ButtonStyleTopBar" TargetType="Button">
             <Setter Property="Background" Value="Black"></Setter>

@@ -19,7 +19,7 @@
             </Grid.RowDefinitions>
 
             <Border Background="#FF1B9542" Grid.ColumnSpan="3"></Border>
-            <Label Grid.ColumnSpan="3" Content="Efectivo Inmediato" Foreground="White" FontSize="34"></Label>
+            <Label Style="{StaticResource TitleMain}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="3" Content="Efectivo Inmediato" Foreground="White"></Label>
         </Grid>
 
         <Grid DockPanel.Dock="Bottom" MinHeight="60" Background="#20364c">
@@ -69,7 +69,8 @@
             <DockPanel Grid.Column="0" Grid.Row="1" LastChildFill="True" Background="AliceBlue">
                 <Grid DockPanel.Dock="Top">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="1*"/>                        
+                        <ColumnDefinition Width="0.5*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -79,10 +80,25 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" MinHeight="30"/>
                     </Grid.RowDefinitions>
-                    <Button Grid.Column="0" Grid.Row="0" Content="Nuevo Préstamo" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="NuevoPrestamo"/>
-                    <Button Grid.Column="1" Grid.Row="0" Content="Refrendar" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="Refrendar"/>
+
+                    <Label Content="Días para vencimiento"></Label>
+                    <TextBox x:Name="tbDiasVencimiento" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="1" Text="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="2" KeyUp="TbDiasVencimiento_KeyUp"/>
+                    <Button Grid.Column="2" Grid.Row="0" Content="Nuevo Préstamo" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="NuevoPrestamo"/>
+                    <Button Grid.Column="3" Grid.Row="0" Content="Refrendar" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="Refrendar"/>
+                    <Button Grid.Column="4" Grid.Row="0" Content="Activos" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="Activos"/>
+                    <Button Grid.Column="5" Grid.Row="0" Content="Liquidados" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="Finiquitados"/>
                 </Grid>
                 <DataGrid DockPanel.Dock="Bottom" x:Name="dgPrestamos" ItemsSource="{Binding prestamos}" AutoGenerateColumns="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsReadOnly="True">
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ProximoATerminar}" Value="SI">
+                                    <Setter Property="Background" Value="Orange"></Setter>
+                                    <Setter Property="Height" Value="25"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Contrato" Binding="{Binding Path=Contrato}" Width="100"></DataGridTextColumn>
                         <DataGridTextColumn Header="Cliente" Binding="{Binding Path=NombreCliente}" Width="200"></DataGridTextColumn>
@@ -91,6 +107,7 @@
                         <DataGridTextColumn Header="Fecha de préstamo" Binding="{Binding Path=FechaPrestamo}" Width="120"></DataGridTextColumn>
                         <DataGridTextColumn Header="Fecha de vencimiento" Binding="{Binding Path=FechaVencimiento}" Width="130"></DataGridTextColumn>                        
                         <DataGridTextColumn Header="Estado" Binding="{Binding Path=Estado}" Width="100"></DataGridTextColumn>
+                        <DataGridTextColumn Header="ProximoATerminar" Binding="{Binding Path=ProximoATerminar}" Width="100"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </DockPanel>

@@ -34,7 +34,7 @@ namespace EfectivoInmediato
             dgPrestamos.ItemsSource = prestamos;
             dgClientes.ItemsSource = prestamos;*/
 
-            prestamos = cPrestamo.ObtenerPrestamos("ACTIVO");
+            prestamos = cPrestamo.ObtenerPrestamos("ACTIVO", "30");
             dgPrestamos.ItemsSource = prestamos;
 
             clientes = cCliente.ObtenerClientes();
@@ -139,6 +139,33 @@ namespace EfectivoInmediato
                 refrendo.ShowDialog();
             }
             
+        }
+
+        private void TbDiasVencimiento_KeyUp(object sender, KeyEventArgs e)
+        {
+            int dias = 0;
+
+            if (int.TryParse(tbDiasVencimiento.Text, out dias))
+            {
+                prestamos = cPrestamo.ObtenerPrestamos("ACTIVO", tbDiasVencimiento.Text);
+                dgPrestamos.ItemsSource = null;
+                dgPrestamos.ItemsSource = prestamos;
+            }
+        }
+
+        private void Finiquitados(object sender, RoutedEventArgs e)
+        {
+            prestamos = cPrestamo.ObtenerPrestamos("LIQUIDADO");
+            dgPrestamos.ItemsSource = null;
+            dgPrestamos.ItemsSource = prestamos;
+        }
+
+        private void Activos(object sender, RoutedEventArgs e)
+        {
+            tbDiasVencimiento.Text = "30";
+            prestamos = cPrestamo.ObtenerPrestamos("ACTIVO", "30");
+            dgPrestamos.ItemsSource = null;
+            dgPrestamos.ItemsSource = prestamos;
         }
     }
 }

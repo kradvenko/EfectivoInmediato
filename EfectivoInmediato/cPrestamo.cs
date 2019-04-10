@@ -24,13 +24,15 @@ namespace EfectivoInmediato
         public String FechaVencimiento { get; set; }
         public String Estado { get; set; }
         public String FechaCaptura { get; set; }
+        //Variable para fecha próxima de terminación de préstamo
+        public String ProximoATerminar { get; set; }
 
         public cPrestamo()
         {
 
         }
 
-        public static ObservableCollection<cPrestamo> ObtenerPrestamos(String Estado)
+        public static ObservableCollection<cPrestamo> ObtenerPrestamos(String Estado, String DiasVencimiento = "NO")
         {
             ObservableCollection<cPrestamo> prestamos = new ObservableCollection<cPrestamo>();
             cPrestamo prestamo;
@@ -74,6 +76,81 @@ namespace EfectivoInmediato
                                 prestamo.FechaVencimiento = reader["FechaVencimiento"].ToString();
                                 prestamo.Estado = reader["Estado"].ToString();
                                 prestamo.FechaCaptura = reader["FechaCaptura"].ToString();
+
+                                SqlConnection con2 = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString);
+
+                                con2.Open();
+
+                                using (SqlCommand commRefrendos = new SqlCommand(" " +
+                                    "SELECT * " +
+                                    "FROM Refrendos " +
+                                    "WHERE IdPrestamo = @IdPrestamo " +
+                                    "", con2))
+                                {
+                                    commRefrendos.Parameters.AddWithValue("@IdPrestamo", prestamo.IdPrestamo);
+
+                                    SqlDataReader readerR = commRefrendos.ExecuteReader();
+
+                                    if (readerR.HasRows)
+                                    {
+                                        String fecha = "";
+
+                                        while (readerR.Read())
+                                        {
+                                            fecha = readerR["FechaRefrendo"].ToString();
+                                        }
+
+                                        con2.Close();
+
+                                        SqlCommand comIntereses = new SqlCommand("Select Intereses.Periodo, Plazo " +
+                                                                            "From Prendas " +
+                                                                            "Inner Join Departamentos " +
+                                                                            "On Departamentos.IdDepartamento = Prendas.IdDepartamento " +
+                                                                            "Inner Join Intereses " +
+                                                                            "On Intereses.IdDepartamento = Departamentos.IdDepartamento " +
+                                                                            "Where IdPrenda = @IdPrenda", con2);
+
+                                        con2.Open();
+
+                                        comIntereses.Parameters.AddWithValue("@IdPrenda", prestamo.IdPrenda);
+
+                                        SqlDataReader readerI = comIntereses.ExecuteReader();
+
+                                        String plazo = "";
+
+                                        if (readerI.HasRows)
+                                        {
+                                            while (readerI.Read())
+                                            {
+                                                plazo = readerI["Plazo"].ToString();
+                                            }
+                                        }
+
+                                        DateTime fechaVencimiento = DateTime.Parse(fecha);
+                                        fechaVencimiento = fechaVencimiento.AddMonths(int.Parse(plazo));
+
+                                        prestamo.FechaVencimiento = fechaVencimiento.ToShortDateString();
+
+                                       con2.Close();
+                                    }
+                                }
+
+                                if (DiasVencimiento == "NO")
+                                {
+
+                                }
+                                else
+                                {
+                                    if (DateTime.Parse(prestamo.FechaVencimiento).AddDays(int.Parse(DiasVencimiento)) <= DateTime.Now)
+                                    {
+                                        prestamo.ProximoATerminar = "SI";
+                                    }
+                                    else
+                                    {
+                                        prestamo.ProximoATerminar = "NO";
+                                    }
+                                }
+
                                 prestamos.Add(prestamo);
                             }
                         }
