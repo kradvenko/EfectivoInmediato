@@ -68,6 +68,10 @@ namespace EfectivoInmediato
                     LimpiarGrids();
                     gClientes.Visibility = Visibility.Visible;
                     break;
+                case "VerInventario":
+                    LimpiarGrids();
+                    gInventario.Visibility = Visibility.Visible;
+                    break;
             }
         }
 
@@ -82,6 +86,7 @@ namespace EfectivoInmediato
         {
             gPrestamos.Visibility = Visibility.Collapsed;
             gClientes.Visibility = Visibility.Collapsed;
+            gInventario.Visibility = Visibility.Collapsed;
         }
 
         private void VerPrestamos(object sender, RoutedEventArgs e)
@@ -92,6 +97,11 @@ namespace EfectivoInmediato
         private void VerClientes(object sender, RoutedEventArgs e)
         {
             MostrarGrid("VerClientes");
+        }
+
+        private void VerInventario(object sender, RoutedEventArgs e)
+        {
+            MostrarGrid("VerInventario");
         }
 
         private void VerConfiguracion(object sender, RoutedEventArgs e)
