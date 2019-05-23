@@ -24,6 +24,7 @@ namespace EfectivoInmediato
     {
         public ObservableCollection<cPrestamo> prestamos = new ObservableCollection<cPrestamo>();
         public ObservableCollection<cCliente> clientes = new ObservableCollection<cCliente>();
+        public ObservableCollection<cPrenda> articulos = new ObservableCollection<cPrenda>();
 
         public MainWindow()
         {
@@ -39,6 +40,9 @@ namespace EfectivoInmediato
 
             clientes = cCliente.ObtenerClientes();
             dgClientes.ItemsSource = clientes;
+
+            articulos = cPrenda.ObtenerPrendasVenta();
+            dgInventario.ItemsSource = articulos;
 
             string version = null;
             try

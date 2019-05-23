@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -49,6 +50,11 @@ namespace EfectivoInmediato
         public String Avaluo { get; set; }
         public String Prestamo { get; set; }
         public String PrestamoDisplay { get; set; }
+        //Para venta
+        public String EnVenta { get; set; }
+        public String Vendida { get; set; }
+        public String PrecioVenta { get; set; }
+        public String PrecioVentaDisplay { get; set; }
 
         public cPrenda()
         {
@@ -258,6 +264,84 @@ namespace EfectivoInmediato
             }
 
             return prenda;
+        }
+
+        public static ObservableCollection<cPrenda> ObtenerPrendasVenta()
+        {
+            ObservableCollection<cPrenda> prendas = new ObservableCollection<cPrenda>();
+            cPrenda prenda = new cPrenda();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
+                {
+                    using (SqlCommand myCMD = new SqlCommand(" " +
+                        "SELECT * " +
+                        "FROM Prendas " +
+                        "WHERE EnVenta = 'SI' AND Vendida = 'NO'" +
+                        "", con))
+                    {
+                        con.Open();
+
+                        SqlDataReader r = myCMD.ExecuteReader();
+
+                        if (r.HasRows)
+                        {
+                            while (r.Read())
+                            {
+                                prenda = new cPrenda();
+
+                                prenda.IdPrenda = r["IdPrenda"].ToString();
+                                prenda.IdDepartamento = r["IdDepartamento"].ToString();
+                                prenda.IdCliente = r["IdCliente"].ToString();
+                                prenda.IdCategoriaArticulo = r["IdCategoriaArticulo"].ToString();
+                                prenda.TipoPrenda = r["TipoPrenda"].ToString();
+                                prenda.Descripcion = r["Descripcion"].ToString();
+                                prenda.Marca = r["Marca"].ToString();
+                                prenda.Modelo = r["Modelo"].ToString();
+                                prenda.Serie = r["Serie"].ToString();
+                                prenda.IdTipoMetal = r["IdTipoMetal"].ToString();
+                                prenda.PesoMetal = r["PesoMetal"].ToString();
+                                prenda.Pureza = r["Pureza"].ToString();
+                                prenda.ObservacionesMetal = r["ObservacionesMetal"].ToString();
+                                prenda.IdTipoPiedra = r["IdTipoPiedra"].ToString();
+                                prenda.ColorPiedra = r["ColorPiedra"].ToString();
+                                prenda.ClaridadOPureza = r["ClaridadOPureza"].ToString();
+                                prenda.CorteOTalla = r["CorteOTalla"].ToString();
+                                prenda.PesoPiedra = r["PesoPiedra"].ToString();
+                                prenda.ObservacionesPiedra = r["ObservacionesPiedra"].ToString();
+                                prenda.IdTipoVehiculo = r["IdTipoVehiculo"].ToString();
+                                prenda.IdMarcaVehiculo = r["IdMarcaVehiculo"].ToString();
+                                prenda.ModeloVehiculo = r["ModeloVehiculo"].ToString();
+                                prenda.AnioVehiculo = r["AnioVehiculo"].ToString();
+                                prenda.Kilometraje = r["Kilometraje"].ToString();
+                                prenda.NumeroSerieVehiculo = r["NumeroSerieVehiculo"].ToString();
+                                prenda.Placas = r["Placas"].ToString();
+                                prenda.ColorVehiculo = r["ColorVehiculo"].ToString();
+                                prenda.UbicacionAlmacen = r["UbicacionAlmacen"].ToString();
+                                prenda.Observaciones = r["Observaciones"].ToString();
+                                prenda.Avaluo = r["Avaluo"].ToString();
+                                prenda.Prestamo = r["Prestamo"].ToString();
+                                prenda.PrestamoDisplay = "$ " + prenda.Prestamo;
+                                prenda.EnVenta = r["EnVenta"].ToString();
+                                prenda.Vendida = r["Vendida"].ToString();
+                                prenda.PrecioVenta = r["PrecioVenta"].ToString();
+                                prenda.PrecioVentaDisplay = "$ " + prenda.PrecioVenta;
+
+                                prendas.Add(prenda);
+                            }
+                        }
+
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+
+            }
+
+            return prendas;
         }
     }
 }
