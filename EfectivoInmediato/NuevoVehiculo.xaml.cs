@@ -114,10 +114,20 @@ namespace EfectivoInmediato
                 tbPrestamo.Focus();
                 return;
             }
+            //Si no hay parent significa que no viene de un préstamo el ingreso de la prenda y se meterá
+            //directamente al inventario para su venta.
+            String EnVenta = "NO";
+            if (parent == null)
+            {
+                EnVenta = "SI";
+            }
 
-            String idPrenda = cPrenda.GuardarPrenda("0", IdCliente, "0", "VEHICULO", cbTipo.Text + " - " + cbMarca.Text + " " + tbModelo.Text , "-", "-", "-", "0", "-", "-", "-", "0", "-", "-", "-", "-", "-", cbTipo.SelectedValue.ToString(), cbMarca.SelectedValue.ToString(), tbModelo.Text, tbAnio.Text, tbKilometraje.Text, tbNumeroSerie.Text, tbPlacas.Text, tbColor.Text, tbUbicacionAlmacen.Text, tbObservaciones.Text, tbAvaluo.Text, tbPrestamo.Text);
+            String idPrenda = cPrenda.GuardarPrenda("0", IdCliente, "0", "VEHICULO", cbTipo.Text + " - " + cbMarca.Text + " " + tbModelo.Text , "-", "-", "-", "0", "-", "-", "-", "0", "-", "-", "-", "-", "-", cbTipo.SelectedValue.ToString(), cbMarca.SelectedValue.ToString(), tbModelo.Text, tbAnio.Text, tbKilometraje.Text, tbNumeroSerie.Text, tbPlacas.Text, tbColor.Text, tbUbicacionAlmacen.Text, tbObservaciones.Text, tbAvaluo.Text, tbPrestamo.Text, EnVenta);
             cPrenda p = cPrenda.ObtenerPrendaId(idPrenda);
-            parent.AgregarPrenda(p);
+            if (parent != null)
+            {
+                parent.AgregarPrenda(p);
+            }
             this.Close();
         }
     }

@@ -105,10 +105,20 @@ namespace EfectivoInmediato
                 cbCategorias.Focus();
                 return;
             }
+            //Si no hay parent significa que no viene de un préstamo el ingreso de la prenda y se meterá
+            //directamente al inventario para su venta.
+            String EnVenta = "NO";
+            if (parent == null)
+            {
+                EnVenta = "SI";
+            }
 
-            String idPrenda = cPrenda.GuardarPrenda(cbDepartamento.SelectedValue.ToString(), IdCliente, ((cCategoria)cbCategorias.SelectedItem).IdCategoria, "ARTICULO", tbDescripcion.Text, tbMarca.Text, tbModelo.Text, tbSerie.Text, "0", "0", "0", "0", "0", "-", "-", "-", "0", "-", "0", "0", "-", "0", "0", "-", "-", "-", tbUbicacionAlmacen.Text, tbObservaciones.Text, tbAvaluo.Text, tbPrestamo.Text);
+            String idPrenda = cPrenda.GuardarPrenda(cbDepartamento.SelectedValue.ToString(), IdCliente, ((cCategoria)cbCategorias.SelectedItem).IdCategoria, "ARTICULO", tbDescripcion.Text, tbMarca.Text, tbModelo.Text, tbSerie.Text, "0", "0", "0", "0", "0", "-", "-", "-", "0", "-", "0", "0", "-", "0", "0", "-", "-", "-", tbUbicacionAlmacen.Text, tbObservaciones.Text, tbAvaluo.Text, tbPrestamo.Text, EnVenta);
             cPrenda p = cPrenda.ObtenerPrendaId(idPrenda);
-            parent.AgregarPrenda(p);
+            if (parent != null)
+            {
+                parent.AgregarPrenda(p);
+            }
             this.Close();
         }
 

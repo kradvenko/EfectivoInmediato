@@ -96,6 +96,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AgregarPrenda.xaml.cs">
+      <DependentUpon>AgregarPrenda.xaml</DependentUpon>
+    </Compile>
     <Compile Include="cCategoria.cs" />
     <Compile Include="cContrato.cs" />
     <Compile Include="cMarcaVehiculo.cs" />
@@ -120,6 +123,10 @@
     <Compile Include="Refrendo.xaml.cs">
       <DependentUpon>Refrendo.xaml</DependentUpon>
     </Compile>
+    <Page Include="AgregarPrenda.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Configuracion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

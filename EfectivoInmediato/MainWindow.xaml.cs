@@ -234,5 +234,11 @@ namespace EfectivoInmediato
             dgInventario.ItemsSource = null;
             dgInventario.ItemsSource = articulos;
         }
+
+        private void AgregarPrenda(object sender, RoutedEventArgs e)
+        {
+            AgregarPrenda agregar = new AgregarPrenda(this);
+            agregar.ShowDialog();
+        }
     }
 }

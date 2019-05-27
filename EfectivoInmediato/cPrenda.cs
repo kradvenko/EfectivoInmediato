@@ -62,7 +62,7 @@ namespace EfectivoInmediato
 
         }
 
-        public static String GuardarPrenda(String IdDepartamento, String IdCliente, String IdCategoriaArticulo, String TipoPrenda, String Descripcion, String Marca, String Modelo, String Serie, String IdTipoMetal, String PesoMetal, String Pureza, String ObservacionesMetal, String IdTipoPiedra, String ColorPiedra, String ClaridadOPureza, String CorteOTalla, String PesoPiedra, String ObservacionesPiedra, String IdTipoVehiculo, String IdMarcaVehiculo, String ModeloVehiculo, String AnioVehiculo, String Kilometraje, String NumeroSerieVehiculo, String Placas, String ColorVehiculo, String UbicacionAlmacen, String Observaciones, String Avaluo, String Prestamo)
+        public static String GuardarPrenda(String IdDepartamento, String IdCliente, String IdCategoriaArticulo, String TipoPrenda, String Descripcion, String Marca, String Modelo, String Serie, String IdTipoMetal, String PesoMetal, String Pureza, String ObservacionesMetal, String IdTipoPiedra, String ColorPiedra, String ClaridadOPureza, String CorteOTalla, String PesoPiedra, String ObservacionesPiedra, String IdTipoVehiculo, String IdMarcaVehiculo, String ModeloVehiculo, String AnioVehiculo, String Kilometraje, String NumeroSerieVehiculo, String Placas, String ColorVehiculo, String UbicacionAlmacen, String Observaciones, String Avaluo, String Prestamo, String EnVenta)
         {
             String resultado = "0";
 
@@ -71,9 +71,9 @@ namespace EfectivoInmediato
                 using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
                 {
                     using (SqlCommand myCMD = new SqlCommand(" " +
-                        "INSERT INTO Prendas (IdDepartamento, IdCliente, IdCategoriaArticulo, TipoPrenda, Descripcion, Marca, Modelo, Serie, IdTipoMetal, PesoMetal, Pureza, ObservacionesMetal, IdTipoPiedra, ColorPiedra, ClaridadOPureza, CorteOTalla, PesoPiedra, ObservacionesPiedra, IdTipoVehiculo, IdMarcaVehiculo, ModeloVehiculo, AnioVehiculo, Kilometraje, NumeroSerieVehiculo, Placas, ColorVehiculo, UbicacionAlmacen, Observaciones, Avaluo, Prestamo) " +
+                        "INSERT INTO Prendas (IdDepartamento, IdCliente, IdCategoriaArticulo, TipoPrenda, Descripcion, Marca, Modelo, Serie, IdTipoMetal, PesoMetal, Pureza, ObservacionesMetal, IdTipoPiedra, ColorPiedra, ClaridadOPureza, CorteOTalla, PesoPiedra, ObservacionesPiedra, IdTipoVehiculo, IdMarcaVehiculo, ModeloVehiculo, AnioVehiculo, Kilometraje, NumeroSerieVehiculo, Placas, ColorVehiculo, UbicacionAlmacen, Observaciones, Avaluo, Prestamo, EnVenta, PrecioVenta, Vendida, Enajenado) " +
                         "OUTPUT INSERTED.IdPrenda " +
-                        "VALUES (@IdDepartamento, @IdCliente, @IdCategoriaArticulo, @TipoPrenda, @Descripcion, @Marca, @Modelo, @Serie, @IdTipoMetal, @PesoMetal, @Pureza, @ObservacionesMetal, @IdTipoPiedra, @ColorPiedra, @ClaridadOPureza, @CorteOTalla, @PesoPiedra, @ObservacionesPiedra, @IdTipoVehiculo, @IdMarcaVehiculo, @ModeloVehiculo, @AnioVehiculo, @Kilometraje, @NumeroSerieVehiculo, @Placas, @ColorVehiculo, @UbicacionAlmacen, @Observaciones, @Avaluo, @Prestamo)" +
+                        "VALUES (@IdDepartamento, @IdCliente, @IdCategoriaArticulo, @TipoPrenda, @Descripcion, @Marca, @Modelo, @Serie, @IdTipoMetal, @PesoMetal, @Pureza, @ObservacionesMetal, @IdTipoPiedra, @ColorPiedra, @ClaridadOPureza, @CorteOTalla, @PesoPiedra, @ObservacionesPiedra, @IdTipoVehiculo, @IdMarcaVehiculo, @ModeloVehiculo, @AnioVehiculo, @Kilometraje, @NumeroSerieVehiculo, @Placas, @ColorVehiculo, @UbicacionAlmacen, @Observaciones, @Avaluo, @Prestamo, @EnVenta, @Avaluo, 'NO', 'NO')" +
                         "", con))
                     {
                         con.Open();
@@ -108,6 +108,7 @@ namespace EfectivoInmediato
                         myCMD.Parameters.AddWithValue("@Observaciones", Observaciones);
                         myCMD.Parameters.AddWithValue("@Avaluo", Avaluo);
                         myCMD.Parameters.AddWithValue("@Prestamo", Prestamo);
+                        myCMD.Parameters.AddWithValue("@EnVenta", EnVenta);
 
                         resultado = myCMD.ExecuteScalar().ToString();
 
