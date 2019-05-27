@@ -49,7 +49,8 @@ namespace EfectivoInmediato
                         "ON Clientes.IdCliente = Prestamos.IdCliente " +
                         "INNER JOIN Prendas " +
                         "ON Prendas.IdPrenda = Prestamos.IdPrenda " +
-                        "WHERE Prestamos.Estado Like @Estado" +
+                        "WHERE Prestamos.Estado Like @Estado " +
+                        "AND Prendas.EnVenta = 'NO'" +
                         "", con))
                     {
                         con.Open();

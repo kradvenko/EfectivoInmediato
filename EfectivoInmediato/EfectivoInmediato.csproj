@@ -111,6 +111,9 @@
     <Compile Include="NuevoTipoVehiculo.xaml.cs">
       <DependentUpon>NuevoTipoVehiculo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PrendaInfo.xaml.cs">
+      <DependentUpon>PrendaInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PrePrestamo.xaml.cs">
       <DependentUpon>PrePrestamo.xaml</DependentUpon>
     </Compile>
@@ -185,6 +188,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="NuevoTipoVehiculo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PrendaInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -181,5 +181,58 @@ namespace EfectivoInmediato
             dgPrestamos.ItemsSource = null;
             dgPrestamos.ItemsSource = prestamos;
         }
+
+        private void EnajenarPrenda(object sender, RoutedEventArgs e)
+        {
+            if (dgPrestamos.SelectedItem == null)
+            {
+                MessageBox.Show("No ha elegido una prenda.");
+                return;
+            }
+
+            if (MessageBox.Show("¿Desea enajenar la prenda?", "ATENCIÓN", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                cPrenda pren = new cPrenda();
+                cPrestamo pres = new cPrestamo();
+
+                pres = (cPrestamo)dgPrestamos.SelectedItem;
+                pren = cPrenda.ObtenerPrendaIdPrestamo(pres.IdPrestamo);
+                cPrenda.EnajenarPrenda(pren.IdPrenda);
+
+                int dias = 0;
+
+                if (int.TryParse(tbDiasVencimiento.Text, out dias))
+                {
+                    prestamos = cPrestamo.ObtenerPrestamos("ACTIVO", tbDiasVencimiento.Text);
+                    dgPrestamos.ItemsSource = null;
+                    dgPrestamos.ItemsSource = prestamos;
+
+                    articulos = cPrenda.ObtenerPrendasVenta();
+                    dgInventario.ItemsSource = null;
+                    dgInventario.ItemsSource = articulos;
+                }
+            }
+        }
+
+        private void EditarProducto(object sender, RoutedEventArgs e)
+        {
+            if (dgInventario.SelectedItem != null)
+            {
+                cPrenda p = (cPrenda)dgInventario.SelectedItem;
+                PrendaInfo info = new PrendaInfo(p, this);
+                info.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("No ha elegido una prenda.");
+            }
+        }
+
+        public void ActualizarInventarioLista()
+        {
+            articulos = cPrenda.ObtenerPrendasVenta();
+            dgInventario.ItemsSource = null;
+            dgInventario.ItemsSource = articulos;
+        }
     }
 }

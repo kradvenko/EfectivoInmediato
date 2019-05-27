@@ -54,6 +54,7 @@ namespace EfectivoInmediato
         public String EnVenta { get; set; }
         public String Vendida { get; set; }
         public String PrecioVenta { get; set; }
+        public String Enajenado { get; set; }
         public String PrecioVentaDisplay { get; set; }
 
         public cPrenda()
@@ -177,6 +178,7 @@ namespace EfectivoInmediato
                                 prenda.Observaciones = r["Observaciones"].ToString();
                                 prenda.Avaluo = r["Avaluo"].ToString();
                                 prenda.Prestamo = r["Prestamo"].ToString();
+                                prenda.Enajenado = r["Enajenado"].ToString();
                                 prenda.PrestamoDisplay = "$ " + prenda.Prestamo;
                             }
                         }
@@ -250,6 +252,7 @@ namespace EfectivoInmediato
                                 prenda.Observaciones = r["Observaciones"].ToString();
                                 prenda.Avaluo = r["Avaluo"].ToString();
                                 prenda.Prestamo = r["Prestamo"].ToString();
+                                prenda.Enajenado = r["Enajenado"].ToString();
                                 prenda.PrestamoDisplay = "$ " + prenda.Prestamo;
                             }
                         }
@@ -326,6 +329,7 @@ namespace EfectivoInmediato
                                 prenda.EnVenta = r["EnVenta"].ToString();
                                 prenda.Vendida = r["Vendida"].ToString();
                                 prenda.PrecioVenta = r["PrecioVenta"].ToString();
+                                prenda.Enajenado = r["Enajenado"].ToString();
                                 prenda.PrecioVentaDisplay = "$ " + prenda.PrecioVenta;
 
                                 prendas.Add(prenda);
@@ -342,6 +346,73 @@ namespace EfectivoInmediato
             }
 
             return prendas;
+        }
+
+        public static String EnajenarPrenda(String IdPrenda)
+        {
+            String r = "";
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
+                {
+                    using (SqlCommand myCMD = new SqlCommand(" " +
+                        "UPDATE Prendas SET Enajenado = 'SI', EnVenta = 'SI', PrecioVenta = Avaluo, Vendida = 'NO' " +
+                        "WHERE IdPrenda = @IdPrenda " +
+                        "", con))
+                    {
+                        con.Open();
+
+                        myCMD.Parameters.AddWithValue("@IdPrenda", IdPrenda);
+
+                        myCMD.ExecuteNonQuery();
+
+                        r = "OK";
+
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                r = exc.Message;
+            }
+
+            return r;
+        }
+
+        public static String ActualizarPrecioVenta(String IdPrenda, String Precio)
+        {
+            String r = "";
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
+                {
+                    using (SqlCommand myCMD = new SqlCommand(" " +
+                        "UPDATE Prendas SET PrecioVenta = @PrecioVenta " +
+                        "WHERE IdPrenda = @IdPrenda " +
+                        "", con))
+                    {
+                        con.Open();
+
+                        myCMD.Parameters.AddWithValue("@IdPrenda", IdPrenda);
+                        myCMD.Parameters.AddWithValue("@PrecioVenta", Precio);
+
+                        myCMD.ExecuteNonQuery();
+
+                        r = "OK";
+
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                r = exc.Message;
+            }
+
+            return r;
         }
     }
 }
