@@ -108,8 +108,12 @@
     <Compile Include="cPago.cs" />
     <Compile Include="cRefrendo.cs" />
     <Compile Include="cTipoVehiculo.cs" />
+    <Compile Include="cVenta.cs" />
     <Compile Include="NuevaCategoriaArticulo.xaml.cs">
       <DependentUpon>NuevaCategoriaArticulo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NuevaVenta.xaml.cs">
+      <DependentUpon>NuevaVenta.xaml</DependentUpon>
     </Compile>
     <Compile Include="NuevoTipoVehiculo.xaml.cs">
       <DependentUpon>NuevoTipoVehiculo.xaml</DependentUpon>
@@ -171,6 +175,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="NuevaPrenda.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NuevaVenta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

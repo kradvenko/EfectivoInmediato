@@ -1,0 +1,43 @@
+﻿<Window x:Class="EfectivoInmediato.NuevaVenta"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EfectivoInmediato"
+        mc:Ignorable="d"
+        Title="Nueva venta" Height="250" Width="300" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+    <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Prenda a vender: </TextBlock>
+        <TextBlock x:Name="tbNombrePrenda" Grid.Column="1" Grid.Row="0" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0"></TextBlock>
+
+        <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Precio:</TextBlock>
+        <TextBlock x:Name="tbPrecioVenta" Grid.Column="1" Grid.Row="1" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0"></TextBlock>
+        
+        <TextBlock Grid.Column="0" Grid.Row="2" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Descuento</TextBlock>
+        <TextBox x:Name="tbDescuento" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Text="0" KeyUp="TbDescuento_KeyUp"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="3" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Total:</TextBlock>
+        <TextBlock x:Name="tbTotal" Grid.Column="1" Grid.Row="3" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0"></TextBlock>
+
+        <Grid Margin="2" Grid.Column="1" Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Grid.Row="0" Content="Vender" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Vender"/>
+            <Button Grid.Column="1" Grid.Row="0" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Cancelar"/>
+        </Grid>
+    </Grid>
+</Window>

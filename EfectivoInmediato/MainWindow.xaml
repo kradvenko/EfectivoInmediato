@@ -171,7 +171,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" MinHeight="30"/>
                     </Grid.RowDefinitions>
-                    <Button Grid.Column="0" Grid.Row="0" Content="Vender Producto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}"/>
+                    <Button Grid.Column="0" Grid.Row="0" Content="Vender Producto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="VenderProducto"/>
                     <Button Grid.Column="1" Grid.Row="0" Content="Agregar Producto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="AgregarPrenda"/>
                     <Button Grid.Column="2" Grid.Row="0" Content="Editar Producto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="EditarProducto"/>
                 </Grid>

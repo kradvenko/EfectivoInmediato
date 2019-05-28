@@ -240,5 +240,19 @@ namespace EfectivoInmediato
             AgregarPrenda agregar = new AgregarPrenda(this);
             agregar.ShowDialog();
         }
+
+        private void VenderProducto(object sender, RoutedEventArgs e)
+        {
+            if (dgInventario.SelectedItem != null)
+            {
+                cPrenda p = (cPrenda)dgInventario.SelectedItem;
+                NuevaVenta venta = new NuevaVenta(this, p);
+                venta.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("No ha elegido una prenda.");
+            }
+        }
     }
 }
