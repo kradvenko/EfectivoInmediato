@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EfectivoInmediato"
         mc:Ignorable="d"
-        Title="Verificar eliminación" Height="150" Width="250">
+        Title="Verificar eliminación" Height="150" Width="250" WindowStartupLocation="CenterScreen">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -17,10 +17,10 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5, 0, 0, 0">Número de préstamo</TextBlock>
+        <TextBlock x:Name="tbNumero" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5, 0, 0, 0">Número de préstamo</TextBlock>
         <TextBox x:Name="tbId" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
 
-        <Button Grid.Column="0" Grid.Row="2" Content="Vender" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Eliminar"/>
+        <Button Grid.Column="0" Grid.Row="2" Content="Eliminar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Eliminar"/>
         <Button Grid.Column="1" Grid.Row="2" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Cancelar"/>
     </Grid>
 </Window>

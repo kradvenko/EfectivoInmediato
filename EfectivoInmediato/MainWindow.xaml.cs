@@ -263,7 +263,12 @@ namespace EfectivoInmediato
                 {
                     if (MessageBox.Show("¿Desea eliminar el préstamo por completo?", "ATENCIÓN", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
+                        cPrestamo p = new cPrestamo();
+                        p = (cPrestamo)dgPrestamos.SelectedItem;
 
+                        VerificarEliminacion eliminar = new VerificarEliminacion(this, p);
+
+                        eliminar.ShowDialog();
                     }
                 }
             }

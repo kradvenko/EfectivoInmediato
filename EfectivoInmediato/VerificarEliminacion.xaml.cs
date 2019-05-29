@@ -27,6 +27,7 @@ namespace EfectivoInmediato
             InitializeComponent();
             prestamo = pre;
             parent = p;
+            tbNumero.Text = "Número de préstamo: " + prestamo.Contrato;
         }
 
         private void Cancelar(object sender, RoutedEventArgs e)
@@ -36,7 +37,20 @@ namespace EfectivoInmediato
 
         private void Eliminar(object sender, RoutedEventArgs e)
         {
-
+            if (tbId.Text == prestamo.Contrato)
+            {
+                String r = cPrestamo.EliminarPrestamo(prestamo.IdPrestamo, prestamo.IdPrenda);
+                if (r == "OK")
+                {
+                    MessageBox.Show("Se ha eliminado el préstamo.");
+                    parent.RecargarPrestamos();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show(r);
+                }
+            }
         }
     }
 }

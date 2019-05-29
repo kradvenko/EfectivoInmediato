@@ -256,9 +256,17 @@ namespace EfectivoInmediato
 
                         myCMD.ExecuteNonQuery();
 
-                        SqlCommand cmd2 = new SqlCommand("DELETE FROM Refrendos WHERE IdPrestamo = @IdPrestamo");
+                        SqlCommand cmd2 = new SqlCommand("DELETE FROM Refrendos WHERE IdPrestamo = @IdPrestamo", con);
 
                         cmd2.Parameters.AddWithValue("@IdPrestamo", IdPrestamo);
+
+                        cmd2.ExecuteNonQuery();
+
+                        SqlCommand cmd3 = new SqlCommand("DELETE FROM Prestamos WHERE IdPrestamo = @IdPrestamo", con);
+
+                        cmd3.Parameters.AddWithValue("@IdPrestamo", IdPrestamo);
+
+                        cmd3.ExecuteNonQuery();
 
                         con.Close();
                     }
