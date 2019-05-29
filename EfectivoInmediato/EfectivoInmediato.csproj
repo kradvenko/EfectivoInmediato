@@ -99,6 +99,7 @@
     <Compile Include="AgregarPrenda.xaml.cs">
       <DependentUpon>AgregarPrenda.xaml</DependentUpon>
     </Compile>
+    <Compile Include="cCambios.cs" />
     <Compile Include="cCategoria.cs" />
     <Compile Include="cContrato.cs" />
     <Compile Include="cMarcaVehiculo.cs" />
