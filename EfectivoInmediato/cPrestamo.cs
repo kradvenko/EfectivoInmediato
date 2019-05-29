@@ -236,5 +236,40 @@ namespace EfectivoInmediato
 
             return respuesta;
         }
+
+        public static String EliminarPrestamo(String IdPrestamo, String IdPrenda)
+        {
+            String respuesta = "OK";
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
+                {
+                    using (SqlCommand myCMD = new SqlCommand(" " +
+                        "DELETE FROM Prendas " +
+                        "WHERE IdPrenda = @IdPrenda" +
+                        "", con))
+                    {
+                        con.Open();
+
+                        myCMD.Parameters.AddWithValue("@IdPrenda", IdPrenda);
+
+                        myCMD.ExecuteNonQuery();
+
+                        SqlCommand cmd2 = new SqlCommand("DELETE FROM Refrendos WHERE IdPrestamo = @IdPrestamo");
+
+                        cmd2.Parameters.AddWithValue("@IdPrestamo", IdPrestamo);
+
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                respuesta = exc.Message;
+            }
+
+            return respuesta;
+        }
     }
 }

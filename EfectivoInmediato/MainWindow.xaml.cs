@@ -254,5 +254,19 @@ namespace EfectivoInmediato
                 MessageBox.Show("No ha elegido una prenda.");
             }
         }
+
+        private void DgPrestamos_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                if (dgPrestamos.SelectedItem != null)
+                {
+                    if (MessageBox.Show("¿Desea eliminar el préstamo por completo?", "ATENCIÓN", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+
+                    }
+                }
+            }
+        }
     }
 }

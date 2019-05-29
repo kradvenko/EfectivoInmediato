@@ -90,7 +90,7 @@
                     <Button Grid.Column="5" Grid.Row="0" Content="Liquidados" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="Finiquitados"/>
                     <Button Grid.Column="5" Grid.Row="0" Content="Enajenar Prenda" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="EnajenarPrenda"/>
                 </Grid>
-                <DataGrid DockPanel.Dock="Bottom" x:Name="dgPrestamos" ItemsSource="{Binding prestamos}" AutoGenerateColumns="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsReadOnly="True">
+                <DataGrid DockPanel.Dock="Bottom" x:Name="dgPrestamos" ItemsSource="{Binding prestamos}" AutoGenerateColumns="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsReadOnly="True" KeyUp="DgPrestamos_KeyUp">
                     <DataGrid.RowStyle>
                         <Style TargetType="DataGridRow">
                             <Style.Triggers>

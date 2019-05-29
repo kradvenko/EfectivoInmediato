@@ -42,7 +42,25 @@ namespace EfectivoInmediato
         {
             if (MessageBox.Show("¿Desea vender la prenda?", "ATENCIÓN", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
+                cVenta v = new cVenta();
+                v.IdPrenda = prenda.IdPrenda;
+                v.Descuento = tbDescuento.Text;
+                v.Subtotal = prenda.PrecioVenta;
+                v.Total = nuevoTotal.ToString();
+                v.HoraVenta = DateTime.Now.TimeOfDay.ToString();
+                v.FechaVenta = DateTime.Now.Date.ToShortDateString();
+                v.Estado = "ACTIVO";
 
+                String resultado = cVenta.GuardarVenta(v);
+
+                int id;
+
+                if (int.TryParse(resultado, out id))
+                {
+                    MessageBox.Show("Se ha realizado la venta.");
+                    parent.ActualizarInventarioLista();
+                    this.Close();
+                }
             }
         }
 

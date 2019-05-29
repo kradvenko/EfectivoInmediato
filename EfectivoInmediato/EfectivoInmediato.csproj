@@ -127,6 +127,9 @@
     <Compile Include="Refrendo.xaml.cs">
       <DependentUpon>Refrendo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VerificarEliminacion.xaml.cs">
+      <DependentUpon>VerificarEliminacion.xaml</DependentUpon>
+    </Compile>
     <Page Include="AgregarPrenda.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -215,6 +218,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Refrendo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VerificarEliminacion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
