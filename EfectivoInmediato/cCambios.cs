@@ -16,30 +16,47 @@ namespace EfectivoInmediato
 
         public static String EjecutarCambios()
         {
-            String resultado;
+            String resultado = "OK";
             try
             {
                 using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
                 {
                     using (SqlCommand myCMD = new SqlCommand(" " +
-                        "IF (EXISTS (SELECT * " +
+                        "IF (NOT EXISTS (SELECT * " +
                         "FROM INFORMATION_SCHEMA.TABLES " +
                         "WHERE TABLE_SCHEMA = 'EfectivoInmediato' " +
                         "AND  TABLE_NAME = 'Ventas')) " +
                             "BEGIN " +
-                                "SELECT* " +
-                                "FROM Refrendos " +
+                                "CREATE TABLE[dbo].[Ventas]( " +
+                                "[IdVenta][int] IDENTITY(1, 1) NOT NULL, " +
+                                "[IdPrenda][int] NULL, " +
+                                "[Descuento][float] NULL, " +
+                                "[Subtotal][float] NULL, " +
+                                "[Total][float] NULL, " + 
+                                "[HoraVenta][nvarchar](50) NULL, " +
+                                "[FechaVenta][nvarchar](50) NULL, " +
+                                "[Estado][nvarchar](50) NULL, " +
+                                "CONSTRAINT[PK_Ventas] PRIMARY KEY CLUSTERED " +
+                                "( " +
+                                "[IdVenta] ASC " + 
+                                ")WITH(PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON[PRIMARY] " +
+                                ") ON[PRIMARY] " +
+                                "ALTER TABLE Prendas ADD EnVenta NVARCHAR(2), Vendida NVARCHAR(2), PrecioVenta FLOAT, Enajenado NVARCHAR(2) " +
                             "END " +
                         "ELSE " +
                             "BEGIN " +
                                 "SELECT * " +
-                                "FROM Clientes " +
+                                "FROM Ventas " +
                             "END " +
                         "", con))
                     {
                         con.Open();
 
-                        resultado = myCMD.ExecuteScalar().ToString();
+                        myCMD.ExecuteNonQuery();
+
+                        SqlCommand cmd2 = new SqlCommand("UPDATE Prendas SET EnVenta = 'NO', Vendida = 'NO', PrecioVenta = 0, Enajenado = 'NO'", con);
+
+                        cmd2.ExecuteNonQuery();
 
                         con.Close();
                     }
