@@ -206,7 +206,7 @@ namespace EfectivoInmediato
                 //Se escribe el nombre del cliente.
                 success = (bool)r.Replace(
                     @"\cliente\",
-                    cliente.NombreCompleto,
+                    "[" + cliente.IdCliente + "] " + cliente.NombreCompleto,
                     XlLookAt.xlPart,
                     XlSearchOrder.xlByRows,
                     true, m, m, m);
@@ -358,7 +358,7 @@ namespace EfectivoInmediato
                 //Se escribe nombre de la prenda.
                 success = (bool)r.Replace(
                     @"\prenda1\",
-                    prenda.Descripcion,
+                    prenda.Descripcion + " " + prenda.Marca + " " + prenda.Modelo,
                     XlLookAt.xlPart,
                     XlSearchOrder.xlByRows,
                     true, m, m, m);

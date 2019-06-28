@@ -128,7 +128,7 @@ namespace EfectivoInmediato
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            cCambios.EjecutarCambios();
+            //cCambios.EjecutarCambios();
         }
 
         public void RecargarPrestamos()
@@ -271,6 +271,16 @@ namespace EfectivoInmediato
                         eliminar.ShowDialog();
                     }
                 }
+            }
+        }
+
+        private void BuscarPrestamos(object sender, RoutedEventArgs e)
+        {
+            if (tbBusquedaPrestamos.Text.Length > 0)
+            {
+                prestamos = cPrestamo.ObtenerPrestamosClienteFolio(tbBusquedaPrestamos.Text, tbDiasVencimiento.Text);
+                dgPrestamos.ItemsSource = null;
+                dgPrestamos.ItemsSource = prestamos;
             }
         }
     }

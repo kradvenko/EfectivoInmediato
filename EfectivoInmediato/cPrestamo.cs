@@ -132,7 +132,7 @@ namespace EfectivoInmediato
 
                                         prestamo.FechaVencimiento = fechaVencimiento.ToShortDateString();
 
-                                       con2.Close();
+                                        con2.Close();
                                     }
                                 }
 
@@ -278,6 +278,144 @@ namespace EfectivoInmediato
             }
 
             return respuesta;
+        }
+
+        public static ObservableCollection<cPrestamo> ObtenerPrestamosClienteFolio(String Busqueda, String DiasVencimiento = "NO")
+        {
+            ObservableCollection<cPrestamo> prestamos = new ObservableCollection<cPrestamo>();
+            cPrestamo prestamo;
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
+                {
+                    using (SqlCommand myCMD = new SqlCommand(" " +
+                        "SELECT Prestamos.*, (Clientes.NombreCliente + ' ' + Clientes.ApellidoPaternoCliente + ' ' + Clientes.ApellidoMaternoCliente) As NombreCompleto," +
+                        "Prendas.Descripcion, Prendas.TipoPrenda " +
+                        "FROM Prestamos " +
+                        "INNER JOIN Clientes " +
+                        "ON Clientes.IdCliente = Prestamos.IdCliente " +
+                        "INNER JOIN Prendas " +
+                        "ON Prendas.IdPrenda = Prestamos.IdPrenda " +
+                        "WHERE Prestamos.Estado Like 'ACTIVO' " +
+                        "AND Prendas.EnVenta = 'NO' " +
+                        "AND (Clientes.NombreCliente LIKE @Nombre " +
+                        "OR Prestamos.Contrato = @Folio)" +
+                        "", con))
+                    {
+                        con.Open();
+
+                        myCMD.Parameters.AddWithValue("@Folio", Busqueda);
+                        myCMD.Parameters.AddWithValue("@Nombre", "%" + Busqueda + "%");
+
+                        SqlDataReader reader = myCMD.ExecuteReader();
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                prestamo = new cPrestamo();
+                                prestamo.IdPrestamo = reader["IdPrestamo"].ToString();
+                                prestamo.IdPrestamoPadre = reader["IdPrestamoPadre"].ToString();
+                                prestamo.IdCliente = reader["IdCliente"].ToString();
+                                prestamo.IdPrenda = reader["IdPrenda"].ToString();
+                                prestamo.DescripcionPrenda = reader["Descripcion"].ToString();
+                                prestamo.TipoPrenda = reader["TipoPrenda"].ToString();
+                                prestamo.Contrato = reader["Contrato"].ToString();
+                                prestamo.NombreCliente = reader["NombreCompleto"].ToString();
+                                prestamo.NombrePrenda = reader["Descripcion"].ToString();
+                                prestamo.CantidadPrestada = reader["CantidadPrestada"].ToString();
+                                prestamo.FechaPrestamo = reader["FechaPrestamo"].ToString();
+                                prestamo.FechaVencimiento = reader["FechaVencimiento"].ToString();
+                                prestamo.Estado = reader["Estado"].ToString();
+                                prestamo.FechaCaptura = reader["FechaCaptura"].ToString();
+
+                                SqlConnection con2 = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString);
+
+                                con2.Open();
+
+                                using (SqlCommand commRefrendos = new SqlCommand(" " +
+                                    "SELECT * " +
+                                    "FROM Refrendos " +
+                                    "WHERE IdPrestamo = @IdPrestamo " +
+                                    "", con2))
+                                {
+                                    commRefrendos.Parameters.AddWithValue("@IdPrestamo", prestamo.IdPrestamo);
+
+                                    SqlDataReader readerR = commRefrendos.ExecuteReader();
+
+                                    if (readerR.HasRows)
+                                    {
+                                        String fecha = "";
+
+                                        while (readerR.Read())
+                                        {
+                                            fecha = readerR["FechaRefrendo"].ToString();
+                                        }
+
+                                        con2.Close();
+
+                                        SqlCommand comIntereses = new SqlCommand("Select Intereses.Periodo, Plazo " +
+                                                                            "From Prendas " +
+                                                                            "Inner Join Departamentos " +
+                                                                            "On Departamentos.IdDepartamento = Prendas.IdDepartamento " +
+                                                                            "Inner Join Intereses " +
+                                                                            "On Intereses.IdDepartamento = Departamentos.IdDepartamento " +
+                                                                            "Where IdPrenda = @IdPrenda", con2);
+
+                                        con2.Open();
+
+                                        comIntereses.Parameters.AddWithValue("@IdPrenda", prestamo.IdPrenda);
+
+                                        SqlDataReader readerI = comIntereses.ExecuteReader();
+
+                                        String plazo = "";
+
+                                        if (readerI.HasRows)
+                                        {
+                                            while (readerI.Read())
+                                            {
+                                                plazo = readerI["Plazo"].ToString();
+                                            }
+                                        }
+
+                                        DateTime fechaVencimiento = DateTime.Parse(fecha);
+                                        fechaVencimiento = fechaVencimiento.AddMonths(int.Parse(plazo));
+
+                                        prestamo.FechaVencimiento = fechaVencimiento.ToShortDateString();
+
+                                        con2.Close();
+                                    }
+                                }
+
+                                if (DiasVencimiento == "NO")
+                                {
+
+                                }
+                                else
+                                {
+                                    if (DateTime.Parse(prestamo.FechaVencimiento).AddDays(int.Parse(DiasVencimiento)) <= DateTime.Now)
+                                    {
+                                        prestamo.ProximoATerminar = "SI";
+                                    }
+                                    else
+                                    {
+                                        prestamo.ProximoATerminar = "NO";
+                                    }
+                                }
+
+                                prestamos.Add(prestamo);
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+
+            }
+
+            return prestamos;
         }
     }
 }

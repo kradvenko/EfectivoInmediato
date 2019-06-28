@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EfectivoInmediato"
+        xmlns:Syncfusion="clr-namespace:Syncfusion.Windows.Controls.Input;assembly=Syncfusion.SfInput.Wpf"
         mc:Ignorable="d"
         Title="NuevoPrestamo" Height="450" Width="900" WindowStartupLocation="CenterScreen">
     <DockPanel>
@@ -56,7 +57,24 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <ComboBox x:Name="cbClientes" ItemsSource="{Binding clientes}" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="Auto" SelectionChanged="CbClientes_SelectionChanged"/>
+                
+                <Syncfusion:SfTextBoxExt Grid.Column="0" Grid.Row="0" Margin="2" x:Name="tbClientes"
+                             Watermark="Escribe el nombre del cliente."                                     
+                             AutoCompleteMode="SuggestAppend" AutoCompleteSource="{Binding clientes}" SearchItemPath="NombreCompleto"
+                             SuggestionMode="Contains"
+                             WatermarkTemplate="{StaticResource WatermarkTemplate}"
+                             TextChanged="TbClientes_TextChanged"
+                             SelectedItemChanged="TbClientes_SelectedItemChanged"
+                             HorizontalContentAlignment="Center" VerticalContentAlignment="Center" CharacterCasing="Upper" Grid.ColumnSpan="3">
+                    <Syncfusion:SfTextBoxExt.AutoCompleteItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <!--<Image Source="{Binding Icon}"/>-->
+                                <TextBlock Text="{Binding NombreCompleto}" Margin="3 0 0 0" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Syncfusion:SfTextBoxExt.AutoCompleteItemTemplate>
+                </Syncfusion:SfTextBoxExt>
                 <Button Grid.Column="3" Grid.Row="0" Content="+" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" Click="agregarCliente"/>                
             </Grid>
             

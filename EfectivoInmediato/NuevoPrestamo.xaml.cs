@@ -25,7 +25,9 @@ namespace EfectivoInmediato
         ObservableCollection<cCliente> clientes;
         ObservableCollection<String> tipoPrendas;
         ObservableCollection<cPrenda> prendas;
+
         cContrato contrato;
+        cCliente clienteElegido;
 
         public NuevoPrestamo(MainWindow p)
         {
@@ -38,9 +40,6 @@ namespace EfectivoInmediato
             cbDepartamento.SelectedIndex = 0;
 
             clientes = cCliente.ObtenerClientes();
-            cbClientes.ItemsSource = clientes;
-            cbClientes.DisplayMemberPath = "NombreCompleto";
-            cbClientes.SelectedValuePath = "IdCliente";
 
             tipoPrendas = new ObservableCollection<string>();
             tipoPrendas.Add("Artículo");
@@ -57,15 +56,16 @@ namespace EfectivoInmediato
             contrato = new cContrato();
             contrato = cContrato.ObtenerContrato();
             tbNumeroContrato.Text = contrato.NumeroContrato;
+
+            tbClientes.AutoCompleteSource = clientes;
         }
 
         public void RecargarClientes(String IdCliente)
         {
             clientes = cCliente.ObtenerClientes();
-            cbClientes.ItemsSource = clientes;
-            cbClientes.DisplayMemberPath = "NombreCompleto";
-            cbClientes.SelectedValuePath = "IdCliente";
-            cbClientes.SelectedValue = IdCliente;
+            tbClientes.Text = "";
+            tbClientes.AutoCompleteSource = null;
+            tbClientes.AutoCompleteSource = clientes;
         }
 
         private void CbClientes_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -86,6 +86,11 @@ namespace EfectivoInmediato
 
         private void AgregarPrenda(object sender, RoutedEventArgs e)
         {
+            if (clienteElegido == null)
+            {
+                MessageBox.Show("No ha elegido un cliente.");
+                return;
+            }
             if (cbTipoPrendas.SelectedIndex < 0)
             {
                 MessageBox.Show("No ha elegido un tipo de prenda.");
@@ -94,25 +99,18 @@ namespace EfectivoInmediato
             }
             if (cbTipoPrendas.SelectedIndex == 0)
             {
-                if (cbClientes.SelectedIndex >= 0)
-                {
-                    NuevoArticulo articulo = new NuevoArticulo(this, cbClientes.SelectedValue.ToString());
-                    articulo.ShowDialog();
-                }
-                else
-                {
-                    MessageBox.Show("No ha elegido un cliente.");
-                    return;
-                }
+                NuevoArticulo articulo = new NuevoArticulo(this, clienteElegido.IdCliente);
+                articulo.ShowDialog();
+             
             }
             else if (cbTipoPrendas.SelectedIndex == 1)
             {
-                NuevaJoya joya = new NuevaJoya();
-                joya.ShowDialog();
+                //NuevaJoya joya = new NuevaJoya();
+                //joya.ShowDialog();
             }
             else if (cbTipoPrendas.SelectedIndex == 2)
             {
-                NuevoVehiculo vehiculo = new NuevoVehiculo(this, cbClientes.SelectedValue.ToString());
+                NuevoVehiculo vehiculo = new NuevoVehiculo(this, clienteElegido.IdCliente);
                 vehiculo.ShowDialog();
             }
         }
@@ -133,7 +131,7 @@ namespace EfectivoInmediato
             contrato.NumeroContrato = tbNumeroContrato.Text;
             foreach (cPrenda prenda in prendas)
             {
-                PrePrestamo pre = new PrePrestamo(prenda, (cCliente)cbClientes.SelectedItem, this, contrato);
+                PrePrestamo pre = new PrePrestamo(prenda, clienteElegido, this, contrato);
                 pre.ShowDialog();
 
                 int c = int.Parse(tbNumeroContrato.Text);
@@ -149,7 +147,8 @@ namespace EfectivoInmediato
 
         public void LimpiarCampos()
         {
-            cbClientes.SelectedIndex = -1;
+            tbClientes.Text = "";
+            clienteElegido = null;
             cbTipoPrendas.SelectedIndex = 0;
             cbDepartamento.SelectedIndex = 0;
             prendas = new ObservableCollection<cPrenda>();
@@ -157,6 +156,19 @@ namespace EfectivoInmediato
             dgPrendas.ItemsSource = prendas;
             parent.RecargarPrestamos();
             parent.RecargarClientes();            
+        }
+
+        private void TbClientes_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void TbClientes_SelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (tbClientes.SelectedItem != null)
+            {
+                clienteElegido = (cCliente)tbClientes.SelectedItem;
+            }
         }
     }
 }
