@@ -149,12 +149,15 @@ namespace EfectivoInmediato
 
             foreach (cPago item in pagos)
             {
-                if (FechaActual <= DateTime.Parse(item.FechaPago))
+                /*if (FechaActual <= DateTime.Parse(item.FechaPago))
                 {
                     PagoLiquidar = item.TotalDesempeno;
                     PagoMinimo = item.TotalRefrendo;
                     break;
-                }
+                }*/
+                PagoLiquidar = item.TotalDesempeno;
+                PagoMinimo = item.TotalRefrendo;
+                break;
             }
 
             btRefrendoMinimo.Content = "$ " + PagoMinimo;

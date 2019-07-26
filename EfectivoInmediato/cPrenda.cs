@@ -282,7 +282,8 @@ namespace EfectivoInmediato
                     using (SqlCommand myCMD = new SqlCommand(" " +
                         "SELECT * " +
                         "FROM Prendas " +
-                        "WHERE EnVenta = 'SI' AND Vendida = 'NO'" +
+                        //"WHERE EnVenta = 'SI' AND Vendida = 'NO'" +
+                        "WHERE Vendida = 'NO'" +
                         "", con))
                     {
                         con.Open();

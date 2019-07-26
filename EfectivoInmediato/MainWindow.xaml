@@ -95,7 +95,7 @@
                     <TextBox x:Name="tbBusquedaPrestamos" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="2"/>
                     <Button Grid.Column="3" Grid.Row="1" Content="Buscar Cliente o Folio" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="BuscarPrestamos"/>
                 </Grid>
-                <DataGrid DockPanel.Dock="Bottom" x:Name="dgPrestamos" ItemsSource="{Binding prestamos}" AutoGenerateColumns="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsReadOnly="True" KeyUp="DgPrestamos_KeyUp">
+                <DataGrid DockPanel.Dock="Bottom" x:Name="dgPrestamos" ItemsSource="{Binding prestamos}" AutoGenerateColumns="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsReadOnly="True" KeyUp="DgPrestamos_KeyUp" ClipboardCopyMode="IncludeHeader">
                     <DataGrid.RowStyle>
                         <Style TargetType="DataGridRow">
                             <Style.Triggers>
@@ -142,7 +142,7 @@
                     </Grid.RowDefinitions>
                     <Button Grid.Column="0" Grid.Row="0" Content="Nuevo Cliente" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="NuevoCliente"/>
                 </Grid>
-                <DataGrid DockPanel.Dock="Bottom" x:Name="dgClientes" ItemsSource="{Binding clientes}" Height="Auto" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid DockPanel.Dock="Bottom" x:Name="dgClientes" ItemsSource="{Binding clientes}" Height="Auto" AutoGenerateColumns="False" IsReadOnly="True" ClipboardCopyMode="IncludeHeader">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding Path=IdCliente}" Width="50"></DataGridTextColumn>
                         <DataGridTextColumn Header="Cliente" Binding="{Binding Path=NombreCompleto}" Width="250"></DataGridTextColumn>
@@ -180,11 +180,12 @@
                     <Button Grid.Column="1" Grid.Row="0" Content="Agregar Producto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="AgregarPrenda"/>
                     <Button Grid.Column="2" Grid.Row="0" Content="Editar Producto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="EditarProducto"/>
                 </Grid>
-                <DataGrid DockPanel.Dock="Bottom" x:Name="dgInventario" ItemsSource="{Binding articulos}" Height="Auto" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid DockPanel.Dock="Bottom" x:Name="dgInventario" ItemsSource="{Binding articulos}" Height="Auto" AutoGenerateColumns="False" IsReadOnly="True" ClipboardCopyMode="IncludeHeader">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding Path=IdPrenda}" Width="50"></DataGridTextColumn>
                         <DataGridTextColumn Header="Producto" Binding="{Binding Path=Descripcion}" Width="250"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Precio" Binding="{Binding Path=PrecioVentaDisplay}" Width="150"></DataGridTextColumn>                        
+                        <DataGridTextColumn Header="Precio" Binding="{Binding Path=PrecioVentaDisplay}" Width="150"></DataGridTextColumn>
+                        
                     </DataGrid.Columns>
                 </DataGrid>
             </DockPanel>

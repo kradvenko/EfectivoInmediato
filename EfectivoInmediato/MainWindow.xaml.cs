@@ -133,7 +133,7 @@ namespace EfectivoInmediato
 
         public void RecargarPrestamos()
         {
-            prestamos = cPrestamo.ObtenerPrestamos("ACTIVO");
+            prestamos = cPrestamo.ObtenerPrestamos("ACTIVO", "30");
             dgPrestamos.ItemsSource = null;
             dgPrestamos.ItemsSource = prestamos;
         }
