@@ -146,18 +146,22 @@ namespace EfectivoInmediato
             FechaActual = dtpFechaRefrendo.SelectedDate.Value;
             PagoMinimo = "0";
             PagoLiquidar = "0";
+            bool EsPagoNormal = false;
 
             foreach (cPago item in pagos)
             {
-                /*if (FechaActual <= DateTime.Parse(item.FechaPago))
+                if (FechaActual <= DateTime.Parse(item.FechaPago))
                 {
                     PagoLiquidar = item.TotalDesempeno;
                     PagoMinimo = item.TotalRefrendo;
+                    EsPagoNormal = true;
                     break;
-                }*/
-                PagoLiquidar = item.TotalDesempeno;
-                PagoMinimo = item.TotalRefrendo;
-                break;
+                }                
+            }
+
+            if (!EsPagoNormal)
+            {
+
             }
 
             btRefrendoMinimo.Content = "$ " + PagoMinimo;
