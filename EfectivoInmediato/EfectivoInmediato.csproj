@@ -119,6 +119,9 @@
     <Compile Include="cRefrendo.cs" />
     <Compile Include="cTipoVehiculo.cs" />
     <Compile Include="cVenta.cs" />
+    <Compile Include="LiquidacionEspecialRazon.xaml.cs">
+      <DependentUpon>LiquidacionEspecialRazon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NuevaCategoriaArticulo.xaml.cs">
       <DependentUpon>NuevaCategoriaArticulo.xaml</DependentUpon>
     </Compile>
@@ -153,6 +156,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Intereses.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LiquidacionEspecialRazon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

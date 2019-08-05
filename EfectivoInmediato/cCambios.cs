@@ -69,5 +69,47 @@ namespace EfectivoInmediato
 
             return resultado;
         }
+
+        public static String EjecutarCambios2()
+        {
+            String resultado = "OK";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
+                {
+                    using (SqlCommand myCMD = new SqlCommand(" " +
+                        "IF (NOT EXISTS (SELECT * " +
+                        "FROM INFORMATION_SCHEMA.COLUMNS " +
+                        "WHERE TABLE_NAME = 'Prestamos' " +
+                        "AND COLUMN_NAME = 'LiquidacionEspecialRazon')) " +
+                            "BEGIN " +
+                                "ALTER TABLE Prestamos ADD LiquidacionEspecialRazon NVARCHAR(200) " +
+                            "END " +
+                        "ELSE " +
+                            "BEGIN " +
+                                "SELECT * " +
+                                "FROM Prestamos " +
+                            "END " +
+                        "", con))
+                    {
+                        con.Open();
+
+                        myCMD.ExecuteNonQuery();
+
+                        //SqlCommand cmd2 = new SqlCommand("UPDATE Prestamos SET LiquidacionEspecialRazon = ''", con);
+
+                        //cmd2.ExecuteNonQuery();
+
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                resultado = exc.Message;
+            }
+
+            return resultado;
+        }
     }
 }

@@ -156,7 +156,7 @@ namespace EfectivoInmediato
                     PagoMinimo = item.TotalRefrendo;
                     EsPagoNormal = true;
                     break;
-                }                
+                }
             }
 
             if (!EsPagoNormal)
@@ -457,6 +457,44 @@ namespace EfectivoInmediato
         private void DtpFechaRefrendo_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             CalcularPagoMinimo();
+        }
+
+        public async void LiquidacionEspecial(String Razon)
+        {
+            float refrendo;
+            if (float.TryParse(tbRefrendo.Text, out refrendo))
+            {
+                refrendo = float.Parse(tbRefrendo.Text);
+                cRefrendo c = new cRefrendo();
+                c.IdPrestamo = prestamo.IdPrestamo;
+                c.Refrendo = refrendo.ToString();
+                c.FechaRefrendo = dtpFechaRefrendo.SelectedDate.Value.ToShortDateString();
+                c.Tipo = "FINAL";
+                String r = cRefrendo.AgregarRefrendo(c);
+                cPrestamo.FinalizarPrestamo(prestamo.IdPrestamo, Razon);
+                int x = 0;
+                if (int.TryParse(r, out x))
+                {
+                    MessageBox.Show("Se ha liquidado el préstamo.");
+                    parent.RecargarPrestamos();
+
+                    await Task.Run(() => CrearBoletaExcel(r, c, "FINAL", c.Refrendo, ""));
+
+                    if (MessageBox.Show("Se ha creado el recibo, ¿desea verlo?", "Atención", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        System.Diagnostics.Process.Start(ruta);
+                    }
+
+                    this.Close();
+
+                }
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            LiquidacionEspecialRazon especial = new LiquidacionEspecialRazon(this);
+            especial.ShowDialog();
         }
     }
 }

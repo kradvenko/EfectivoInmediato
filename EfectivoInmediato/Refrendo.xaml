@@ -82,7 +82,7 @@
             </DataGrid>
             <TextBox x:Name="tbRefrendo" Grid.Column="4" Grid.Row="6" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
             <Button Grid.Column="5" Grid.Row="6" Content="Refrendar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="AgregarRefrendoAsync"/>
-            <Button Grid.Column="6" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Height="40" Click="AgregarRefrendoAsync">
+            <Button Grid.Column="6" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Height="40" Click="Button_Click_1">
                 <Button.Content>
                     <TextBlock TextWrapping="Wrap" TextAlignment="Center">Liquidación especial</TextBlock>
                 </Button.Content>

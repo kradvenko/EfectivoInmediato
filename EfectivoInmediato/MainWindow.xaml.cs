@@ -128,7 +128,7 @@ namespace EfectivoInmediato
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //cCambios.EjecutarCambios();
+            cCambios.EjecutarCambios2();
         }
 
         public void RecargarPrestamos()

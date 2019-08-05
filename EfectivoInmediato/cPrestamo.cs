@@ -24,6 +24,8 @@ namespace EfectivoInmediato
         public String FechaVencimiento { get; set; }
         public String Estado { get; set; }
         public String FechaCaptura { get; set; }
+        //Variable para la liquidación especial
+        public String RazonLiquidacionEspecial { get; set; }
         //Variable para fecha próxima de terminación de préstamo
         public String ProximoATerminar { get; set; }
 
@@ -206,7 +208,7 @@ namespace EfectivoInmediato
             return respuesta;
         }
 
-        public static String FinalizarPrestamo(String IdPrestamo)
+        public static String FinalizarPrestamo(String IdPrestamo, String LiquidacionEspecialRazon = "")
         {
             String respuesta = "OK";
 
@@ -215,13 +217,14 @@ namespace EfectivoInmediato
                 using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
                 {
                     using (SqlCommand myCMD = new SqlCommand(" " +
-                        "UPDATE Prestamos SET Estado = 'LIQUIDADO' " +
+                        "UPDATE Prestamos SET Estado = 'LIQUIDADO',  LiquidacionEspecialRazon = @Razon " +
                         "WHERE IdPrestamo = @IdPrestamo" +
                         "", con))
                     {
                         con.Open();
 
                         myCMD.Parameters.AddWithValue("@IdPrestamo", IdPrestamo);
+                        myCMD.Parameters.AddWithValue("@Razon", LiquidacionEspecialRazon);
 
                         myCMD.ExecuteNonQuery();
 
