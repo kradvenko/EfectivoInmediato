@@ -194,5 +194,57 @@ namespace EfectivoInmediato
 
             return cliente;
         }
+
+        public static String ActualizarCliente(String IdCliente ,String nombreCliente, String apellidoPaternoCliente, String apellidoMaternoCliente, String identificacion, String claveIdentificacion, String domicilio, String colonia, String ciudad, String estado, String telefono1, String telefono2, String correoElectronico, String fechaNacimiento, String ocupacion, String nombreCotitular, String domicilioCotitular)
+        {
+            String resultado = "OK";
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
+                {
+                    using (SqlCommand myCMD = new SqlCommand(" " +
+                        "UPDATE Clientes " +
+                        "SET NombreCliente = @NombreCliente, ApellidoPaternoCliente = @ApellidoPaternoCliente, " +
+                        "ApellidoMaternoCliente = @ApellidoMaternoCliente, TipoIdentificacion = @TipoIdentificacion, " +
+                        "ClaveIdentificacion = @ClaveIdentificacion, Domicilio= @Domicilio, Colonia = @Colonia, Ciudad = @Ciudad, " +
+                        "Estado = @Estado, Telefono1 = @Telefono1, Telefono2 = @Telefono2, CorreoElectronico = @CorreoElectronico, " +
+                        "FechaNacimiento = @FechaNacimiento, Ocupacion = @Ocupacion, NombreCotitular = @NombreCotitular, DomicilioCotitular = @DomicilioCotitular " +
+                        "WHERE IdCliente = @IdCliente " +
+                        "", con))
+                    {
+                        con.Open();
+
+                        myCMD.Parameters.AddWithValue("@NombreCliente", nombreCliente);
+                        myCMD.Parameters.AddWithValue("@ApellidoPaternoCliente", apellidoPaternoCliente);
+                        myCMD.Parameters.AddWithValue("@ApellidoMaternoCliente", apellidoMaternoCliente);
+                        myCMD.Parameters.AddWithValue("@TipoIdentificacion", identificacion);
+                        myCMD.Parameters.AddWithValue("@ClaveIdentificacion", claveIdentificacion);
+                        myCMD.Parameters.AddWithValue("@Domicilio", domicilio);
+                        myCMD.Parameters.AddWithValue("@Colonia", colonia);
+                        myCMD.Parameters.AddWithValue("@Ciudad", ciudad);
+                        myCMD.Parameters.AddWithValue("@Estado", estado);
+                        myCMD.Parameters.AddWithValue("@Telefono1", telefono1);
+                        myCMD.Parameters.AddWithValue("@Telefono2", telefono2);
+                        myCMD.Parameters.AddWithValue("@CorreoElectronico", correoElectronico);
+                        myCMD.Parameters.AddWithValue("@FechaNacimiento", fechaNacimiento);
+                        myCMD.Parameters.AddWithValue("@Ocupacion", ocupacion);
+                        myCMD.Parameters.AddWithValue("@NombreCotitular", nombreCotitular);
+                        myCMD.Parameters.AddWithValue("@DomicilioCotitular", domicilioCotitular);
+                        myCMD.Parameters.AddWithValue("@IdCliente", IdCliente);
+
+                        myCMD.ExecuteNonQuery();
+
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                resultado = exc.Message;
+            }
+
+            return resultado;
+        }
     }
 }

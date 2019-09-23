@@ -141,6 +141,7 @@
                         <RowDefinition Height="*" MinHeight="30"/>
                     </Grid.RowDefinitions>
                     <Button Grid.Column="0" Grid.Row="0" Content="Nuevo Cliente" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="NuevoCliente"/>
+                    <Button Grid.Column="1" Grid.Row="0" Content="Modificar Cliente" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="ModificarCliente"/>
                 </Grid>
                 <DataGrid DockPanel.Dock="Bottom" x:Name="dgClientes" ItemsSource="{Binding clientes}" Height="Auto" AutoGenerateColumns="False" IsReadOnly="True" ClipboardCopyMode="IncludeHeader">
                     <DataGrid.Columns>

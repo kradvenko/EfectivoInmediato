@@ -283,5 +283,15 @@ namespace EfectivoInmediato
                 dgPrestamos.ItemsSource = prestamos;
             }
         }
+
+        private void ModificarCliente(object sender, RoutedEventArgs e)
+        {
+            if (dgClientes.SelectedItem != null)
+            {
+                cCliente cliente = (cCliente)dgClientes.SelectedItem;
+                ModificarCliente modificar = new ModificarCliente(this, cliente);
+                modificar.ShowDialog();
+            }
+        }
     }
 }
