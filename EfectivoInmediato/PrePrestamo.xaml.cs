@@ -358,7 +358,7 @@ namespace EfectivoInmediato
                 //Se escribe nombre de la prenda.
                 success = (bool)r.Replace(
                     @"\prenda1\",
-                    prenda.Descripcion + " " + prenda.Marca + " " + prenda.Modelo,
+                    prenda.Descripcion + " " + prenda.Marca + " " + prenda.Modelo + " " + prenda.Serie + " " + prenda.Observaciones,
                     XlLookAt.xlPart,
                     XlSearchOrder.xlByRows,
                     true, m, m, m);

@@ -183,7 +183,7 @@
                 </Grid>
                 <DataGrid DockPanel.Dock="Bottom" x:Name="dgInventario" ItemsSource="{Binding articulos}" Height="Auto" AutoGenerateColumns="False" IsReadOnly="True" ClipboardCopyMode="IncludeHeader">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id" Binding="{Binding Path=IdPrenda}" Width="50"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Contrato" Binding="{Binding Path=Contrato}" Width="100"></DataGridTextColumn>
                         <DataGridTextColumn Header="Producto" Binding="{Binding Path=Descripcion}" Width="250"></DataGridTextColumn>
                         <DataGridTextColumn Header="Precio" Binding="{Binding Path=PrecioVentaDisplay}" Width="150"></DataGridTextColumn>
                         

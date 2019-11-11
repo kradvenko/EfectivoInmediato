@@ -56,6 +56,8 @@ namespace EfectivoInmediato
         public String PrecioVenta { get; set; }
         public String Enajenado { get; set; }
         public String PrecioVentaDisplay { get; set; }
+        //Para inventario
+        public String Contrato { get; set; }
 
         public cPrenda()
         {
@@ -280,10 +282,12 @@ namespace EfectivoInmediato
                 using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
                 {
                     using (SqlCommand myCMD = new SqlCommand(" " +
-                        "SELECT * " +
+                        "SELECT Prendas.*, Prestamos.Contrato " +
                         "FROM Prendas " +
                         //"WHERE EnVenta = 'SI' AND Vendida = 'NO'" +
-                        "WHERE Vendida = 'NO'" +
+                        "FULL JOIN Prestamos " +
+                        "ON Prestamos.IdPrenda = Prendas.IdPrenda " +
+                        "WHERE Vendida = 'NO' AND Prestamos.Estado = 'ACTIVO'" +
                         "", con))
                     {
                         con.Open();
@@ -333,6 +337,7 @@ namespace EfectivoInmediato
                                 prenda.PrecioVenta = r["PrecioVenta"].ToString();
                                 prenda.Enajenado = r["Enajenado"].ToString();
                                 prenda.PrecioVentaDisplay = "$ " + prenda.PrecioVenta;
+                                prenda.Contrato = r["Contrato"].ToString();
 
                                 prendas.Add(prenda);
                             }
