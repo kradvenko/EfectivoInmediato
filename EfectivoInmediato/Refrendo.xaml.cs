@@ -156,12 +156,17 @@ namespace EfectivoInmediato
                     PagoMinimo = item.TotalRefrendo;
                     EsPagoNormal = true;
                     break;
-                }
+                }                
+                break;
             }
 
             if (!EsPagoNormal)
             {
-
+                if (pagos.Count > 0)
+                {
+                    PagoLiquidar = pagos[pagos.Count - 1].TotalDesempeno;
+                    PagoMinimo = pagos[pagos.Count - 1].TotalRefrendo;
+                }
             }
 
             btRefrendoMinimo.Content = "$ " + PagoMinimo;
