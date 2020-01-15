@@ -157,15 +157,30 @@ namespace EfectivoInmediato
                     EsPagoNormal = true;
                     break;
                 }                
-                break;
             }
 
             if (!EsPagoNormal)
             {
                 if (pagos.Count > 0)
                 {
-                    PagoLiquidar = pagos[pagos.Count - 1].TotalDesempeno;
-                    PagoMinimo = pagos[pagos.Count - 1].TotalRefrendo;
+                    if (DateTime.Now.Date > DateTime.Parse(pagos[pagos.Count - 1].FechaPago).AddDays(int.Parse(interes.DiasDeGracia)))
+                    {
+                        double DiasPasados = (DateTime.Now.Date - DateTime.Parse(pagos[pagos.Count - 1].FechaPago).AddDays(int.Parse(interes.DiasDeGracia))).TotalDays;
+                        DiasPasados = DiasPasados + int.Parse(interes.DiasDeGracia);
+                        double Agregado = double.Parse(prestamo.CantidadPrestada) * (0.12/30) * DiasPasados + double.Parse(prestamo.CantidadPrestada) + double.Parse(pagos[pagos.Count - 1].TotalRefrendo);
+
+                        tbxDiasPasados.Text = "Días pasados: " + DiasPasados.ToString();
+
+                        tbxCalculoPasado.Text = "Cálculo: $ " + prestamo.CantidadPrestada + " X (0.12 / 30) X " + DiasPasados.ToString() + " días + $ " + prestamo.CantidadPrestada + " + $ " + pagos[pagos.Count - 1].TotalRefrendo;
+
+                        PagoLiquidar = Agregado.ToString();
+                        PagoMinimo = pagos[pagos.Count - 1].TotalRefrendo;
+                    }
+                    else
+                    {
+                        PagoLiquidar = pagos[pagos.Count - 1].TotalDesempeno;
+                        PagoMinimo = pagos[pagos.Count - 1].TotalRefrendo;
+                    }
                 }
             }
 

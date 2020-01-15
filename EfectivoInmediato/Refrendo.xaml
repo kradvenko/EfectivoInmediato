@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EfectivoInmediato"
         mc:Ignorable="d"
-        Title="Refrendo" Height="650" Width="900" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Unloaded="Window_Unloaded">
+        Title="Refrendo" Height="650" Width="900" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Unloaded="Window_Unloaded" WindowState="Maximized">
     <DockPanel>
         <Grid DockPanel.Dock="Top" MinHeight="55">
             <Grid.ColumnDefinitions>
@@ -91,11 +91,13 @@
             <Button x:Name="btRefrendoMinimo" Grid.Column="5" Grid.Row="7" Content="-" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="RefrendoMinimo"/>
             <TextBlock Grid.Column="4" Grid.Row="8" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Para liquidar</TextBlock>
             <Button x:Name="btPagoLiquidar" Grid.Column="5" Grid.Row="8" Content="-" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="ParaLiquidar"/>
+            <TextBlock x:Name="tbxDiasPasados" Grid.Column="6" Grid.Row="8" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0"></TextBlock>
+            <TextBlock x:Name="tbxCalculoPasado" Grid.Column="7" Grid.Row="8" Grid.ColumnSpan="2" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center"></TextBlock>
             <!--Séptimo Renglón-->
             <!--Octavo Renglón-->
             <!--Noveno Renglón-->
             
-            <Button Grid.Column="8" Grid.Row="8" Content="Cerrar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Button_Click"/>
+            <Button Grid.Column="8" Grid.Row="7" Content="Cerrar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Button_Click"/>
         </Grid>
     </DockPanel>
 </Window>
