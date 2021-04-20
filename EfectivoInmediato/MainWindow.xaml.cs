@@ -28,36 +28,7 @@ namespace EfectivoInmediato
 
         public MainWindow()
         {
-            InitializeComponent();
-            /*cPrestamo c = new cPrestamo();
-            c.NombreCliente = "TEST";
-            prestamos.Add(c);
-            dgPrestamos.ItemsSource = prestamos;
-            dgClientes.ItemsSource = prestamos;*/
-
-            prestamos = cPrestamo.ObtenerPrestamos("ACTIVO", "30");
-            dgPrestamos.ItemsSource = prestamos;
-
-            clientes = cCliente.ObtenerClientes();
-            dgClientes.ItemsSource = clientes;
-
-            articulos = cPrenda.ObtenerPrendasVenta();
-            dgInventario.ItemsSource = articulos;
-
-            string version = null;
-            try
-            {
-                //// get deployment version
-                version = ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
-            }
-            catch (InvalidDeploymentException)
-            {
-                //// you cannot read publish version when app isn't installed 
-                //// (e.g. during debug)
-                version = "No instalado.";
-            }
-
-            lblVersion.Content = version;
+            InitializeComponent();            
         }
 
         private void MostrarGrid(String Opcion)
@@ -128,7 +99,35 @@ namespace EfectivoInmediato
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            cCambios.EjecutarCambios2();
+            cCambios.EjecutarCambios3();
+            System.IO.Directory.CreateDirectory(@"C:\EfectivoInmediato\Identificaciones");
+
+            /*cPrestamo c = new cPrestamo();
+            c.NombreCliente = "TEST";
+            prestamos.Add(c);
+            dgPrestamos.ItemsSource = prestamos;
+            dgClientes.ItemsSource = prestamos;*/
+
+            prestamos = cPrestamo.ObtenerPrestamos("ACTIVO", "30");
+            dgPrestamos.ItemsSource = prestamos;
+
+            clientes = cCliente.ObtenerClientes();
+            dgClientes.ItemsSource = clientes;            
+
+            string version = null;
+            try
+            {
+                //// get deployment version
+                version = ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
+            }
+            catch (InvalidDeploymentException)
+            {
+                //// you cannot read publish version when app isn't installed 
+                //// (e.g. during debug)
+                version = "No instalado.";
+            }
+
+            lblVersion.Content = version;
         }
 
         public void RecargarPrestamos()
@@ -161,9 +160,19 @@ namespace EfectivoInmediato
 
             if (int.TryParse(tbDiasVencimiento.Text, out dias))
             {
-                prestamos = cPrestamo.ObtenerPrestamos("ACTIVO", tbDiasVencimiento.Text);
-                dgPrestamos.ItemsSource = null;
-                dgPrestamos.ItemsSource = prestamos;
+                if (cbEnVenta.IsChecked == true)
+                {
+                    prestamos = cPrestamo.ObtenerPrestamos("ACTIVO", tbDiasVencimiento.Text, "SI");
+                    dgPrestamos.ItemsSource = null;
+                    dgPrestamos.ItemsSource = prestamos;
+                }
+                else
+                {
+                    prestamos = cPrestamo.ObtenerPrestamos("ACTIVO", tbDiasVencimiento.Text);
+                    dgPrestamos.ItemsSource = null;
+                    dgPrestamos.ItemsSource = prestamos;
+                }
+                
             }
         }
 
@@ -207,7 +216,7 @@ namespace EfectivoInmediato
                     dgPrestamos.ItemsSource = null;
                     dgPrestamos.ItemsSource = prestamos;
 
-                    articulos = cPrenda.ObtenerPrendasVenta();
+                    articulos = cPrenda.ObtenerPrendasVenta("%");
                     dgInventario.ItemsSource = null;
                     dgInventario.ItemsSource = articulos;
                 }
@@ -230,7 +239,7 @@ namespace EfectivoInmediato
 
         public void ActualizarInventarioLista()
         {
-            articulos = cPrenda.ObtenerPrendasVenta();
+            articulos = cPrenda.ObtenerPrendasVenta("%");
             dgInventario.ItemsSource = null;
             dgInventario.ItemsSource = articulos;
         }
@@ -292,6 +301,18 @@ namespace EfectivoInmediato
                 ModificarCliente modificar = new ModificarCliente(this, cliente);
                 modificar.ShowDialog();
             }
+        }
+
+        private void GenerarReporteInventario(object sender, RoutedEventArgs e)
+        {
+            articulos = cPrenda.ObtenerPrendasVenta("%");
+            dgInventario.ItemsSource = articulos;
+        }
+
+        private void BuscarPrendaPorContrato(object sender, RoutedEventArgs e)
+        {
+            articulos = cPrenda.ObtenerPrendasVenta(tbBusquedaPrendaContrato.Text);
+            dgInventario.ItemsSource = articulos;
         }
     }
 }

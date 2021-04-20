@@ -83,6 +83,7 @@
             <TextBlock Grid.Column="3" Grid.Row="5" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Domicilio Cotitular</TextBlock>
             <TextBox x:Name="tbDomicilioCotitular" Grid.Column="4" Grid.Row="5" Grid.ColumnSpan="4" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <!--Séptimo Renglón-->
+            <Button Grid.Column="0" Grid.Row="6" Content="Identificacion" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="ImagenIdentificacion"/>
             <!--Octavo Renglón-->
             <!--Noveno Renglón-->
             <Button Grid.Column="7" Grid.Row="8" Content="Guardar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="GuardarCliente"/>

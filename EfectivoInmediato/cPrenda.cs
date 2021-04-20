@@ -58,6 +58,7 @@ namespace EfectivoInmediato
         public String PrecioVentaDisplay { get; set; }
         //Para inventario
         public String Contrato { get; set; }
+        public String Maximo { get; set; }
 
         public cPrenda()
         {
@@ -272,7 +273,7 @@ namespace EfectivoInmediato
             return prenda;
         }
 
-        public static ObservableCollection<cPrenda> ObtenerPrendasVenta()
+        public static ObservableCollection<cPrenda> ObtenerPrendasVenta(String IdContrato)
         {
             ObservableCollection<cPrenda> prendas = new ObservableCollection<cPrenda>();
             cPrenda prenda = new cPrenda();
@@ -282,15 +283,22 @@ namespace EfectivoInmediato
                 using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
                 {
                     using (SqlCommand myCMD = new SqlCommand(" " +
-                        "SELECT Prendas.*, Prestamos.Contrato " +
+                        "SELECT Prendas.*, Prestamos.Contrato, (((Intereses.Financiamiento + Intereses.Almacenaje + Intereses.Administracion) * 1.16) * 2 / 100 * Prendas.Prestamo + Prendas.Prestamo) AS Maximo " +
                         "FROM Prendas " +
                         //"WHERE EnVenta = 'SI' AND Vendida = 'NO'" +
                         "FULL JOIN Prestamos " +
                         "ON Prestamos.IdPrenda = Prendas.IdPrenda " +
-                        "WHERE Vendida = 'NO' AND Prestamos.Estado = 'ACTIVO'" +
+                        "INNER JOIN Departamentos " +
+                        "ON Departamentos.IdDepartamento = Prendas.IdDepartamento " +
+                        "INNER JOIN Intereses " +
+                        "ON Intereses.IdDepartamento = Departamentos.IdDepartamento " +
+                        //"WHERE Vendida = 'NO' AND Prestamos.Estado = 'ACTIVO' AND Prestamos.Contrato LIKE @IdContrato" +
+                        "WHERE Prestamos.Contrato LIKE @IdContrato" +
                         "", con))
                     {
                         con.Open();
+
+                        myCMD.Parameters.AddWithValue("@IdContrato", IdContrato);
 
                         SqlDataReader r = myCMD.ExecuteReader();
 
@@ -338,6 +346,7 @@ namespace EfectivoInmediato
                                 prenda.Enajenado = r["Enajenado"].ToString();
                                 prenda.PrecioVentaDisplay = "$ " + prenda.PrecioVenta;
                                 prenda.Contrato = r["Contrato"].ToString();
+                                prenda.Maximo = r["Maximo"].ToString();
 
                                 prendas.Add(prenda);
                             }

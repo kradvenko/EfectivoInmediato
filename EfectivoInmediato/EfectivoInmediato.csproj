@@ -14,7 +14,7 @@
     <WarningLevel>4</WarningLevel>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\EfectivoInmediato\</PublishUrl>
+    <PublishUrl>C:\Publish\EfectivoInmediato\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -24,11 +24,11 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <UpdateUrl>http://efectivoinmediato.cardinelli.net/</UpdateUrl>
+    <UpdateUrl>http://efectivoinmediato.atwebpages.com/</UpdateUrl>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>36</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -119,6 +119,9 @@
     <Compile Include="cRefrendo.cs" />
     <Compile Include="cTipoVehiculo.cs" />
     <Compile Include="cVenta.cs" />
+    <Compile Include="ImagenIdentificacion.xaml.cs">
+      <DependentUpon>ImagenIdentificacion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LiquidacionEspecialRazon.xaml.cs">
       <DependentUpon>LiquidacionEspecialRazon.xaml</DependentUpon>
     </Compile>
@@ -155,6 +158,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Contrato.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ImagenIdentificacion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

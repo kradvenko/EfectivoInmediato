@@ -88,5 +88,18 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <!--Estilo para DataGrid-->
+        <Style TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Height" Value="50" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+        </Style>
+        <Style TargetType="{x:Type DataGridRow}">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
     </Application.Resources>
 </Application>

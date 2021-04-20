@@ -28,6 +28,8 @@ namespace EfectivoInmediato
         public String Ocupacion { get; set; }
         public String NombreCotitular { get; set; }
         public String DomicilioCotitular { get; set; }
+        public String RutaImagenFrente { get; set; }
+        public String RutaImagenAtras { get; set; }
 
         public cCliente()
         {
@@ -75,6 +77,8 @@ namespace EfectivoInmediato
                                 cliente.Ocupacion = reader["Ocupacion"].ToString();
                                 cliente.NombreCotitular = reader["NombreCotitular"].ToString();
                                 cliente.DomicilioCotitular = reader["DomicilioCotitular"].ToString();
+                                cliente.RutaImagenFrente = reader["RutaImagenFrente"].ToString();
+                                cliente.RutaImagenAtras = reader["RutaImagenAtras"].ToString();
                                 clientes.Add(cliente);
                             }
                         }
@@ -180,7 +184,9 @@ namespace EfectivoInmediato
                                 cliente.FechaNacimiento = reader["FechaNacimiento"].ToString();
                                 cliente.Ocupacion = reader["Ocupacion"].ToString();
                                 cliente.NombreCotitular = reader["NombreCotitular"].ToString();
-                                cliente.DomicilioCotitular = reader["DomicilioCotitular"].ToString();                                
+                                cliente.DomicilioCotitular = reader["DomicilioCotitular"].ToString();
+                                cliente.RutaImagenFrente = reader["RutaImagenFrente"].ToString();
+                                cliente.RutaImagenAtras = reader["RutaImagenAtras"].ToString();
                             }
                         }
                         con.Close();
@@ -231,6 +237,130 @@ namespace EfectivoInmediato
                         myCMD.Parameters.AddWithValue("@Ocupacion", ocupacion);
                         myCMD.Parameters.AddWithValue("@NombreCotitular", nombreCotitular);
                         myCMD.Parameters.AddWithValue("@DomicilioCotitular", domicilioCotitular);
+                        myCMD.Parameters.AddWithValue("@IdCliente", IdCliente);
+
+                        myCMD.ExecuteNonQuery();
+
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                resultado = exc.Message;
+            }
+
+            return resultado;
+        }
+
+        public static cCliente ObtenerClienteId(String IdCliente)
+        {
+            cCliente cliente = new cCliente();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
+                {
+                    using (SqlCommand myCMD = new SqlCommand(" " +
+                        "SELECT Clientes.* " +
+                        "FROM Clientes " +
+                        "WHERE Clientes.IdCliente = @IdCliente " +
+                        "", con))
+                    {
+                        myCMD.Parameters.AddWithValue("@IdCliente", IdCliente);
+
+                        con.Open();
+
+                        SqlDataReader reader = myCMD.ExecuteReader();
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                cliente = new cCliente();
+                                cliente.IdCliente = reader["IdCliente"].ToString();
+                                cliente.NombreCliente = reader["NombreCliente"].ToString();
+                                cliente.ApellidoPaternoCliente = reader["ApellidoPaternoCliente"].ToString();
+                                cliente.ApellidoMaternoCliente = reader["ApellidoMaternoCliente"].ToString();
+                                cliente.NombreCompleto = reader["NombreCompleto"].ToString();
+                                cliente.TipoIdentificacion = reader["TipoIdentificacion"].ToString();
+                                cliente.ClaveIdentificacion = reader["ClaveIdentificacion"].ToString();
+                                cliente.Domicilio = reader["Domicilio"].ToString();
+                                cliente.Colonia = reader["Colonia"].ToString();
+                                cliente.Ciudad = reader["Ciudad"].ToString();
+                                cliente.Estado = reader["Estado"].ToString();
+                                cliente.Telefono1 = reader["Telefono1"].ToString();
+                                cliente.Telefono2 = reader["Telefono2"].ToString();
+                                cliente.CorreoElectronico = reader["CorreoElectronico"].ToString();
+                                cliente.FechaNacimiento = reader["FechaNacimiento"].ToString();
+                                cliente.Ocupacion = reader["Ocupacion"].ToString();
+                                cliente.NombreCotitular = reader["NombreCotitular"].ToString();
+                                cliente.DomicilioCotitular = reader["DomicilioCotitular"].ToString();
+                                cliente.RutaImagenFrente = reader["RutaImagenFrente"].ToString();
+                                cliente.RutaImagenAtras = reader["RutaImagenAtras"].ToString();
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+
+            }
+
+            return cliente;
+        }
+
+        public static String ActualizarImagenFrenteCliente(String IdCliente, String RutaImagenFrente)
+        {
+            String resultado = "OK";
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
+                {
+                    using (SqlCommand myCMD = new SqlCommand(" " +
+                        "UPDATE Clientes " +
+                        "SET RutaImagenFrente = @RutaImagenFrente " +
+                        "WHERE IdCliente = @IdCliente " +
+                        "", con))
+                    {
+                        con.Open();
+
+                        myCMD.Parameters.AddWithValue("@RutaImagenFrente", RutaImagenFrente);
+                        myCMD.Parameters.AddWithValue("@IdCliente", IdCliente);
+
+                        myCMD.ExecuteNonQuery();
+
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                resultado = exc.Message;
+            }
+
+            return resultado;
+        }
+
+        public static String ActualizarImagenAtrasCliente(String IdCliente, String RutaImagenAtras)
+        {
+            String resultado = "OK";
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
+                {
+                    using (SqlCommand myCMD = new SqlCommand(" " +
+                        "UPDATE Clientes " +
+                        "SET RutaImagenAtras = @RutaImagenAtras " +
+                        "WHERE IdCliente = @IdCliente " +
+                        "", con))
+                    {
+                        con.Open();
+
+                        myCMD.Parameters.AddWithValue("@RutaImagenAtras", RutaImagenAtras);
                         myCMD.Parameters.AddWithValue("@IdCliente", IdCliente);
 
                         myCMD.ExecuteNonQuery();

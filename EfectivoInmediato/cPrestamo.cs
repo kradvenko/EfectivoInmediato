@@ -28,13 +28,15 @@ namespace EfectivoInmediato
         public String RazonLiquidacionEspecial { get; set; }
         //Variable para fecha próxima de terminación de préstamo
         public String ProximoATerminar { get; set; }
+        public String AbonoACapital { get; set; }
+        public String RestaPorPagar { get; set; }
 
         public cPrestamo()
         {
 
         }
 
-        public static ObservableCollection<cPrestamo> ObtenerPrestamos(String Estado, String DiasVencimiento = "NO")
+        public static ObservableCollection<cPrestamo> ObtenerPrestamos(String Estado, String DiasVencimiento = "NO", String EnVenta = "NO")
         {
             ObservableCollection<cPrestamo> prestamos = new ObservableCollection<cPrestamo>();
             cPrestamo prestamo;
@@ -52,12 +54,13 @@ namespace EfectivoInmediato
                         "INNER JOIN Prendas " +
                         "ON Prendas.IdPrenda = Prestamos.IdPrenda " +
                         "WHERE Prestamos.Estado Like @Estado " +
-                        "AND Prendas.EnVenta = 'NO'" +
+                        "AND Prendas.EnVenta = @EnVenta" +
                         "", con))
                     {
                         con.Open();
 
                         myCMD.Parameters.AddWithValue("@Estado", Estado);
+                        myCMD.Parameters.AddWithValue("@EnVenta", EnVenta);
 
                         SqlDataReader reader = myCMD.ExecuteReader();
                         if (reader.HasRows)
@@ -79,11 +82,11 @@ namespace EfectivoInmediato
                                 prestamo.FechaVencimiento = reader["FechaVencimiento"].ToString();
                                 prestamo.Estado = reader["Estado"].ToString();
                                 prestamo.FechaCaptura = reader["FechaCaptura"].ToString();
-
+                                
                                 SqlConnection con2 = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString);
-
+                                
                                 con2.Open();
-
+                                
                                 using (SqlCommand commRefrendos = new SqlCommand(" " +
                                     "SELECT * " +
                                     "FROM Refrendos " +
@@ -94,26 +97,31 @@ namespace EfectivoInmediato
 
                                     SqlDataReader readerR = commRefrendos.ExecuteReader();
 
+                                    SqlConnection con3 = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString);
+
+                                    con3.Open();
+
                                     if (readerR.HasRows)
                                     {
                                         String fecha = "";
+                                        float totalAbonoACapital = 0;
 
                                         while (readerR.Read())
                                         {
                                             fecha = readerR["FechaRefrendo"].ToString();
+
+                                            if (readerR["TIPO"].ToString() == "ABONO")
+                                            {
+                                                totalAbonoACapital += float.Parse(readerR["Refrendo"].ToString());
+                                            }
                                         }
-
-                                        con2.Close();
-
                                         SqlCommand comIntereses = new SqlCommand("Select Intereses.Periodo, Plazo " +
                                                                             "From Prendas " +
                                                                             "Inner Join Departamentos " +
                                                                             "On Departamentos.IdDepartamento = Prendas.IdDepartamento " +
                                                                             "Inner Join Intereses " +
                                                                             "On Intereses.IdDepartamento = Departamentos.IdDepartamento " +
-                                                                            "Where IdPrenda = @IdPrenda", con2);
-
-                                        con2.Open();
+                                                                            "Where IdPrenda = @IdPrenda", con3);
 
                                         comIntereses.Parameters.AddWithValue("@IdPrenda", prestamo.IdPrenda);
 
@@ -132,11 +140,15 @@ namespace EfectivoInmediato
                                         DateTime fechaVencimiento = DateTime.Parse(fecha);
                                         fechaVencimiento = fechaVencimiento.AddMonths(int.Parse(plazo));
 
-                                        prestamo.FechaVencimiento = fechaVencimiento.ToShortDateString();
+                                        prestamo.FechaVencimiento = fechaVencimiento.ToShortDateString();                                       
 
-                                        con2.Close();
+                                        prestamo.AbonoACapital = totalAbonoACapital.ToString();
                                     }
+
+                                    con3.Close();
                                 }
+
+                                con2.Close();
 
                                 if (DiasVencimiento == "NO")
                                 {
@@ -153,7 +165,7 @@ namespace EfectivoInmediato
                                         prestamo.ProximoATerminar = "NO";
                                     }
                                 }
-
+                                
                                 prestamos.Add(prestamo);
                             }
                         }
@@ -422,3 +434,4 @@ namespace EfectivoInmediato
         }
     }
 }
+

@@ -101,5 +101,11 @@ namespace EfectivoInmediato
         {
             this.Close();
         }
+
+        private void ImagenIdentificacion(object sender, RoutedEventArgs e)
+        {
+            ImagenIdentificacion imagen = new ImagenIdentificacion(cliente);
+            imagen.ShowDialog();
+        }
     }
 }

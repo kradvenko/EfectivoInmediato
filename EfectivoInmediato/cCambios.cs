@@ -111,5 +111,49 @@ namespace EfectivoInmediato
 
             return resultado;
         }
+
+        public static String EjecutarCambios3()
+        {
+            String resultado = "OK";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
+                {
+                    using (SqlCommand myCMD = new SqlCommand(" " +
+                        "IF (NOT EXISTS (SELECT * " +
+                        "FROM INFORMATION_SCHEMA.COLUMNS " +
+                        "WHERE TABLE_NAME = 'Clientes' " +
+                        "AND COLUMN_NAME = 'RutaImagenFrente')) " +
+                            "BEGIN " +
+                                "ALTER TABLE Clientes " +
+                                "ADD RutaImagenFrente NVARCHAR(250)," +
+                                "RutaImagenAtras NVARCHAR(250) " +
+                            "END " +
+                        "ELSE " +
+                            "BEGIN " +
+                                "SELECT * " +
+                                "FROM Clientes " +
+                            "END " +
+                        "", con))
+                    {
+                        con.Open();
+
+                        myCMD.ExecuteNonQuery();
+
+                        //SqlCommand cmd2 = new SqlCommand("UPDATE Prestamos SET LiquidacionEspecialRazon = ''", con);
+
+                        //cmd2.ExecuteNonQuery();
+
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                resultado = exc.Message;
+            }
+
+            return resultado;
+        }
     }
 }
