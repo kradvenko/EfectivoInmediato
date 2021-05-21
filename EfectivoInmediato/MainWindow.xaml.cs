@@ -47,6 +47,10 @@ namespace EfectivoInmediato
                     LimpiarGrids();
                     gInventario.Visibility = Visibility.Visible;
                     break;
+                case "VerReportes":
+                    LimpiarGrids();
+                    gReportes.Visibility = Visibility.Visible;
+                    break;
             }
         }
 
@@ -62,6 +66,7 @@ namespace EfectivoInmediato
             gPrestamos.Visibility = Visibility.Collapsed;
             gClientes.Visibility = Visibility.Collapsed;
             gInventario.Visibility = Visibility.Collapsed;
+            gReportes.Visibility = Visibility.Collapsed;
         }
 
         private void VerPrestamos(object sender, RoutedEventArgs e)
@@ -313,6 +318,28 @@ namespace EfectivoInmediato
         {
             articulos = cPrenda.ObtenerPrendasVenta(tbBusquedaPrendaContrato.Text);
             dgInventario.ItemsSource = articulos;
+        }
+
+        private void VerReportes(object sender, RoutedEventArgs e)
+        {
+            MostrarGrid("VerReportes");
+        }
+
+        private void GenerarReporteBoletas(object sender, RoutedEventArgs e)
+        {
+            List<cReporteBoletas> reporteBoletas = new List<cReporteBoletas>();
+
+            String Busqueda = "%";
+
+            if (tbBusquedaNombreFolio.Text.Length > 0)
+            {
+                Busqueda = tbBusquedaNombreFolio.Text;
+            }
+
+            reporteBoletas = cReporteBoletas.ObtenerReporte(Busqueda);
+
+            dgReporte.ItemsSource = null;
+            dgReporte.ItemsSource = reporteBoletas;
         }
     }
 }

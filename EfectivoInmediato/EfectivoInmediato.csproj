@@ -117,6 +117,7 @@
     </Compile>
     <Compile Include="cPago.cs" />
     <Compile Include="cRefrendo.cs" />
+    <Compile Include="cReporteBoletas.cs" />
     <Compile Include="cTipoVehiculo.cs" />
     <Compile Include="cVenta.cs" />
     <Compile Include="ImagenIdentificacion.xaml.cs">

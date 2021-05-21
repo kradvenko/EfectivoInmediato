@@ -57,6 +57,7 @@
             <Button Grid.Column="0" Grid.Row="0" Click="VerPrestamos" Style="{StaticResource ButtonStyleTopBar}">Prestamos</Button>
             <Button Grid.Column="1" Grid.Row="0" Click="VerClientes" Style="{StaticResource ButtonStyleTopBar}">Clientes</Button>
             <Button Grid.Column="2" Grid.Row="0" Click="VerInventario" Style="{StaticResource ButtonStyleTopBar}">Inventario</Button>
+            <Button Grid.Column="3" Grid.Row="0" Click="VerReportes" Style="{StaticResource ButtonStyleTopBar}">Reportes</Button>
             <Button Grid.Column="6" Grid.Row="0" Click="VerConfiguracion" Style="{StaticResource ButtonStyleTopBar}">Configuración</Button>
         </Grid>
 
@@ -199,6 +200,47 @@
                         <DataGridTextColumn Header="Precio" Binding="{Binding Path=PrecioVentaDisplay}" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Préstamo" Binding="{Binding Path=PrestamoDisplay}" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Máximo con interés" Binding="{Binding Path=Maximo}" Width="*"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </Grid>
+
+        <Grid x:Name="gReportes" Margin="0, 0, 0, 0" DockPanel.Dock="Top" MinHeight="450" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <DockPanel Grid.Column="0" Grid.Row="1" LastChildFill="True" Background="AliceBlue">
+                <Grid DockPanel.Dock="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" MinHeight="30"/>                        
+                    </Grid.RowDefinitions>
+                    <Label Content="Nombre o Folio" Grid.Column="0" Grid.Row="1"></Label>
+                    <TextBox x:Name="tbBusquedaNombreFolio" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="2"/>
+                    <Button Grid.Column="3" Grid.Row="0" Content="Reporte Boletas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="GenerarReporteBoletas"/>
+                </Grid>
+                <DataGrid DockPanel.Dock="Bottom" x:Name="dgReporte" ItemsSource="{Binding articulos}" Height="Auto" AutoGenerateColumns="False" IsReadOnly="True" ClipboardCopyMode="IncludeHeader">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Boleta" Binding="{Binding Path=Contrato}" Width="0.5*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Cliente" Binding="{Binding Path=NombreCliente}" Width="2*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Descripción" Binding="{Binding Path=Descripcion}" Width="2*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Cantidad Prestada" Binding="{Binding Path=CantidadPrestada}" Width="0.5*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Intereses" Binding="{Binding Path=Intereses}" Width="0.5*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Fecha Empeño" Binding="{Binding Path=FechaEmpeno}" Width="0.5*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Fecha Liquidación" Binding="{Binding Path=FechaLiquidacion}" Width="0.5*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Estado" Binding="{Binding Path=Estado}" Width="0.5*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Intereses" Binding="{Binding Path=Intereses}" Width="0.5*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Cantidad Venta" Binding="{Binding Path=CantidadVenta}" Width="0.5*"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </DockPanel>
