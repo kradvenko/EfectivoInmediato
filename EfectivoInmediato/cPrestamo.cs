@@ -30,13 +30,14 @@ namespace EfectivoInmediato
         public String ProximoATerminar { get; set; }
         public String AbonoACapital { get; set; }
         public String RestaPorPagar { get; set; }
-
+        //Es Especial
+        public String Esp { get; set; }
         public cPrestamo()
         {
 
         }
 
-        public static ObservableCollection<cPrestamo> ObtenerPrestamos(String Estado, String DiasVencimiento = "NO", String EnVenta = "NO")
+        public static ObservableCollection<cPrestamo> ObtenerPrestamos(String Estado, String DiasVencimiento = "NO", String EnVenta = "NO", String Esp = "NO")
         {
             ObservableCollection<cPrestamo> prestamos = new ObservableCollection<cPrestamo>();
             cPrestamo prestamo;
@@ -54,13 +55,15 @@ namespace EfectivoInmediato
                         "INNER JOIN Prendas " +
                         "ON Prendas.IdPrenda = Prestamos.IdPrenda " +
                         "WHERE Prestamos.Estado Like @Estado " +
-                        "AND Prendas.EnVenta = @EnVenta" +
+                        "AND Prendas.EnVenta = @EnVenta " +
+                        "AND Prestamos.Esp = @Esp" +
                         "", con))
                     {
                         con.Open();
 
                         myCMD.Parameters.AddWithValue("@Estado", Estado);
                         myCMD.Parameters.AddWithValue("@EnVenta", EnVenta);
+                        myCMD.Parameters.AddWithValue("@Esp", Esp);
 
                         SqlDataReader reader = myCMD.ExecuteReader();
                         if (reader.HasRows)
@@ -190,9 +193,9 @@ namespace EfectivoInmediato
                 using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
                 {
                     using (SqlCommand myCMD = new SqlCommand(" " +
-                        "INSERT INTO Prestamos (IdPrestamoPadre, IdCliente, IdPrenda, Contrato, CantidadPrestada, FechaPrestamo, FechaVencimiento, Estado, FechaCaptura) " +
+                        "INSERT INTO Prestamos (IdPrestamoPadre, IdCliente, IdPrenda, Contrato, CantidadPrestada, FechaPrestamo, FechaVencimiento, Estado, FechaCaptura, Esp) " +
                         "OUTPUT INSERTED.IdPrestamo " +
-                        "VALUES (@IdPrestamoPadre, @IdCliente, @IdPrenda, @Contrato, @CantidadPrestada, @FechaPrestamo, @FechaVencimiento, @Estado, GETDATE())" +
+                        "VALUES (@IdPrestamoPadre, @IdCliente, @IdPrenda, @Contrato, @CantidadPrestada, @FechaPrestamo, @FechaVencimiento, @Estado, GETDATE(), @Esp)" +
                         "", con))
                     {
                         con.Open();
@@ -205,6 +208,7 @@ namespace EfectivoInmediato
                         myCMD.Parameters.AddWithValue("@FechaPrestamo", p.FechaPrestamo);
                         myCMD.Parameters.AddWithValue("@FechaVencimiento", p.FechaVencimiento);
                         myCMD.Parameters.AddWithValue("@Estado", p.Estado);
+                        myCMD.Parameters.AddWithValue("@Esp", p.Esp);
 
                         respuesta = myCMD.ExecuteScalar().ToString();
 
@@ -300,6 +304,10 @@ namespace EfectivoInmediato
             ObservableCollection<cPrestamo> prestamos = new ObservableCollection<cPrestamo>();
             cPrestamo prestamo;
 
+            String Folio = Busqueda;
+            Busqueda = Busqueda.Replace(' ', '%');
+            Busqueda = '%' + Busqueda + '%';
+
             try
             {
                 using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
@@ -314,13 +322,14 @@ namespace EfectivoInmediato
                         "ON Prendas.IdPrenda = Prestamos.IdPrenda " +
                         "WHERE Prestamos.Estado Like 'ACTIVO' " +
                         "AND Prendas.EnVenta = 'NO' " +
-                        "AND (Clientes.NombreCliente LIKE @Nombre " +
-                        "OR Prestamos.Contrato = @Folio)" +
+                        "AND ((('%' + NombreCliente + '%' + ApellidoPaternoCliente + '%' + ApellidoMaternoCliente + '%') LIKE @Nombre) " +
+                        "OR (Prestamos.Contrato = @Folio))" +
+                        "" +
                         "", con))
                     {
                         con.Open();
 
-                        myCMD.Parameters.AddWithValue("@Folio", Busqueda);
+                        myCMD.Parameters.AddWithValue("@Folio", Folio);
                         myCMD.Parameters.AddWithValue("@Nombre", "%" + Busqueda + "%");
 
                         SqlDataReader reader = myCMD.ExecuteReader();

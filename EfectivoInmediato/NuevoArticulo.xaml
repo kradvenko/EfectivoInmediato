@@ -74,14 +74,34 @@
             <TextBox x:Name="tbAvaluo" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <TextBlock Grid.Column="3" Grid.Row="4" TextWrapping="WrapWithOverflow" FontFamily="Bahnschrift Light" VerticalAlignment="Center" Margin="5, 0, 0, 0">Préstamo</TextBlock>
             <TextBox x:Name="tbPrestamo" Grid.Column="4" Grid.Row="4" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-            
+
             <!--Sexto Renglón-->
-            
+            <Button Grid.Column="0" Grid.Row="5" Content="10 %" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="90" Click="Porcentaje" Style="{StaticResource ButtonStyleSecondaryBar}" x:Name="p10"/>
+            <Button Grid.Column="1" Grid.Row="5" Content="20 %" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="90" Click="Porcentaje" Style="{StaticResource ButtonStyleSecondaryBar}" x:Name="p20"/>
+            <Button Grid.Column="2" Grid.Row="5" Content="30 %" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="90" Click="Porcentaje" Style="{StaticResource ButtonStyleSecondaryBar}" x:Name="p30"/>
+
+            <Button Grid.Column="4" Grid.Row="5" Content="Imagen 1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="90" Click="MostrarImagen" Style="{StaticResource ButtonStyleSecondaryBar}" x:Name="i01"/>
+            <Button Grid.Column="5" Grid.Row="5" Content="Imagen 2" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="90" Click="MostrarImagen" Style="{StaticResource ButtonStyleSecondaryBar}" x:Name="i02"/>
+            <Button Grid.Column="6" Grid.Row="5" Content="Imagen 3" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="90" Click="MostrarImagen" Style="{StaticResource ButtonStyleSecondaryBar}" x:Name="i03"/>
             <!--Séptimo Renglón-->
+            <Button Grid.Column="0" Grid.Row="6" Content="40 %" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="90" Click="Porcentaje" Style="{StaticResource ButtonStyleSecondaryBar}" x:Name="p40"/>
+            <Button Grid.Column="1" Grid.Row="6" Content="50 %" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="90" Click="Porcentaje" Style="{StaticResource ButtonStyleSecondaryBar}" x:Name="p50"/>
+            <Button Grid.Column="2" Grid.Row="6" Content="60 %" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="90" Click="Porcentaje" Style="{StaticResource ButtonStyleSecondaryBar}" x:Name="p60"/>
+
+            <Button Grid.Column="4" Grid.Row="6" Content="Imagen 4" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="90" Click="MostrarImagen" Style="{StaticResource ButtonStyleSecondaryBar}" x:Name="i04"/>
+            <Button Grid.Column="5" Grid.Row="6" Content="Imagen 5" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="90" Click="MostrarImagen" Style="{StaticResource ButtonStyleSecondaryBar}" x:Name="i05"/>
+            <Button Grid.Column="6" Grid.Row="6" Content="Imagen 6" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="90" Click="MostrarImagen" Style="{StaticResource ButtonStyleSecondaryBar}" x:Name="i06"/>
             <!--Octavo Renglón-->
+            <Button Grid.Column="0" Grid.Row="7" Content="70 %" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="90" Click="Porcentaje" Style="{StaticResource ButtonStyleSecondaryBar}" x:Name="p70"/>
+            <Button Grid.Column="1" Grid.Row="7" Content="80 %" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="90" Click="Porcentaje" Style="{StaticResource ButtonStyleSecondaryBar}" x:Name="p80"/>
+            <Button Grid.Column="2" Grid.Row="7" Content="90 %" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="90" Click="Porcentaje" Style="{StaticResource ButtonStyleSecondaryBar}" x:Name="p90"/>
+
+            <Button Grid.Column="4" Grid.Row="7" Content="Imagen 7" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="90" Click="MostrarImagen" Style="{StaticResource ButtonStyleSecondaryBar}" x:Name="i07"/>
+            <Button Grid.Column="5" Grid.Row="7" Content="Imagen 8" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="90" Click="MostrarImagen" Style="{StaticResource ButtonStyleSecondaryBar}" x:Name="i08"/>
+            <Button Grid.Column="6" Grid.Row="7" Content="Imagen 9" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="90" Click="MostrarImagen" Style="{StaticResource ButtonStyleSecondaryBar}" x:Name="i09"/>
             <!--Noveno Renglón-->
-            <Button Grid.Column="7" Grid.Row="8" Content="Guardar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Guardar"/>
-            <Button Grid.Column="8" Grid.Row="8" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Cerrar"/>
+            <Button Grid.Column="7" Grid.Row="8" Content="Guardar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Guardar" Style="{StaticResource ButtonStyleSecondaryBar}"/>
+            <Button Grid.Column="8" Grid.Row="8" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Cerrar" Style="{StaticResource ButtonStyleSecondaryBar}"/>
         </Grid>
     </DockPanel>
 </Window>

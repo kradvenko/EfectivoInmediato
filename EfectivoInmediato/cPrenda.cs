@@ -59,6 +59,18 @@ namespace EfectivoInmediato
         //Para inventario
         public String Contrato { get; set; }
         public String Maximo { get; set; }
+        public String DePrestamo { get; set; }
+
+        //Imagenes
+        public String Imagen1 { get; set; }
+        public String Imagen2 { get; set; }
+        public String Imagen3 { get; set; }
+        public String Imagen4 { get; set; }
+        public String Imagen5 { get; set; }
+        public String Imagen6 { get; set; }
+        public String Imagen7 { get; set; }
+        public String Imagen8 { get; set; }
+        public String Imagen9 { get; set; }
 
         public cPrenda()
         {
@@ -273,11 +285,12 @@ namespace EfectivoInmediato
             return prenda;
         }
 
-        public static ObservableCollection<cPrenda> ObtenerPrendasVenta(String IdContrato)
+        public static ObservableCollection<cPrenda> ObtenerPrendasVenta(String Busqueda)
         {
             ObservableCollection<cPrenda> prendas = new ObservableCollection<cPrenda>();
             cPrenda prenda = new cPrenda();
 
+            String BusquedaDesc = "%" + Busqueda + "%";
             try
             {
                 using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
@@ -293,12 +306,16 @@ namespace EfectivoInmediato
                         "INNER JOIN Intereses " +
                         "ON Intereses.IdDepartamento = Departamentos.IdDepartamento " +
                         //"WHERE Vendida = 'NO' AND Prestamos.Estado = 'ACTIVO' AND Prestamos.Contrato LIKE @IdContrato" +
-                        "WHERE Prestamos.Contrato LIKE @IdContrato" +
+                        "WHERE (Prestamos.Contrato LIKE @Busqueda OR Prendas.Descripcion LIKE @BusquedaDesc) " +
+                        "AND (Prendas.Vendida = 'NO') " +
+                        "AND (Prestamos.Estado = 'ACTIVO')" +
+                        "ORDER BY EnVenta" +
                         "", con))
                     {
                         con.Open();
 
-                        myCMD.Parameters.AddWithValue("@IdContrato", IdContrato);
+                        myCMD.Parameters.AddWithValue("@Busqueda", Busqueda);
+                        myCMD.Parameters.AddWithValue("@BusquedaDesc", BusquedaDesc);
 
                         SqlDataReader r = myCMD.ExecuteReader();
 
@@ -347,6 +364,157 @@ namespace EfectivoInmediato
                                 prenda.PrecioVentaDisplay = "$ " + prenda.PrecioVenta;
                                 prenda.Contrato = r["Contrato"].ToString();
                                 prenda.Maximo = r["Maximo"].ToString();
+                                prenda.DePrestamo = "SI";
+
+                                prendas.Add(prenda);
+                            }
+                        }
+
+                        con.Close();
+                    }
+
+                    using (SqlCommand myCMD = new SqlCommand(" " +
+                        "SELECT Prendas.* " +
+                        "FROM Prendas " +
+                        "WHERE Prendas.Descripcion LIKE @Busqueda AND IdCliente = 0" +
+                        "", con))
+                    {
+                        con.Open();
+
+                        myCMD.Parameters.AddWithValue("@Busqueda", Busqueda);
+
+                        SqlDataReader r = myCMD.ExecuteReader();
+
+                        if (r.HasRows)
+                        {
+                            while (r.Read())
+                            {
+                                prenda = new cPrenda();
+
+                                prenda.IdPrenda = r["IdPrenda"].ToString();
+                                prenda.IdDepartamento = r["IdDepartamento"].ToString();
+                                prenda.IdCliente = r["IdCliente"].ToString();
+                                prenda.IdCategoriaArticulo = r["IdCategoriaArticulo"].ToString();
+                                prenda.TipoPrenda = r["TipoPrenda"].ToString();
+                                prenda.Descripcion = r["Descripcion"].ToString();
+                                prenda.Marca = r["Marca"].ToString();
+                                prenda.Modelo = r["Modelo"].ToString();
+                                prenda.Serie = r["Serie"].ToString();
+                                prenda.IdTipoMetal = r["IdTipoMetal"].ToString();
+                                prenda.PesoMetal = r["PesoMetal"].ToString();
+                                prenda.Pureza = r["Pureza"].ToString();
+                                prenda.ObservacionesMetal = r["ObservacionesMetal"].ToString();
+                                prenda.IdTipoPiedra = r["IdTipoPiedra"].ToString();
+                                prenda.ColorPiedra = r["ColorPiedra"].ToString();
+                                prenda.ClaridadOPureza = r["ClaridadOPureza"].ToString();
+                                prenda.CorteOTalla = r["CorteOTalla"].ToString();
+                                prenda.PesoPiedra = r["PesoPiedra"].ToString();
+                                prenda.ObservacionesPiedra = r["ObservacionesPiedra"].ToString();
+                                prenda.IdTipoVehiculo = r["IdTipoVehiculo"].ToString();
+                                prenda.IdMarcaVehiculo = r["IdMarcaVehiculo"].ToString();
+                                prenda.ModeloVehiculo = r["ModeloVehiculo"].ToString();
+                                prenda.AnioVehiculo = r["AnioVehiculo"].ToString();
+                                prenda.Kilometraje = r["Kilometraje"].ToString();
+                                prenda.NumeroSerieVehiculo = r["NumeroSerieVehiculo"].ToString();
+                                prenda.Placas = r["Placas"].ToString();
+                                prenda.ColorVehiculo = r["ColorVehiculo"].ToString();
+                                prenda.UbicacionAlmacen = r["UbicacionAlmacen"].ToString();
+                                prenda.Observaciones = r["Observaciones"].ToString();
+                                prenda.Avaluo = r["Avaluo"].ToString();
+                                prenda.Prestamo = r["Prestamo"].ToString();
+                                prenda.PrestamoDisplay = "$ " + prenda.Prestamo;
+                                prenda.EnVenta = r["EnVenta"].ToString();
+                                prenda.Vendida = r["Vendida"].ToString();
+                                prenda.PrecioVenta = r["PrecioVenta"].ToString();
+                                prenda.Enajenado = r["Enajenado"].ToString();
+                                prenda.PrecioVentaDisplay = "$ " + prenda.PrecioVenta;
+                                prenda.DePrestamo = "NO";
+                                //prenda.Contrato = r["Contrato"].ToString();
+                                //prenda.Maximo = r["Maximo"].ToString();
+
+                                prendas.Add(prenda);
+                            }
+                        }
+
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+
+            }
+
+            return prendas;
+        }
+
+        public static ObservableCollection<cPrenda> ObtenerPrendasVendidas(String Fecha)
+        {
+            ObservableCollection<cPrenda> prendas = new ObservableCollection<cPrenda>();
+            cPrenda prenda = new cPrenda();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
+                {
+                    using (SqlCommand myCMD = new SqlCommand(" " +
+                        "SELECT Prendas.* " +
+                        "FROM Prendas " +
+                        "INNER JOIN Ventas " +
+                        "ON Ventas.IdPrenda = Prendas.IdPrenda " +
+                        "WHERE Vendida = 'SI' AND Ventas.FechaVenta = @Fecha" +
+                        "", con))
+                    {
+                        con.Open();
+
+                        myCMD.Parameters.AddWithValue("@Fecha", Fecha);
+
+                        SqlDataReader r = myCMD.ExecuteReader();
+
+                        if (r.HasRows)
+                        {
+                            while (r.Read())
+                            {
+                                prenda = new cPrenda();
+
+                                prenda.IdPrenda = r["IdPrenda"].ToString();
+                                prenda.IdDepartamento = r["IdDepartamento"].ToString();
+                                prenda.IdCliente = r["IdCliente"].ToString();
+                                prenda.IdCategoriaArticulo = r["IdCategoriaArticulo"].ToString();
+                                prenda.TipoPrenda = r["TipoPrenda"].ToString();
+                                prenda.Descripcion = r["Descripcion"].ToString();
+                                prenda.Marca = r["Marca"].ToString();
+                                prenda.Modelo = r["Modelo"].ToString();
+                                prenda.Serie = r["Serie"].ToString();
+                                prenda.IdTipoMetal = r["IdTipoMetal"].ToString();
+                                prenda.PesoMetal = r["PesoMetal"].ToString();
+                                prenda.Pureza = r["Pureza"].ToString();
+                                prenda.ObservacionesMetal = r["ObservacionesMetal"].ToString();
+                                prenda.IdTipoPiedra = r["IdTipoPiedra"].ToString();
+                                prenda.ColorPiedra = r["ColorPiedra"].ToString();
+                                prenda.ClaridadOPureza = r["ClaridadOPureza"].ToString();
+                                prenda.CorteOTalla = r["CorteOTalla"].ToString();
+                                prenda.PesoPiedra = r["PesoPiedra"].ToString();
+                                prenda.ObservacionesPiedra = r["ObservacionesPiedra"].ToString();
+                                prenda.IdTipoVehiculo = r["IdTipoVehiculo"].ToString();
+                                prenda.IdMarcaVehiculo = r["IdMarcaVehiculo"].ToString();
+                                prenda.ModeloVehiculo = r["ModeloVehiculo"].ToString();
+                                prenda.AnioVehiculo = r["AnioVehiculo"].ToString();
+                                prenda.Kilometraje = r["Kilometraje"].ToString();
+                                prenda.NumeroSerieVehiculo = r["NumeroSerieVehiculo"].ToString();
+                                prenda.Placas = r["Placas"].ToString();
+                                prenda.ColorVehiculo = r["ColorVehiculo"].ToString();
+                                prenda.UbicacionAlmacen = r["UbicacionAlmacen"].ToString();
+                                prenda.Observaciones = r["Observaciones"].ToString();
+                                prenda.Avaluo = r["Avaluo"].ToString();
+                                prenda.Prestamo = r["Prestamo"].ToString();
+                                prenda.PrestamoDisplay = "$ " + prenda.Prestamo;
+                                prenda.EnVenta = r["EnVenta"].ToString();
+                                prenda.Vendida = r["Vendida"].ToString();
+                                prenda.PrecioVenta = r["PrecioVenta"].ToString();
+                                prenda.Enajenado = r["Enajenado"].ToString();
+                                prenda.PrecioVentaDisplay = "$ " + prenda.PrecioVenta;
+                                prenda.DePrestamo = "";
 
                                 prendas.Add(prenda);
                             }
@@ -414,6 +582,122 @@ namespace EfectivoInmediato
 
                         myCMD.Parameters.AddWithValue("@IdPrenda", IdPrenda);
                         myCMD.Parameters.AddWithValue("@PrecioVenta", Precio);
+
+                        myCMD.ExecuteNonQuery();
+
+                        r = "OK";
+
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                r = exc.Message;
+            }
+
+            return r;
+        }
+
+        public static String ActualizarImagenPrenda(String IdPrenda, String RutaImagen, String NumeroImagen)
+        {
+            String r = "";
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
+                {
+                    using (SqlCommand myCMD = new SqlCommand(" " +
+                        "UPDATE Prendas SET RutaImagen" + NumeroImagen + " = @RutaImagen " +
+                        "WHERE IdPrenda = @IdPrenda " +
+                        "", con))
+                    {
+                        con.Open();
+
+                        myCMD.Parameters.AddWithValue("@IdPrenda", IdPrenda);
+                        myCMD.Parameters.AddWithValue("@RutaImagen", RutaImagen);
+
+                        myCMD.ExecuteNonQuery();
+
+                        r = "OK";
+
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                r = exc.Message;
+            }
+
+            return r;
+        }
+
+        public static String[] ObtenerImagenesPrenda(String IdPrenda)
+        {
+            String[] imgs = new string[9] { "", "", "", "", "", "", "", "", "" };
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
+                {
+                    using (SqlCommand myCMD = new SqlCommand(" " +
+                        "SELECT * " +
+                        "FROM Prendas " +
+                        "WHERE IdPrenda = @IdPrenda " +
+                        "", con))
+                    {
+                        con.Open();
+
+                        myCMD.Parameters.AddWithValue("@IdPrenda", IdPrenda);
+
+                        SqlDataReader r = myCMD.ExecuteReader();
+
+                        if (r.HasRows)
+                        {
+                            while (r.Read())
+                            {
+                                imgs[0] = r["RutaImagen1"].ToString();
+                                imgs[1] = r["RutaImagen2"].ToString();
+                                imgs[2] = r["RutaImagen3"].ToString();
+                                imgs[3] = r["RutaImagen4"].ToString();
+                                imgs[4] = r["RutaImagen5"].ToString();
+                                imgs[5] = r["RutaImagen6"].ToString();
+                                imgs[6] = r["RutaImagen7"].ToString();
+                                imgs[7] = r["RutaImagen8"].ToString();
+                                imgs[8] = r["RutaImagen9"].ToString();
+                            }
+                        }
+
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+
+            }
+
+            return imgs;
+        }
+
+        public static String ActualizarPrendaEnajenada(String IdPrenda, String Estado)
+        {
+            String r = "";
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
+                {
+                    using (SqlCommand myCMD = new SqlCommand(" " +
+                        "UPDATE Prendas SET Enajenado = @Estado, EnVenta = @Estado " +
+                        "WHERE IdPrenda = @IdPrenda " +
+                        "", con))
+                    {
+                        con.Open();
+
+                        myCMD.Parameters.AddWithValue("@IdPrenda", IdPrenda);
+                        myCMD.Parameters.AddWithValue("@Estado", Estado);
 
                         myCMD.ExecuteNonQuery();
 

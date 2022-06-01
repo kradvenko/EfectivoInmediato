@@ -54,24 +54,27 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button Grid.Column="0" Grid.Row="0" Click="VerPrestamos" Style="{StaticResource ButtonStyleTopBar}">Prestamos</Button>
-            <Button Grid.Column="1" Grid.Row="0" Click="VerClientes" Style="{StaticResource ButtonStyleTopBar}">Clientes</Button>
-            <Button Grid.Column="2" Grid.Row="0" Click="VerInventario" Style="{StaticResource ButtonStyleTopBar}">Inventario</Button>
-            <Button Grid.Column="3" Grid.Row="0" Click="VerReportes" Style="{StaticResource ButtonStyleTopBar}">Reportes</Button>
+            <Button Grid.Column="0" Grid.Row="0" Click="VerPrestamos" Style="{StaticResource ButtonStyleTopBar}" x:Name="btnVerPrestamos">Prestamos</Button>
+            <Button Grid.Column="1" Grid.Row="0" Click="VerClientes" Style="{StaticResource ButtonStyleTopBar}" x:Name="btnVerClientes">Clientes</Button>
+            <Button Grid.Column="2" Grid.Row="0" Click="VerInventario" Style="{StaticResource ButtonStyleTopBar}" x:Name="btnVerInventario">Inventario</Button>
+            <Button Grid.Column="3" Grid.Row="0" Click="VerReportes" Style="{StaticResource ButtonStyleTopBar}" x:Name="btnVerReportes">Reportes</Button>
             <Button Grid.Column="6" Grid.Row="0" Click="VerConfiguracion" Style="{StaticResource ButtonStyleTopBar}">Configuración</Button>
         </Grid>
 
-        <Grid x:Name="gPrestamos" Margin="0, 0, 0, 0" DockPanel.Dock="Top" MinHeight="450" Visibility="Collapsed">
+        <Grid x:Name="gPrestamos" Margin="0, 0, 0, 0" DockPanel.Dock="Top" MinHeight="450" Visibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="0.5*"/>
             </Grid.RowDefinitions>
-            <DockPanel Grid.Column="0" Grid.Row="1" LastChildFill="True" Background="AliceBlue">
-                <Grid DockPanel.Dock="Top">
+
+            <Grid Grid.Column="0" Grid.Row="0">
+                <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>                        
+                        <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="0.5*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -93,17 +96,23 @@
                     <Button Grid.Column="6" Grid.Row="0" Content="Enajenar Prenda" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="EnajenarPrenda"/>
 
                     <Label Content="Búsqueda de prestamos" Grid.Column="0" Grid.Row="1"></Label>
-                    <TextBox x:Name="tbBusquedaPrestamos" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="2"/>
+                    <TextBox x:Name="tbBusquedaPrestamos" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="2" KeyUp="tbBusquedaPrestamos_KeyUp"/>
                     <Button Grid.Column="3" Grid.Row="1" Content="Buscar Cliente o Folio" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="BuscarPrestamos"/>
                     <CheckBox x:Name="cbEnVenta" Grid.Column="4" Grid.Row="1" Content="En Venta" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
-                </Grid>
-                <DataGrid DockPanel.Dock="Bottom" x:Name="dgPrestamos" ItemsSource="{Binding prestamos}" AutoGenerateColumns="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsReadOnly="True" KeyUp="DgPrestamos_KeyUp" ClipboardCopyMode="IncludeHeader">
+                    <Button Grid.Column="5" Grid.Row="1" Content="Ver Boleta" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="VerBoleta"/>
+                </Grid>                
+            </Grid>
+            <Grid Grid.Column="0" Grid.Row="1">
+                <DataGrid x:Name="dgPrestamos" ItemsSource="{Binding prestamos}" AutoGenerateColumns="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsReadOnly="True" KeyUp="DgPrestamos_KeyUp" ClipboardCopyMode="IncludeHeader">
                     <DataGrid.RowStyle>
                         <Style TargetType="DataGridRow">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding ProximoATerminar}" Value="SI">
                                     <Setter Property="Background" Value="Orange"></Setter>
-                                    <Setter Property="Height" Value="25"/>
+                                    <Setter Property="Height" Value="30"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ProximoATerminar}" Value="NO">
+                                    <Setter Property="Height" Value="30"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -114,14 +123,14 @@
                         <DataGridTextColumn Header="Descripción de la prenda" Binding="{Binding Path=DescripcionPrenda}" Width="2*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Préstamo" Binding="{Binding Path=CantidadPrestada}" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Fecha de préstamo" Binding="{Binding Path=FechaPrestamo}" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Fecha de vencimiento" Binding="{Binding Path=FechaVencimiento}" Width="*"></DataGridTextColumn>                        
+                        <DataGridTextColumn Header="Fecha de vencimiento" Binding="{Binding Path=FechaVencimiento}" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Estado" Binding="{Binding Path=Estado}" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="ProximoATerminar" Binding="{Binding Path=ProximoATerminar}" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Abono a Capital" Binding="{Binding Path=AbonoACapital}" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Resta por Pagar" Binding="{Binding Path=RestaPorPagar}" Width="*"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-            </DockPanel>
+            </Grid>
         </Grid>
 
         <Grid x:Name="gClientes" Margin="0, 0, 0, 0" DockPanel.Dock="Top" MinHeight="450" Visibility="Collapsed">
@@ -143,9 +152,14 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" MinHeight="30"/>
+                        <RowDefinition Height="*" MinHeight="30"/>
                     </Grid.RowDefinitions>
                     <Button Grid.Column="0" Grid.Row="0" Content="Nuevo Cliente" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="NuevoCliente"/>
                     <Button Grid.Column="1" Grid.Row="0" Content="Modificar Cliente" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="ModificarCliente"/>
+
+                    <Label Content="Búsqueda de cliente" Grid.Column="0" Grid.Row="1"></Label>
+                    <TextBox x:Name="tbBusquedaCliente" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="2"/>
+                    <Button Grid.Column="3" Grid.Row="1" Content="Buscar Cliente" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="BuscarCliente"/>
                 </Grid>
                 <DataGrid DockPanel.Dock="Bottom" x:Name="dgClientes" ItemsSource="{Binding clientes}" Height="Auto" AutoGenerateColumns="False" IsReadOnly="True" ClipboardCopyMode="IncludeHeader">
                     <DataGrid.Columns>
@@ -161,37 +175,67 @@
             </DockPanel>
         </Grid>
 
-        <Grid x:Name="gInventario" Margin="0, 0, 0, 0" DockPanel.Dock="Top" MinHeight="450" Visibility="Visible">
+        <Grid x:Name="gInventario" Margin="0, 0, 0, 0" DockPanel.Dock="Top" MinHeight="450" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="0.5*"/>
             </Grid.RowDefinitions>
-            <DockPanel Grid.Column="0" Grid.Row="1" LastChildFill="True" Background="AliceBlue">
-                <Grid DockPanel.Dock="Top">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" MinHeight="30"/>
-                        <RowDefinition Height="*" MinHeight="30"/>
-                    </Grid.RowDefinitions>
-                    <Button Grid.Column="0" Grid.Row="0" Content="Generar Reporte" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="GenerarReporteInventario"/>
-                    <Button Grid.Column="1" Grid.Row="0" Content="Vender Producto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="VenderProducto"/>
-                    <Button Grid.Column="2" Grid.Row="0" Content="Agregar Producto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="AgregarPrenda"/>
-                    <Button Grid.Column="3" Grid.Row="0" Content="Editar Producto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="EditarProducto"/>
 
-                    <Label Content="Búsqueda de artículo por contrato" Grid.Column="0" Grid.Row="1"></Label>
-                    <TextBox x:Name="tbBusquedaPrendaContrato" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="2"/>
-                    <Button Grid.Column="3" Grid.Row="1" Content="Buscar Producto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="BuscarPrendaPorContrato"/>
-                </Grid>
-                <DataGrid DockPanel.Dock="Bottom" x:Name="dgInventario" ItemsSource="{Binding articulos}" Height="Auto" AutoGenerateColumns="False" IsReadOnly="True" ClipboardCopyMode="IncludeHeader">
+            <Grid Grid.Column="0" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" MinHeight="30"/>
+                    <RowDefinition Height="*" MinHeight="30"/>
+                </Grid.RowDefinitions>
+                <Button Grid.Column="0" Grid.Row="0" Content="Generar Reporte" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="GenerarReporteInventario"/>
+                <Button Grid.Column="1" Grid.Row="0" Content="Vender Producto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="VenderProducto"/>
+                <Button Grid.Column="2" Grid.Row="0" Content="Agregar Producto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="AgregarPrenda"/>
+                <Button Grid.Column="3" Grid.Row="0" Content="Editar Producto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="EditarProducto"/>
+                <Button Grid.Column="4" Grid.Row="0" Content="Ver Imagenes" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="VerImagenes"/>
+                <Button Grid.Column="4" Grid.Row="1" Content="Regresar Prenda" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="RegresarPrenda"/>
+                <Button Grid.Column="5" Grid.Row="0" Content="Ventas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="VerVentas"/>
+                <DatePicker Grid.Column="6" Grid.Row="0" HorizontalAlignment="Stretch" x:Name="dtpFechaVentas"></DatePicker>
+
+                <Label Grid.Column="5" Grid.Row="1"  Content="ENAJENADOS" HorizontalContentAlignment="Center" Background="LightGreen" x:Name="lblEnajenadosTotal"></Label>
+                <Label Grid.Column="6" Grid.Row="1"  Content="ADQUIRIDOS" HorizontalContentAlignment="Center" Background="LightSalmon" x:Name="lblAdquiridosTotal"></Label>
+
+                <Label Content="Búsqueda de artículo por contrato" Grid.Column="0" Grid.Row="1"></Label>
+                <TextBox x:Name="tbBusquedaPrendaContrato" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="2"/>
+                <Button Grid.Column="3" Grid.Row="1" Content="Buscar Producto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="BuscarPrendaPorContrato"/>
+            </Grid>
+
+            <Grid Grid.Column="0" Grid.Row="1">
+                <DataGrid x:Name="dgInventario" ItemsSource="{Binding articulos}" Height="Auto" AutoGenerateColumns="False" IsReadOnly="True" ClipboardCopyMode="IncludeHeader">
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding DePrestamo}" Value="SI">
+                                    <Setter Property="Background" Value="LightGreen"></Setter>
+                                    <Setter Property="Height" Value="30"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding DePrestamo}" Value="NO">
+                                    <Setter Property="Background" Value="LightSalmon"></Setter>
+                                    <Setter Property="Height" Value="30"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Vendida}" Value="SI">
+                                    <Setter Property="Background" Value="PaleVioletRed"></Setter>
+                                    <Setter Property="Height" Value="30"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Contrato" Binding="{Binding Path=Contrato}" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Marca" Binding="{Binding Path=Marca}" Width="*"></DataGridTextColumn>
@@ -200,12 +244,38 @@
                         <DataGridTextColumn Header="Precio" Binding="{Binding Path=PrecioVentaDisplay}" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Préstamo" Binding="{Binding Path=PrestamoDisplay}" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Máximo con interés" Binding="{Binding Path=Maximo}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Vendida" Binding="{Binding Path=Vendida}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="En Venta" Binding="{Binding Path=EnVenta}" Width="*"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-            </DockPanel>
+            </Grid>
+
+            <Grid Grid.Column="0" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0" Content="Total articulos en inventario" Style="{StaticResource LabelBoldBlack}"></Label>
+                <Label x:Name="lblInventarioTotalArticulos" Grid.Column="1" Grid.Row="0" Content="" Style="{StaticResource LabelBoldBlack}"></Label>
+
+                <Label Grid.Column="2" Grid.Row="0" Content="Total articulos en venta" Style="{StaticResource LabelBoldBlack}"></Label>
+                <Label x:Name="lblInventarioTotalArticulosEnVenta" Grid.Column="3" Grid.Row="0" Content="" Style="{StaticResource LabelBoldBlack}"></Label>
+
+                <Label Grid.Column="4" Grid.Row="0" Content="Total articulos por desempeñar" Style="{StaticResource LabelBoldBlack}"></Label>
+                <Label x:Name="lblInventarioTotalArticulosPorDesempenar" Grid.Column="5" Grid.Row="0" Content="" Style="{StaticResource LabelBoldBlack}"></Label>
+            </Grid>
+            
         </Grid>
 
-        <Grid x:Name="gReportes" Margin="0, 0, 0, 0" DockPanel.Dock="Top" MinHeight="450" Visibility="Hidden">
+        <Grid x:Name="gReportes" Margin="0, 0, 0, 0" DockPanel.Dock="Top" MinHeight="450" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -226,8 +296,9 @@
                         <RowDefinition Height="*" MinHeight="30"/>                        
                     </Grid.RowDefinitions>
                     <Label Content="Nombre o Folio" Grid.Column="0" Grid.Row="1"></Label>
-                    <TextBox x:Name="tbBusquedaNombreFolio" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="2"/>
+                    <TextBox x:Name="tbBusquedaNombreFolio" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="2" KeyUp="tbBusquedaNombreFolio_KeyUp"/>
                     <Button Grid.Column="3" Grid.Row="0" Content="Reporte Boletas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="GenerarReporteBoletas"/>
+                    <Button Grid.Column="4" Grid.Row="0" Content="Reporte Boletas Activas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Style="{StaticResource ButtonStyleSecondaryBar}" Click="GenerarReporteBoletasActivos"/>
                 </Grid>
                 <DataGrid DockPanel.Dock="Bottom" x:Name="dgReporte" ItemsSource="{Binding articulos}" Height="Auto" AutoGenerateColumns="False" IsReadOnly="True" ClipboardCopyMode="IncludeHeader">
                     <DataGrid.Columns>

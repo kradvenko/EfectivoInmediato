@@ -126,6 +126,7 @@ namespace EfectivoInmediato
                     p.CantidadPrestada = prenda.Prestamo;
                     p.FechaVencimiento = pagos[pagos.Count - 1].FechaPago;
                     p.Estado = "ACTIVO";
+                    p.Esp = contrato.Esp;
 
                     String IdPrestamo = cPrestamo.AgregarPrestamo(p);
 

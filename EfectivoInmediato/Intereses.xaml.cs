@@ -203,5 +203,37 @@ namespace EfectivoInmediato
                 calcularTotal();
             }
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LimpiarCampos(object sender, RoutedEventArgs e)
+        {
+            cbDepartamento.SelectedIndex = -1;
+            NuevoDepartamento departamento = new NuevoDepartamento(this);
+            departamento.ShowDialog();
+            if (cbDepartamento.Text == "")
+            {
+                cbDepartamento.SelectedIndex = 0;
+                return;
+            }
+            cbPeriodo.SelectedIndex = 0;
+            tbPlazo.Text = "2";
+            tbFinanciamiento.Text = "0";
+            tbAlmacenaje.Text = "0";
+            tbAdministracion.Text = "0";
+            tbIVA.Text = "16";
+            calcularTotal();
+            tbPagoMinimo.Text = "150";
+            tbDiasGracia.Text = "4";
+            cbReclamoAnticipadoInteres.SelectedIndex = 0;
+            tbReclamoAnticipadoCantidad.Text = "0";
+            tbReclamoAnticipadoDias.Text = "4";
+            cbReclamoExtemporaneoInteres.SelectedIndex = 0;
+            tbReclamoExtemporaneoCantidad.Text = "0";
+            tbReclamoExtemporaneoDias.Text = "11";
+        }
     }
 }

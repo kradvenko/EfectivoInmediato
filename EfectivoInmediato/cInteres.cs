@@ -93,7 +93,7 @@ namespace EfectivoInmediato
                 using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EfectivoInmediato.Properties.Settings.EfectivoInmediatoConnectionString"].ConnectionString))
                 {
                     using (SqlCommand myCMD = new SqlCommand(" " +
-                        "SELECT *" +
+                        "SELECT * " +
                         "FROM Intereses" +
                         "WHERE IdDepartamento =  " + IdDepartamento +
                         "", con))
@@ -168,7 +168,7 @@ namespace EfectivoInmediato
                     {
                         using (SqlCommand myCMD = new SqlCommand(" " +
                             "UPDATE Intereses " +
-                            "SET IdDepartamento = @IdDepartamento, Periodo = @Periodo, Plazo = @Plazo, Financiamiento = @Financiamiento, Almacenaje = @Almacenaje, Administracion = @Administracion, IVA = @IVA, PagoMinimo = @PagoMinimo, DiasDeGracia = @DiasDeGracia, ReclamoAnticipadoMetodo = @ReclamoAnticipadoMetodo, ReclamoAnticipadoCantidad = @ReclamoAnticipadoCantidad, ReclamoAnticipadoDias = @ReclamoAnticipadoDias, ReclamoExtemporaneoMetodo = @ReclamoExtemporaneoMetodo, ReclamoExtemporaneoCantidad = @ReclamoExtemporaneoCantidad, ReclamoExtemporaneoDias = @ReclamoExtemporaneoDias)  " +
+                            "SET IdDepartamento = @IdDepartamento, Periodo = @Periodo, Plazo = @Plazo, Financiamiento = @Financiamiento, Almacenaje = @Almacenaje, Administracion = @Administracion, IVA = @IVA, PagoMinimo = @PagoMinimo, DiasDeGracia = @DiasDeGracia, ReclamoAnticipadoMetodo = @ReclamoAnticipadoMetodo, ReclamoAnticipadoCantidad = @ReclamoAnticipadoCantidad, ReclamoAnticipadoDias = @ReclamoAnticipadoDias, ReclamoExtemporaneoMetodo = @ReclamoExtemporaneoMetodo, ReclamoExtemporaneoCantidad = @ReclamoExtemporaneoCantidad, ReclamoExtemporaneoDias = @ReclamoExtemporaneoDias  " +
                             "WHERE IdInteres = @IdInteres " +
                             "", con))
                         {

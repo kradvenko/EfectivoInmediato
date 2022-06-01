@@ -30,6 +30,15 @@
             <Setter Property="Foreground" Value="White"></Setter>
             <Setter Property="FontSize" Value="35"></Setter>
         </Style>
+
+        <Style x:Key="LabelBoldBlack" TargetType="{x:Type Label}">
+            <Setter Property="FontFamily" Value="Fonts/#Montserrat"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="Foreground" Value="Black"></Setter>
+        </Style>
         <!--Estilo para botón de menú principal.-->
         <Style x:Key="ButtonStyleTopBar" TargetType="Button">
             <Setter Property="Background" Value="Black"></Setter>
@@ -59,10 +68,33 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <!--Botón principal elegido-->
+        <Style x:Key="ButtonStyleTopBarSelected" TargetType="Button">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform Angle="93" CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#2EB62C"/>
+                        <GradientStop Color="#57C84D" Offset="1"/>
+                        <GradientStop Color="#ABE098" Offset="0.172"/>
+                        <GradientStop Color="#C5E8B7" Offset="0.519"/>
+                        <GradientStop Color="#83D475" Offset="0.645"/>
+                        <GradientStop Color="#2EB62C" Offset="0.821"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <!--Estilo para botón de menú secundario.-->
         <Style x:Key="ButtonStyleSecondaryBar" TargetType="Button">
-            <Setter Property="Background" Value="DimGray"></Setter>
-            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="Background" Value="White"></Setter>
+            <Setter Property="Foreground" Value="Black"></Setter>
             <Setter Property="FontWeight" Value="Bold"></Setter>
             <Setter Property="FontSize" Value="11"></Setter>
             <Setter Property="Margin" Value="0"></Setter>
@@ -71,9 +103,9 @@
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
                                 CornerRadius="0"
-                                BorderThickness="2"
-                                Padding="0"
-                                BorderBrush="White">
+                                BorderThickness="1"
+                                Margin="1"
+                                BorderBrush="Black">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
 
                             </ContentPresenter>
@@ -83,8 +115,37 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#FF3D898D"/>
-                    <Setter Property="Foreground" Value="#000"/>
+                    <Setter Property="Background" Value="Black"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--Estilo para botón de menú secundario.-->
+        <Style x:Key="ButtonStyleSecondaryBarHighlight" TargetType="Button">
+            <Setter Property="Background" Value="Gold"></Setter>
+            <Setter Property="Foreground" Value="Black"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="FontSize" Value="11"></Setter>
+            <Setter Property="Margin" Value="0"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="0"
+                                BorderThickness="1"
+                                Margin="1"
+                                BorderBrush="Black">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                            </ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Black"/>
+                    <Setter Property="Foreground" Value="White"/>
                 </Trigger>
             </Style.Triggers>
         </Style>

@@ -27,8 +27,8 @@
     <UpdateUrl>http://efectivoinmediato.atwebpages.com/</UpdateUrl>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.2.0.%2a</ApplicationVersion>
+    <ApplicationRevision>12</ApplicationRevision>
+    <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -150,6 +150,12 @@
     <Compile Include="VerificarEliminacion.xaml.cs">
       <DependentUpon>VerificarEliminacion.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VerImagenes.xaml.cs">
+      <DependentUpon>VerImagenes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VerImagenPrenda.xaml.cs">
+      <DependentUpon>VerImagenPrenda.xaml</DependentUpon>
+    </Compile>
     <Page Include="AgregarPrenda.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -254,6 +260,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="VerificarEliminacion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VerImagenes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VerImagenPrenda.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

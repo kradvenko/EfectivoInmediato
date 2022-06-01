@@ -39,7 +39,7 @@ namespace EfectivoInmediato
             cbDepartamento.SelectedValuePath = "IdDepartamento";
             cbDepartamento.SelectedIndex = 0;
 
-            clientes = cCliente.ObtenerClientes();
+            clientes = cCliente.ObtenerClientes("%");
 
             tipoPrendas = new ObservableCollection<string>();
             tipoPrendas.Add("Artículo");
@@ -62,7 +62,7 @@ namespace EfectivoInmediato
 
         public void RecargarClientes(String IdCliente)
         {
-            clientes = cCliente.ObtenerClientes();
+            clientes = cCliente.ObtenerClientes("%");
             tbClientes.Text = "";
             tbClientes.AutoCompleteSource = null;
             tbClientes.AutoCompleteSource = clientes;
@@ -129,6 +129,7 @@ namespace EfectivoInmediato
                 return;
             }
             contrato.NumeroContrato = tbNumeroContrato.Text;
+            contrato.Esp = "NO";
             foreach (cPrenda prenda in prendas)
             {
                 PrePrestamo pre = new PrePrestamo(prenda, clienteElegido, this, contrato);
@@ -169,6 +170,31 @@ namespace EfectivoInmediato
             {
                 clienteElegido = (cCliente)tbClientes.SelectedItem;
             }
+        }
+
+        private void GuardarEsp(object sender, RoutedEventArgs e)
+        {
+            if (prendas.Count == 0)
+            {
+                MessageBox.Show("No hay prendas en el préstamo.");
+                return;
+            }
+            contrato.NumeroContrato = contrato.NumeroContratoEsp;//tbNumeroContrato.Text;
+            contrato.Esp = "SI";
+            foreach (cPrenda prenda in prendas)
+            {
+                PrePrestamo pre = new PrePrestamo(prenda, clienteElegido, this, contrato);
+                pre.ShowDialog();
+
+                int c = int.Parse(contrato.NumeroContratoEsp);
+                c++;
+                cContrato.ActualizarNumeroContratoEsp(c.ToString());
+                //contrato = new cContrato();
+                //contrato = cContrato.ObtenerContrato();
+                //tbNumeroContrato.Text = contrato.NumeroContrato;
+            }
+
+            LimpiarCampos();
         }
     }
 }

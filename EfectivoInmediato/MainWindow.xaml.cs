@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Deployment.Application;
+using System.IO;
 
 namespace EfectivoInmediato
 {
@@ -38,25 +39,41 @@ namespace EfectivoInmediato
                 case "VerPrestamos":
                     LimpiarGrids();
                     gPrestamos.Visibility = Visibility.Visible;
+                    btnVerPrestamos.Style = (Style)FindResource("ButtonStyleTopBarSelected");
+                    btnVerClientes.Style = (Style)FindResource("ButtonStyleTopBar");
+                    btnVerInventario.Style = (Style)FindResource("ButtonStyleTopBar");
+                    btnVerReportes.Style = (Style)FindResource("ButtonStyleTopBar");
                     break;
                 case "VerClientes":
                     LimpiarGrids();
                     gClientes.Visibility = Visibility.Visible;
+                    btnVerPrestamos.Style = (Style)FindResource("ButtonStyleTopBar");
+                    btnVerClientes.Style = (Style)FindResource("ButtonStyleTopBarSelected");
+                    btnVerInventario.Style = (Style)FindResource("ButtonStyleTopBar");
+                    btnVerReportes.Style = (Style)FindResource("ButtonStyleTopBar");
                     break;
                 case "VerInventario":
                     LimpiarGrids();
                     gInventario.Visibility = Visibility.Visible;
+                    btnVerPrestamos.Style = (Style)FindResource("ButtonStyleTopBar");
+                    btnVerClientes.Style = (Style)FindResource("ButtonStyleTopBar");
+                    btnVerInventario.Style = (Style)FindResource("ButtonStyleTopBarSelected");
+                    btnVerReportes.Style = (Style)FindResource("ButtonStyleTopBar");
                     break;
                 case "VerReportes":
                     LimpiarGrids();
                     gReportes.Visibility = Visibility.Visible;
+                    btnVerPrestamos.Style = (Style)FindResource("ButtonStyleTopBar");
+                    btnVerClientes.Style = (Style)FindResource("ButtonStyleTopBar");
+                    btnVerInventario.Style = (Style)FindResource("ButtonStyleTopBar");
+                    btnVerReportes.Style = (Style)FindResource("ButtonStyleTopBarSelected");
                     break;
             }
         }
 
         public void RecargarClientes()
         {
-            clientes = cCliente.ObtenerClientes();
+            clientes = cCliente.ObtenerClientes("%");
             dgClientes.ItemsSource = null;
             dgClientes.ItemsSource = clientes;
         }
@@ -104,8 +121,9 @@ namespace EfectivoInmediato
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            cCambios.EjecutarCambios3();
+            //cCambios.EjecutarCambios3();
             System.IO.Directory.CreateDirectory(@"C:\EfectivoInmediato\Identificaciones");
+            dtpFechaVentas.SelectedDate = DateTime.Now;
 
             /*cPrestamo c = new cPrestamo();
             c.NombreCliente = "TEST";
@@ -116,7 +134,7 @@ namespace EfectivoInmediato
             prestamos = cPrestamo.ObtenerPrestamos("ACTIVO", "30");
             dgPrestamos.ItemsSource = prestamos;
 
-            clientes = cCliente.ObtenerClientes();
+            clientes = cCliente.ObtenerClientes("%");
             dgClientes.ItemsSource = clientes;            
 
             string version = null;
@@ -133,6 +151,11 @@ namespace EfectivoInmediato
             }
 
             lblVersion.Content = version;
+
+            btnVerPrestamos.Style = (Style)FindResource("ButtonStyleTopBarSelected");
+            btnVerClientes.Style = (Style)FindResource("ButtonStyleTopBar");
+            btnVerInventario.Style = (Style)FindResource("ButtonStyleTopBar");
+            btnVerReportes.Style = (Style)FindResource("ButtonStyleTopBar");
         }
 
         public void RecargarPrestamos()
@@ -161,24 +184,33 @@ namespace EfectivoInmediato
 
         private void TbDiasVencimiento_KeyUp(object sender, KeyEventArgs e)
         {
-            int dias = 0;
-
-            if (int.TryParse(tbDiasVencimiento.Text, out dias))
+            if (e.Key == Key.Enter)
             {
-                if (cbEnVenta.IsChecked == true)
+                int dias = 0;
+                String Esp = "NO";
+
+                if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
                 {
-                    prestamos = cPrestamo.ObtenerPrestamos("ACTIVO", tbDiasVencimiento.Text, "SI");
-                    dgPrestamos.ItemsSource = null;
-                    dgPrestamos.ItemsSource = prestamos;
+                    Esp = "SI";
                 }
-                else
+
+                if (int.TryParse(tbDiasVencimiento.Text, out dias))
                 {
-                    prestamos = cPrestamo.ObtenerPrestamos("ACTIVO", tbDiasVencimiento.Text);
-                    dgPrestamos.ItemsSource = null;
-                    dgPrestamos.ItemsSource = prestamos;
+                    if (cbEnVenta.IsChecked == true)
+                    {
+                        prestamos = cPrestamo.ObtenerPrestamos("ACTIVO", tbDiasVencimiento.Text, "SI", Esp);
+                        dgPrestamos.ItemsSource = null;
+                        dgPrestamos.ItemsSource = prestamos;
+                    }
+                    else
+                    {
+                        prestamos = cPrestamo.ObtenerPrestamos("ACTIVO", tbDiasVencimiento.Text, "NO", Esp);
+                        dgPrestamos.ItemsSource = null;
+                        dgPrestamos.ItemsSource = prestamos;
+                    }
+
                 }
-                
-            }
+            }            
         }
 
         private void Finiquitados(object sender, RoutedEventArgs e)
@@ -253,6 +285,15 @@ namespace EfectivoInmediato
         {
             AgregarPrenda agregar = new AgregarPrenda(this);
             agregar.ShowDialog();
+
+            articulos = cPrenda.ObtenerPrendasVenta("%");
+            dgInventario.ItemsSource = articulos;
+
+            int totalEnajenados = articulos.Where(x => x.DePrestamo == "SI").Count();
+            int totalAdquiridos = articulos.Where(x => x.DePrestamo == "NO").Count();
+
+            lblEnajenadosTotal.Content = "ENAJENADOS: " + totalEnajenados.ToString();
+            lblAdquiridosTotal.Content = "ADQUIRIDOS: " + totalAdquiridos.ToString();
         }
 
         private void VenderProducto(object sender, RoutedEventArgs e)
@@ -312,6 +353,20 @@ namespace EfectivoInmediato
         {
             articulos = cPrenda.ObtenerPrendasVenta("%");
             dgInventario.ItemsSource = articulos;
+
+            int totalEnajenados = articulos.Where(x => x.DePrestamo == "SI").Count();
+            int totalAdquiridos = articulos.Where(x => x.DePrestamo == "NO").Count();
+
+            lblEnajenadosTotal.Content = "ENAJENADOS: " + totalEnajenados.ToString();
+            lblAdquiridosTotal.Content = "ADQUIRIDOS: " + totalAdquiridos.ToString();
+
+            lblInventarioTotalArticulos.Content = articulos.Count;
+
+            int totalEnVenta = articulos.Where(x => x.EnVenta == "SI").Count();
+            int totalDesempeno = articulos.Where(x => x.EnVenta == "NO").Count();
+
+            lblInventarioTotalArticulosEnVenta.Content = totalEnVenta.ToString();
+            lblInventarioTotalArticulosPorDesempenar.Content = totalDesempeno.ToString();
         }
 
         private void BuscarPrendaPorContrato(object sender, RoutedEventArgs e)
@@ -337,6 +392,165 @@ namespace EfectivoInmediato
             }
 
             reporteBoletas = cReporteBoletas.ObtenerReporte(Busqueda);
+
+            dgReporte.ItemsSource = null;
+            dgReporte.ItemsSource = reporteBoletas;
+        }
+
+        private void BuscarCliente(object sender, RoutedEventArgs e)
+        {
+            String Busqueda = "%" + tbBusquedaCliente.Text + "%";
+            clientes = cCliente.ObtenerClientes(Busqueda);
+            dgClientes.ItemsSource = null;
+            dgClientes.ItemsSource = clientes;
+        }
+
+        private void VerVentas(object sender, RoutedEventArgs e)
+        {
+            String Fecha = dtpFechaVentas.SelectedDate.Value.ToShortDateString();
+            articulos = cPrenda.ObtenerPrendasVendidas(Fecha);
+            dgInventario.ItemsSource = null;
+            dgInventario.ItemsSource = articulos;
+        }
+
+        private void VerImagenes(object sender, RoutedEventArgs e)
+        {
+            if (dgInventario.SelectedItem != null)
+            {
+                cPrenda p = (cPrenda)dgInventario.SelectedItem;
+                VerImagenes VerImgs = new VerImagenes(p.IdPrenda);
+                VerImgs.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("No ha elegido una prenda.");
+            }
+        }
+
+        private void VerBoleta(object sender, RoutedEventArgs e)
+        {
+            if (dgPrestamos.SelectedItem != null)
+            {
+                if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
+                {
+                    cPrestamo pres = new cPrestamo();
+
+                    pres = (cPrestamo)dgPrestamos.SelectedItem;
+
+                    String curFile = @"C:\EfectivoInmediato\Boletas\Boleta_" + pres.Contrato + ".xlsx";
+
+                    if (File.Exists(curFile))
+                    {
+                        System.Diagnostics.Process.Start(curFile);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No existe la boleta.");
+                    }
+                }
+                else
+                {
+                    cPrestamo pres = new cPrestamo();
+
+                    pres = (cPrestamo)dgPrestamos.SelectedItem;
+
+                    String curFile = @"C:\EfectivoInmediato\Boletas\Boleta_" + pres.IdPrestamo + ".xlsx";
+
+                    if (File.Exists(curFile))
+                    {
+                        System.Diagnostics.Process.Start(curFile);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No existe la boleta.");
+                    }
+                }
+
+                
+            }
+        }
+
+        private void tbBusquedaNombreFolio_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                List<cReporteBoletas> reporteBoletas = new List<cReporteBoletas>();
+
+                String Busqueda = "%";
+
+                if (tbBusquedaNombreFolio.Text.Length > 0)
+                {
+                    Busqueda = tbBusquedaNombreFolio.Text;
+                }
+
+                reporteBoletas = cReporteBoletas.ObtenerReporte(Busqueda);
+
+                dgReporte.ItemsSource = null;
+                dgReporte.ItemsSource = reporteBoletas;
+            }
+        }
+
+        private void tbBusquedaPrestamos_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                prestamos = cPrestamo.ObtenerPrestamosClienteFolio(tbBusquedaPrestamos.Text, tbDiasVencimiento.Text);
+                dgPrestamos.ItemsSource = null;
+                dgPrestamos.ItemsSource = prestamos;
+            }
+        }
+
+        private void RegresarPrenda(object sender, RoutedEventArgs e)
+        {
+            if (dgInventario.SelectedItem != null)
+            {
+                /*
+                cPrenda p = (cPrenda)dgInventario.SelectedItem;
+                if (p.Apartada == "SI")
+                {
+                    MessageBox.Show("La prenda está apartada.");
+                }
+                else
+                {
+                    if (p.DePrestamo == "NO")
+                    {
+                        MessageBox.Show("La prenda no proviene de un préstamo.");
+                        return;
+                    }
+
+                    if (MessageBox.Show("Desea regresar la prenda a los prestamos?", "ATENCION", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        cPrenda.ActualizarPrendaEnajenada(p.IdPrenda, "NO");
+                        ActualizarInventarioLista();
+                        MessageBox.Show("Se ha regresado la prenda.");
+                    }
+                }
+                */
+                cPrenda p = (cPrenda)dgInventario.SelectedItem;
+                if (p.DePrestamo == "NO")
+                {
+                    MessageBox.Show("La prenda no proviene de un préstamo.");
+                    return;
+                }
+
+                if (MessageBox.Show("Desea regresar la prenda a los prestamos?", "ATENCION", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    cPrenda.ActualizarPrendaEnajenada(p.IdPrenda, "NO");
+                    ActualizarInventarioLista();
+                    MessageBox.Show("Se ha regresado la prenda.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No ha elegido una prenda.");
+            }
+        }
+
+        private void GenerarReporteBoletasActivos(object sender, RoutedEventArgs e)
+        {
+            List<cReporteBoletas> reporteBoletas = new List<cReporteBoletas>();            
+
+            reporteBoletas = cReporteBoletas.ObtenerReporteActivos();
 
             dgReporte.ItemsSource = null;
             dgReporte.ItemsSource = reporteBoletas;

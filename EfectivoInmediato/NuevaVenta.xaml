@@ -36,8 +36,8 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Grid.Row="0" Content="Vender" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Vender" Margin="0,18,2,-1"/>
-            <Button Grid.Column="1" Grid.Row="0" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Click="Cancelar"/>
+            <Button Grid.Column="0" Grid.Row="0" Content="Vender" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Style="{StaticResource ButtonStyleSecondaryBar}" Click="Vender"/>
+            <Button Grid.Column="1" Grid.Row="0" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Style="{StaticResource ButtonStyleSecondaryBar}" Click="Cancelar"/>
         </Grid>
     </Grid>
 </Window>

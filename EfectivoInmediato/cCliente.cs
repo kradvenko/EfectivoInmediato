@@ -36,7 +36,7 @@ namespace EfectivoInmediato
 
         }
 
-        public static ObservableCollection<cCliente> ObtenerClientes()
+        public static ObservableCollection<cCliente> ObtenerClientes(String Busqueda)
         {
             ObservableCollection<cCliente> clientes = new ObservableCollection<cCliente>();
             cCliente cliente;
@@ -48,10 +48,13 @@ namespace EfectivoInmediato
                     using (SqlCommand myCMD = new SqlCommand(" " +
                         "SELECT Clientes.*, (NombreCliente + ' ' + ApellidoPaternoCliente + ' ' + ApellidoMaternoCliente) As NombreCompleto " +
                         "FROM Clientes " +
+                        "WHERE (NombreCliente LIKE @Busqueda) OR (ApellidoPaternoCliente LIKE @Busqueda) OR (ApellidoMaternoCliente LIKE @Busqueda) " +
                         "ORDER BY ApellidoPaternoCliente, ApellidoMaternoCliente " +
                         "", con))
                     {
                         con.Open();
+
+                        myCMD.Parameters.AddWithValue("Busqueda", Busqueda);
 
                         SqlDataReader reader = myCMD.ExecuteReader();
                         if (reader.HasRows)

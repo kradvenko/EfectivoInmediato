@@ -25,6 +25,9 @@ namespace EfectivoInmediato
         ObservableCollection<String> identificaciones;
         String IdClienteInsertado;
 
+        String RutaFrente;
+        String RutaAtras;
+
         public NuevoCliente()
         {
             InitializeComponent();
@@ -121,6 +124,24 @@ namespace EfectivoInmediato
             {
                 parentMain.RecargarClientes();
             }
+        }
+
+        private void ImagenIdentificacion(object sender, RoutedEventArgs e)
+        {
+            ImagenIdentificacion imagen = new ImagenIdentificacion(RutaFrente, RutaAtras, this);
+            imagen.ShowDialog();
+        }
+
+        public void GuardarRutasImagen(String Frente, String Atras)
+        {
+            RutaFrente = Frente;
+            RutaAtras = Atras;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            RutaFrente = "";
+            RutaAtras = "";
         }
     }
 }

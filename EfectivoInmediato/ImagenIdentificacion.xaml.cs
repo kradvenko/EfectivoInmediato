@@ -27,10 +27,24 @@ namespace EfectivoInmediato
         private String RutaAtras;
         private String ArchivoFrente;
         private String ArchivoAtras;
+
+        private NuevoCliente Parent;
         public ImagenIdentificacion(cCliente ClienteElegido)
         {
             InitializeComponent();
             this.ClienteElegido = ClienteElegido;
+        }
+        public ImagenIdentificacion(String Frente, String Atras, NuevoCliente Parent)
+        {
+            InitializeComponent();
+            RutaFrente = "";
+            RutaAtras = "";
+            ArchivoFrente = "";
+            ArchivoAtras = "";
+            RutaFrente = Frente;
+            RutaAtras = Atras;
+            this.Parent = Parent;
+            this.ClienteElegido = null;
         }
 
         private void CargarFrente(object sender, RoutedEventArgs e)
@@ -42,7 +56,7 @@ namespace EfectivoInmediato
                 //txtEditor.Text = File.ReadAllText(openFileDialog.FileName);
                 imgFrente.Source = new BitmapImage(new Uri(openFileDialog.FileName));
                 RutaFrente = openFileDialog.FileName;
-                ArchivoFrente = openFileDialog.SafeFileName;                
+                ArchivoFrente = openFileDialog.SafeFileName;
             }
         }
 
@@ -77,17 +91,32 @@ namespace EfectivoInmediato
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            RutaFrente = "";
-            RutaAtras = "";
-            ArchivoFrente = "";
-            ArchivoAtras = "";
-            if (ClienteElegido.RutaImagenFrente.Length > 0)
+            if (ClienteElegido != null)
             {
-                imgFrente.Source = new BitmapImage(new Uri(ClienteElegido.RutaImagenFrente));
+                RutaFrente = "";
+                RutaAtras = "";
+                ArchivoFrente = "";
+                ArchivoAtras = "";
+
+                if (ClienteElegido.RutaImagenFrente.Length > 0)
+                {
+                    imgFrente.Source = new BitmapImage(new Uri(ClienteElegido.RutaImagenFrente));
+                }
+                if (ClienteElegido.RutaImagenAtras.Length > 0)
+                {
+                    imgAtras.Source = new BitmapImage(new Uri(ClienteElegido.RutaImagenAtras));
+                }
             }
-            if (ClienteElegido.RutaImagenAtras.Length > 0)
+            else
             {
-                imgAtras.Source = new BitmapImage(new Uri(ClienteElegido.RutaImagenAtras));
+                if (RutaFrente != "")
+                {
+                    imgFrente.Source = new BitmapImage(new Uri(RutaFrente));
+                }
+                if (RutaAtras != "")
+                {
+                    imgAtras.Source = new BitmapImage(new Uri(RutaAtras));
+                }
             }
         }
 
@@ -98,45 +127,60 @@ namespace EfectivoInmediato
 
         private void Guardar(object sender, RoutedEventArgs e)
         {
-            bool actualizado = false;
-            if (RutaFrente != "")
+            if (ClienteElegido != null)
             {
-                String ruta = @"C:\EfectivoInmediato\Identificaciones\" + ClienteElegido.NombreCompleto;
+                bool actualizado = false;
+                if (RutaFrente != "")
+                {
+                    String ruta = @"C:\Efectivo Inmediato\Identificaciones\" + ClienteElegido.NombreCompleto;
 
-                System.IO.Directory.CreateDirectory(ruta);
+                    System.IO.Directory.CreateDirectory(ruta);
 
-                string destFile = System.IO.Path.Combine(ruta, ArchivoFrente);
+                    string destFile = System.IO.Path.Combine(ruta, ArchivoFrente);
 
-                System.IO.File.Copy(RutaFrente, destFile, true);
+                    System.IO.File.Copy(RutaFrente, destFile, true);
 
-                cCliente.ActualizarImagenFrenteCliente(ClienteElegido.IdCliente, RutaFrente);
+                    cCliente.ActualizarImagenFrenteCliente(ClienteElegido.IdCliente, RutaFrente);
 
-                ClienteElegido.RutaImagenFrente = RutaFrente;
+                    ClienteElegido.RutaImagenFrente = RutaFrente;
 
-                actualizado = true;
+                    actualizado = true;
+                }
+
+                if (RutaAtras != "")
+                {
+                    String ruta = @"C:\Efectivo Inmediato\Identificaciones\" + ClienteElegido.NombreCompleto;
+
+                    System.IO.Directory.CreateDirectory(ruta);
+
+                    string destFile = System.IO.Path.Combine(ruta, ArchivoAtras);
+
+                    System.IO.File.Copy(RutaAtras, destFile, true);
+
+                    cCliente.ActualizarImagenAtrasCliente(ClienteElegido.IdCliente, RutaAtras);
+
+                    ClienteElegido.RutaImagenAtras = RutaAtras;
+
+                    actualizado = true;
+                }
+
+                if (actualizado)
+                {
+                    MessageBox.Show("Se ha actualizado la imagen de la identificación.");
+                    this.Close();
+                }
             }
-
-            if (RutaAtras != "")
+            else
             {
-                String ruta = @"C:\EfectivoInmediato\Identificaciones\" + ClienteElegido.NombreCompleto;
-
-                System.IO.Directory.CreateDirectory(ruta);
-
-                string destFile = System.IO.Path.Combine(ruta, ArchivoAtras);
-
-                System.IO.File.Copy(RutaAtras, destFile, true);
-
-                cCliente.ActualizarImagenAtrasCliente(ClienteElegido.IdCliente, RutaAtras);
-
-                ClienteElegido.RutaImagenAtras = RutaAtras;
-
-                actualizado = true;
-            }
-
-            if (actualizado)
-            {
-                MessageBox.Show("Se ha actualizado la imagen de la identificación.");
-                this.Close();
+                if (RutaFrente != "" && RutaAtras != "")
+                {
+                    Parent.GuardarRutasImagen(RutaFrente, RutaAtras);
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("No ha elegido ambas imagenes.");
+                }
             }
         }
     }
